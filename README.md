@@ -22,8 +22,8 @@
 '/dashboard'
 ![/dashboard](documentation/dashboard.png)
 
-'/favourites'
-![/favourites](documentation/favourites.png)
+'/favorites'
+![/favourites](documentation/favorites.png)
 
 '/playlists'
 ![/playlists](documentation/playlists.png)

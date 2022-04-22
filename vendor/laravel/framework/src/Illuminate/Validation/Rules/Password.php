@@ -49,14 +49,14 @@ class Password implements Rule, DataAwareRule, ValidatorAwareRule
      *
      * @var bool
      */
-    protected $letters = false;
+    protected $letters = true;
 
     /**
      * If the password requires at least one number.
      *
      * @var bool
      */
-    protected $numbers = false;
+    protected $numbers = true;
 
     /**
      * If the password requires at least one symbol.

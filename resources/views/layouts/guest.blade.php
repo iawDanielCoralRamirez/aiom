@@ -7,9 +7,6 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -20,5 +17,8 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+        <footer>
+            <p>Copyleft 2022</p>
+        </footer>
     </body>
 </html>

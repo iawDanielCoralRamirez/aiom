@@ -1,0 +1,51 @@
+
+footer{
+    background-color: #2E282A;
+    color: white;
+}
+
+.logotipo h1{
+    font-size: 10em;
+}
+
+h1,h2{
+    color: #E3D924;
+}
+
+.logotipo{
+    text-align: center;
+    width: 100%;
+}
+
+.portada{
+    height: 100vh;
+    padding-top: 20vh;
+}
+
+.btn-primary{
+    background-color: #E3D924;
+    color: #2E282A;
+    border: none;
+    margin: 0.5%;
+}
+
+.login{
+    height: 30vh;
+    background-color:#2E282A;
+
+}
+
+.portada {
+/* The image used */  
+/* background-image: url('/img/prueba_backgrn.png'); */
+background-color: #8EB8E5;
+
+/* Full height */
+height: 100vh; 
+
+/* Create the parallax scrolling effect */
+background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}

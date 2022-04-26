@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('css/aiom.css') }}">
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
@@ -9,7 +10,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" class="bg-dark" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->

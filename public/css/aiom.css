@@ -1,3 +1,14 @@
-.oscuro {
+.bg-dark {
     background-color: #2E282A;
+    color:white;
+}
+.bg-dark a {
+    color:white;
+}
+
+.bg-dark label {
+    color:white;
+}
+.card-bg {
+    background-color:blue;
 }

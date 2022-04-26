@@ -1,3 +1,6 @@
-.oscuro {
+.bg-dark {
     background-color: #2E282A;
+}
+.card-bg {
+    background-color:blue;
 }

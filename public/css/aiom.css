@@ -11,6 +11,7 @@
     color:white;
 }
 .card-bg {
+<<<<<<< HEAD
     background-color:blue;
 }
 
@@ -41,3 +42,18 @@
 }
 /* ------ */
 
+=======
+    background-color: #8EB8E5;
+    color:white;
+}
+.btn-primary{
+    background-color: #E3D924;
+    color: #2E282A;
+    border: none;
+    margin: 0.5%;
+}
+
+h1,h2{
+    color: #E3D924;
+}
+>>>>>>> 93b31fa91df1d9712c91673b19036ef08a86e083

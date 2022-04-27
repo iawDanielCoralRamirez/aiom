@@ -1,4 +1,6 @@
+<link rel="stylesheet" href="{{ asset('css/aiom.css') }}">
 <x-guest-layout>
+    <h1 class="h1 text-primary">Login</h1>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">

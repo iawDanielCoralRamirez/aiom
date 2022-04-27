@@ -10,5 +10,16 @@
     color:white;
 }
 .card-bg {
-    background-color:blue;
+    background-color: #8EB8E5;
+    color:white;
+}
+.btn-primary{
+    background-color: #E3D924;
+    color: #2E282A;
+    border: none;
+    margin: 0.5%;
+}
+
+h1,h2{
+    color: #E3D924;
 }

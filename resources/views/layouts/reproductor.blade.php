@@ -18,7 +18,7 @@
                     <ul>
                         <li><a href="#">Favoritos</a></li>
                         <li><a href="#">Playlists</a></li>
-                        <li><a href="#">Mi música</a></li>
+                        <li><a href="/upload/song">Mi música</a></li>
                         <li><a href="#">Mi perfil</a></li>
                     </ul>
                 </div>

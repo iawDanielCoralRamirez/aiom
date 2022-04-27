@@ -25,6 +25,9 @@ Route::get('/dashboard', function () {
     return view('perfil');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/upload/song', function () {
+    return view('upload_song');
+});
 require __DIR__.'/auth.php';
 
 

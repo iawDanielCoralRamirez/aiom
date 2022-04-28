@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/perfil', function () {
-    return view('perfil2');
+Route::get('/pruebas', function () {
+    return view('perfil');
 });
 
 Route::get('/dashboard', function () {

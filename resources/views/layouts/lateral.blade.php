@@ -28,7 +28,7 @@
                 </div>
                 <a class="btn btn-primary" id="logout" href="/logout">Salir</a>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-10 p-5">
                 @yield('content')
             </div>
         </div>

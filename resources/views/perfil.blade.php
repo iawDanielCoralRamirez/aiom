@@ -1,168 +1,72 @@
-@extends('layouts.reproductor')
+@extends('layouts.lateral')
 
 @section('content')
+<div class="container mt-5">
+    <h2>Favoritos</h2>
+    
+    <div class="d-flex flex-row justify-content-around flex-wrap">
 
-<h2>Recomendadas para ti</h2>
-    <div class="container">
-    
-        <div class="container">
-            <div class="swiper-container mySwiper my-5 py-5">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide d-flex justify-content-center">
-                    <div class="card" >
-                        <figure >
-                          <img src="hotel2.jpg" alt="Hotel" >
-                        </figure>
-              
-                        <div class="card-body">
-                          <h5 class="card-title">Hotel 1</h5>
-                          <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                        </div>
-                  </div>
-              
-                </div>
-      
-                <div class="swiper-slide d-flex justify-content-center">
-                    <div class="card" >
-                        <figure >
-                          <img src="hotel2.jpg" alt="Hotel" >
-                        </figure>
-              
-                        <div class="card-body">
-                          <h5 class="card-title">Hotel 1</h5>
-                          <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                        </div>
-                  </div>
-              
-                </div>
-      
-                <div class="swiper-slide d-flex justify-content-center">
-                    <div class="card" >
-                        <figure >
-                          <img src="hotel2.jpg" alt="Hotel" >
-                        </figure>
-              
-                        <div class="card-body">
-                          <h5 class="card-title">Hotel 1</h5>
-                          <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                        </div>
-                  </div>
-              
-                </div>
-      
-                <div class="swiper-slide d-flex justify-content-center">
-                    <div class="card" >
-                        <figure >
-                          <img src="hotel2.jpg" alt="Hotel" >
-                        </figure>
-              
-                        <div class="card-body">
-                          <h5 class="card-title">Hotel 1</h5>
-                          <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                        </div>
-                  </div>
-              
-                </div>
-              </div>
-      
-              <!--  for left and right navigation buttons -->
-      
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-      
-            </div>
-          </div>
-      
-    
-  
-
-
-
-        
-    </div>    
-
-   
-
-    <h2>Canciones escuchadas ahora</h2>
-
-    <div class="container">
-    
-      <div class="container">
-          <div class="swiper-container mySwiper my-5 py-5">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide d-flex justify-content-center">
-                  <div class="card" >
-                      <figure >
-                        <img src="hotel2.jpg" alt="Hotel" >
-                      </figure>
-            
-                      <div class="card-body">
-                        <h5 class="card-title">Hotel 1</h5>
-                        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                      </div>
-                </div>
-            
-              </div>
-    
-              <div class="swiper-slide d-flex justify-content-center">
-                  <div class="card" >
-                      <figure >
-                        <img src="hotel2.jpg" alt="Hotel" >
-                      </figure>
-            
-                      <div class="card-body">
-                        <h5 class="card-title">Hotel 1</h5>
-                        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                      </div>
-                </div>
-            
-              </div>
-    
-              <div class="swiper-slide d-flex justify-content-center">
-                  <div class="card" >
-                      <figure >
-                        <img src="hotel2.jpg" alt="Hotel" >
-                      </figure>
-            
-                      <div class="card-body">
-                        <h5 class="card-title">Hotel 1</h5>
-                        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                      </div>
-                </div>
-            
-              </div>
-    
-              <div class="swiper-slide d-flex justify-content-center">
-                  <div class="card" >
-                      <figure >
-                        <img src="hotel2.jpg" alt="Hotel" >
-                      </figure>
-            
-                      <div class="card-body">
-                        <h5 class="card-title">Hotel 1</h5>
-                        <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                      </div>
-                </div>
-            
-              </div>
-            </div>
-    
-            <!--  for left and right navigation buttons -->
-    
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-    
-          </div>
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Título de la canción</h5>
+          <p class="card-text">Nombre del artista</p>
+          <a href="#" class="btn btn-primary">Reproducir</a><a href="#" class="btn btn-primary">Favorito</a>
         </div>
-    
-  
+      </div>
 
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
 
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <a href="/favoritos" class="btn btn-primary m-4">Ver todas</a>
+</div>
+<div class="container mt-5">
+    <h2>Playlists</h2>
+    <div class="d-flex flex-row justify-content-around flex-wrap">
 
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
 
-      
-  </div>    
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
 
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <a href="/favoritos" class="btn btn-primary m-4">Ver todas</a>
 
+</div>
 @endsection
-

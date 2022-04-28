@@ -26,6 +26,7 @@
 #logout {
     position: relative;
     top: 20vw;
+    color: white;
 }
 
 .menu{
@@ -55,10 +56,7 @@
     background-color:blue;
 }
 
-.container{
-    margin: 0;
-    height: 100vh;
-}
+
 
 
 .btn-primary{

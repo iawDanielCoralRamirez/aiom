@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/perfil', function () {
-    return view('perfil');
+    return view('perfil2');
 });
 
 Route::get('/dashboard', function () {

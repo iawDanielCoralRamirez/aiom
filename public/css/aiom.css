@@ -1,8 +1,49 @@
 .lateral{
     background-color: #2E282A;
     color:white;
-    height: 85vh;
+    height: 100vh;
+    font-family: "Lato", sans-serif;
 }
+
+
+.lateral li {
+    padding-left: 20%;
+    list-style: none;
+}
+
+.lateral a {
+    text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+
+}
+
+.lateral a:hover {
+    color: #f1f1f1;
+}
+
+#logout {
+    position: relative;
+    top: 20vw;
+}
+
+.menu{
+    margin-top: 5vw;
+}
+
+
+/* 
+.menu li {
+    padding: 20px 8px 6px 16px;
+
+} */
+
+.pagina{
+    width: 75vw;
+    float: right;
+}
+
 .bg-dark a {
     color:white;
 }
@@ -11,49 +52,27 @@
     color:white;
 }
 .card-bg {
-<<<<<<< HEAD
     background-color:blue;
 }
 
-.container-nomargin {
+.container{
     margin: 0;
-    height: 85vh;
+    height: 100vh;
 }
 
-.reproductor {
-    background-color: #2E282A;
-    color:white;
-    height: 15vh;
-    width: 100%;
-}
 
-/* clases del slider */
-.card{
-    width: 18rem;
-   border-radius: 10px;
-   border:none;
-   box-shadow: 10px 4px 10px rgba(0,0,0,0.6);
-  
- }
-
-.img-card{
- width: 100%;
- border-radius:10px 10px 0 0;
-}
-/* ------ */
-
-=======
-    background-color: #8EB8E5;
-    color:white;
-}
 .btn-primary{
     background-color: #E3D924;
     color: #2E282A;
     border: none;
-    margin: 0.5%;
 }
+
+.btn-primary:hover {
+    background-color: #8EB8E5;
+}
+
 
 h1,h2{
     color: #E3D924;
 }
->>>>>>> 93b31fa91df1d9712c91673b19036ef08a86e083
+

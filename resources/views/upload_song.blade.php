@@ -31,5 +31,18 @@
         <td>@twitter</td>
       </tr>
     </tbody>
+
 </table>
+<div class="container">
+  <form method="post" action={{ route('addSong') }} enctype="multipart/form-data" style="height:2rem">
+    @csrf
+    <label>Title song</label>
+    <input type="text" name="title" placeholder="my song">
+    <label>Source song</label>
+    <input type="file" name="url" placeholder="my song url">
+    <label>Cover</label>
+    <input type="file" name="cover" placeholder="cover">
+    <input type="submit" value="Upload song" class="btn btn-dark text-white">
+  </form>
+</div>
 @endsection

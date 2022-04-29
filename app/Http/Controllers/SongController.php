@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Song;
-use App\Services\UploadFileService;
+use App\Services\UploadMusicService;
+use App\Services\UploadCoverService;
 
 use App\Exceptions\UploadFileException;
 
 class SongController extends Controller
 {
+    private $uploadCoverService;
+    private $uploadMusicService;
+    private $song;
+    private $error = '';
+    public function __construct()
+    {
+        $this->song = new Song();
+    }
     // Devolver la vista con todas las canciones
     public function index()
     {
@@ -21,42 +30,36 @@ class SongController extends Controller
     }
     
 
-    public function addSong(Request $request,UploadFileService $UploadFileService)
-    {
+    public function addSong(Request $request,UploadMusicService $UploadMusicService, UploadCoverService $UploadCoverService)
+    {   
+        $success = false;
         try {
-            $this->uploadService = $UploadFileService;
-            $this->uploadService->uploadFile($request->file('url'));
-            # Crear un modelo...
+            $this->uploadMusicService = $UploadMusicService;
+            $this->uploadCoverService = $UploadCoverService;
+            $this->uploadMusicService->uploadFile($request->file('url'));
+            $this->uploadCoverService->uploadFile($request->file('cover'));
+            # Crear el modelo
             $song = new Song;
+            /*
             $request->validate([
                 'url' => 'required|mimes:mp3|max:30048',
                 'cover' => 'required|mimes:png,jpg,jpeg,svg|max:30048'
             ]);
+            */
             # Establecer propiedades leídas del formulario
-            
             $song->title = $request->title;
-            
-            //var_dump("request-title",$request->title);
-            var_dump("request-url",$request->url);
-            //$upload = $request->file('arquivo')->storeAs('products', 'novonomeaffffff.jpg');public//tmp/
-            //$filePath = $request->file('url')->storeAs('uploads', $request->url);
-            //$filePath = $request->file('url')->store('public');
-            $coverPath = $request->file('cover')->store('public');
-            //$filePath = $request->file->move(public_path('uploads'), $request->url);
-            $song->cover = $coverPath;
-            //$song->url =$filePath;
-            $song->url = $request->imagen->getClientOriginalName();
-            
-        
+            $song->cover = $request->cover->getClientOriginalName();;
+            $song->url = $request->url->getClientOriginalName();
             # Y guardar modelo ;)
             $song->save();
+            $this->success=true;
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
             $this->error = $exception->customMessage();
         } catch ( \Illuminate\Database\QueryException $exception) {
-            $this->error = "Error con los datos introducidos";
+            $this->error = "Error with information introduced";
         }
-        return view('upload_song');
+        return view('upload_song')->with('error', $this->error, $this->success);
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

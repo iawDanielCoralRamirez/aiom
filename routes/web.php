@@ -25,6 +25,10 @@ Route::get('/dashboard', function () {
     return view('perfil');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/music', function () {
+    return view('music');
+})->middleware(['auth'])->name('music');
+
 require __DIR__.'/auth.php';
 
 

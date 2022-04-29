@@ -20,10 +20,10 @@
                 <div class="menu">
                     <h3 class="text-center ">Nombre de Usuario</h3>
                     <ul class="pt-3 pl-5">
-                        <li><a href="#"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
-                        <li><a href="#"><i class="fa fa-fw fa-music"></i>Playlists</a></li>
-                        <li><a href="#"><i class="fa fa-fw fa-database"></i>Mi música</a></li>
-                        <li><a href="#"><i class="fa fa-fw fa-wrench"></i>Mi perfil</a></li>
+                        <li><a href="/favourites"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
+                        <li><a href="/playlists"><i class="fa fa-fw fa-music"></i>Playlists</a></li>
+                        <li><a href="/music"><i class="fa fa-fw fa-database"></i>Mi música</a></li>
+                        <li><a href="/profile"><i class="fa fa-fw fa-wrench"></i>Mi perfil</a></li>
                     </ul>
                 </div>
                 <a class="btn btn-primary" id="logout" href="/logout">Salir</a>
@@ -37,12 +37,12 @@
                 <div class="lateral">
                     <h3>Nombre de Usuario</h3>
                     <ul>
-                        <li><a href="#">Favoritos</a></li>
-                        <li><a href="#">Playlists</a></li>
-                        <li><a href="#">Mi música</a></li>
-                        <li><a href="#">Mi perfil</a></li>
+                        <li><a href="/favourites">Favoritos</a></li>
+                        <li><a href="/playlists">Playlists</a></li>
+                        <li><a href="/music">Mi música</a></li>
+                        <li><a href="/profile">Mi perfil</a></li>
                     </ul>
-                    <a class="btn btn-primary" src="/logout">Salir</a>
+                    <a class="btn btn-primary" href="/logout">Salir</a>
                 </div>
                 <div class="pagina">
 

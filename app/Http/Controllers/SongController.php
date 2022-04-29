@@ -68,7 +68,7 @@ class SongController extends Controller
         }
         return redirect('/upload/song')->
             with("error",$this->error)->
-            with("message",$success);
+            with("success",$success);
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

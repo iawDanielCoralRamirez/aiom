@@ -34,31 +34,39 @@ class SongController extends Controller
     {   
         $success = false;
         try {
-            $this->uploadMusicService = $UploadMusicService;
-            $this->uploadCoverService = $UploadCoverService;
-            $this->uploadMusicService->uploadFile($request->file('url'));
-            $this->uploadCoverService->uploadFile($request->file('cover'));
-            # Crear el modelo
-            $song = new Song;
-            /*
-            $request->validate([
-                'url' => 'required|mimes:mp3|max:30048',
-                'cover' => 'required|mimes:png,jpg,jpeg,svg|max:30048'
-            ]);
-            */
-            # Establecer propiedades leídas del formulario
-            $song->title = $request->title;
-            $song->cover = $request->cover->getClientOriginalName();;
-            $song->url = $request->url->getClientOriginalName();
-            # Y guardar modelo ;)
-            $success = $song->save();
+
+
+            $extMusic = substr($request->url->getClientOriginalName(), strrpos($request->url->getClientOriginalName(), '.') + 1);
+            $extCover = substr($request->cover->getClientOriginalName(), strrpos($request->cover->getClientOriginalName(), '.') + 1);
+
+            //dd($ext);
+            if (($extMusic == 'mp3' || $extMusic == 'm4a'|| $extMusic == 'mp4'||$extMusic == 'wav' ||$extMusic == 'wma') && ($extCover == 'jpeg' || $extCover == 'jpg'|| $extCover == 'gif'||$extCover == 'png' ||$extCover == 'svg')) {
+                $this->uploadMusicService = $UploadMusicService;
+                $this->uploadCoverService = $UploadCoverService;
+                $this->uploadMusicService->uploadFile($request->file('url'));
+                $this->uploadCoverService->uploadFile($request->file('cover'));
+                # Crear el modelo
+                $song = new Song;
+                
+                // var_dump($request->validate([
+                //     'url' => 'required|mimes:mp3|max:30048',
+                //     'cover' => 'required|mimes:png,jpg,jpeg,svg|max:30048'
+                // ]));
+                
+                # Establecer propiedades leídas del formulario
+                $song->title = $request->title;
+                $song->cover = $request->cover->getClientOriginalName();;
+                $song->url = $request->url->getClientOriginalName();
+                # Y guardar modelo ;)
+                $success = $song->save();
+            }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
             $this->error = $exception->customMessage();
         } catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
         }
-        return view('upload/song')->
+        return redirect('/upload/song')->
             with("error",$this->error)->
             with("message",$success);
     }

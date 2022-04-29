@@ -5,6 +5,12 @@
     font-family: "Lato", sans-serif;
 }
 
+.lateral ul {
+    padding-left: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .lateral li {
     padding-left: 20%;
@@ -23,10 +29,17 @@
     color: #f1f1f1;
 }
 
+.content{
+    overflow: auto;
+    height: 100vh;
+}
+
 #logout {
-    position: relative;
-    top: 20vw;
+    position: absolute;
+    bottom: 10vh;
+    left: 5vw;
     color: white;
+    width: 8vw;
 }
 
 .menu{
@@ -71,6 +84,10 @@
 
 
 h1,h2{
-    color: #E3D924;
+    color: #E3D924;   
 }
+
+/* .content h2 {
+    text-shadow: 1px 1px 1px 1px;
+} */
 

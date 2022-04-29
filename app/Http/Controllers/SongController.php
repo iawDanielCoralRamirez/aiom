@@ -51,15 +51,16 @@ class SongController extends Controller
             $song->cover = $request->cover->getClientOriginalName();;
             $song->url = $request->url->getClientOriginalName();
             # Y guardar modelo ;)
-            $song->save();
-            $this->success=true;
+            $success = $song->save();
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
             $this->error = $exception->customMessage();
         } catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
         }
-        return view('upload_song')->with('error', $this->error, $this->success);
+        return view('upload/song')->
+            with("error",$this->error)->
+            with("message",$success);
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

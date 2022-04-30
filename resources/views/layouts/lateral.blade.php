@@ -20,6 +20,7 @@
                 <div class="menu">
                     <h3 class="text-center ">Nombre de Usuario</h3>
                     <ul class="pt-3 pl-5">
+                        <li><a href="/dashboard"><i class="fa fa-tachometer"></i>Dashboard</a></li>
                         <li><a href="/favourites"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
                         <li><a href="/playlists"><i class="fa fa-fw fa-music"></i>Playlists</a></li>
                         <li><a href="/music"><i class="fa fa-fw fa-database"></i>Mi música</a></li>

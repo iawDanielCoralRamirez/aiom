@@ -24,7 +24,7 @@ class SongController extends Controller
     {
         $songs = Song::get();
         //var_dump("songs ",$songs);
-        return view("upload_song")
+        return view("music")
             ->with("songs", $songs);
         
     }

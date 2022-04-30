@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ asset('css/aiom.css') }}">
-@extends('layouts.reproductor')
+@extends('layouts.lateral')
 
 @section('content')
     <div class="container">

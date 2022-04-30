@@ -1,11 +1,10 @@
 <link rel="stylesheet" href="{{ asset('css/aiom.css') }}">
 <x-guest-layout>
-    <h1 class="h1 text-primary">Crear una cuenta!</h1>
     <x-auth-card>
         
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+               <h2>Crea una cuenta</h2>
             </a>
         </x-slot>
         
@@ -47,7 +46,7 @@
                                 name="password_confirmation" required />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>

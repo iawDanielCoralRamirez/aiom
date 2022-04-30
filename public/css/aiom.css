@@ -1,8 +1,69 @@
 .lateral{
     background-color: #2E282A;
     color:white;
-    height: 85vh;
+    height: 100vh;
+    font-family: "Lato", sans-serif;
 }
+
+.lateral ul {
+    padding-left: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lateral li {
+    padding-left: 20%;
+    list-style: none;
+}
+.card-bg {
+    background-color: #8EB8E5;
+    color:white;
+
+}
+.lateral a {
+    text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+
+}
+
+.lateral a:hover {
+    color: #f1f1f1;
+}
+
+.content{
+    overflow: auto;
+    height: 100vh;
+}
+
+#logout {
+    position: absolute;
+    bottom: 10vh;
+    left: 5vw;
+    color: white;
+    width: 8vw;
+}
+
+.menu{
+    margin-top: 5vw;
+}
+
+<<<<<<< HEAD
+=======
+
+/* 
+.menu li {
+    padding: 20px 8px 6px 16px;
+
+} */
+
+.pagina{
+    width: 75vw;
+    float: right;
+}
+
 .bg-dark a {
     color:white;
 }
@@ -11,43 +72,32 @@
     color:white;
 }
 .card-bg {
-    background-color: #8EB8E5;
-    color:white;
+    background-color:blue;
 }
 
-.container-nomargin {
-    margin: 0;
-    height: 85vh;
-}
 
-.reproductor {
-    background-color: #2E282A;
-    color:white;
-    height: 15vh;
-    width: 100%;
-}
 
-/* clases del slider */
-.card{
-    width: 18rem;
-   border-radius: 10px;
-   border:none;
-   box-shadow: 10px 4px 10px rgba(0,0,0,0.6);
-  
- }
 
-.img-card{
- width: 100%;
- border-radius:10px 10px 0 0;
-}
-
+>>>>>>> 814c2158a427a2705de85b4865b482f23bcf7337
 .btn-primary{
     background-color: #E3D924;
     color: #2E282A;
     border: none;
-    margin: 0.5%;
 }
 
-h1,h2{
-    color: #E3D924;
+.btn-primary:hover {
+    background-color: #8EB8E5;
 }
+
+
+h1,h2{
+    color: #E3D924;   
+}
+<<<<<<< HEAD
+=======
+
+/* .content h2 {
+    text-shadow: 1px 1px 1px 1px;
+} */
+
+>>>>>>> 814c2158a427a2705de85b4865b482f23bcf7337

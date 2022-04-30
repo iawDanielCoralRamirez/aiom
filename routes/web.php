@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/perfil', function () {
+Route::get('/pruebas', function () {
     return view('perfil');
 });
 
@@ -26,15 +26,18 @@ Route::get('/dashboard', function () {
     return view('perfil');
 })->middleware(['auth'])->name('dashboard');
 
-/*Route::get('/upload/song', function () {
+Route::get('/upload/song', function () {
     return view('upload_song');
 });
-*/
+
 # Cuando se solicita la url /, es decir, la raíz
 // Route::get('/', "SongController@index")
 //     ->name("inicio");
 Route::post('/addSong', [SongController::class, 'addSong'])->name('addSong');
+Route::get('/music', function () {
+    return view('music');
+})->middleware(['auth'])->name('music');
 
-Route::get('/upload/song', [SongController::class, 'index']);
+//Route::get('/upload/song', [SongController::class, 'index']);
 
 require __DIR__ . '/auth.php';

@@ -6,10 +6,8 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Prunable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Events\ModelsPruned;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Symfony\Component\Finder\Finder;
 
 class PruneCommand extends Command
@@ -92,11 +90,7 @@ class PruneCommand extends Command
 
         $except = $this->option('except');
 
-        if (! empty($models) && ! empty($except)) {
-            throw new InvalidArgumentException('The --models and --except options cannot be combined.');
-        }
-
-        return collect((new Finder)->in($this->getDefaultPath())->files()->name('*.php'))
+        return collect((new Finder)->in(app_path('Models'))->files()->name('*.php'))
             ->map(function ($model) {
                 $namespace = $this->laravel->getNamespace();
 
@@ -112,16 +106,6 @@ class PruneCommand extends Command
             })->filter(function ($model) {
                 return $this->isPrunable($model);
             })->values();
-    }
-
-    /**
-     * Get the default path where models are located.
-     *
-     * @return string
-     */
-    protected function getDefaultPath()
-    {
-        return app_path('Models');
     }
 
     /**

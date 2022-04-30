@@ -22,16 +22,7 @@ class PostgresGrammar extends Grammar
     ];
 
     /**
-     * The grammar specific bitwise operators.
-     *
-     * @var array
-     */
-    protected $bitwiseOperators = [
-        '~', '&', '|', '#', '<<', '>>', '<<=', '>>=',
-    ];
-
-    /**
-     * Compile a basic where clause.
+     * {@inheritdoc}
      *
      * @param  \Illuminate\Database\Query\Builder  $query
      * @param  array  $where
@@ -39,7 +30,7 @@ class PostgresGrammar extends Grammar
      */
     protected function whereBasic(Builder $query, $where)
     {
-        if (str_contains(strtolower($where['operator']), 'like')) {
+        if (Str::contains(strtolower($where['operator']), 'like')) {
             return sprintf(
                 '%s::text %s %s',
                 $this->wrap($where['column']),
@@ -49,22 +40,6 @@ class PostgresGrammar extends Grammar
         }
 
         return parent::whereBasic($query, $where);
-    }
-
-    /**
-     * Compile a bitwise operator where clause.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  array  $where
-     * @return string
-     */
-    protected function whereBitwise(Builder $query, $where)
-    {
-        $value = $this->parameter($where['value']);
-
-        $operator = str_replace('?', '??', $where['operator']);
-
-        return '('.$this->wrap($where['column']).' '.$operator.' '.$value.')::bool';
     }
 
     /**
@@ -111,71 +86,6 @@ class PostgresGrammar extends Grammar
     }
 
     /**
-     * Compile a "where fulltext" clause.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  array  $where
-     * @return string
-     */
-    public function whereFullText(Builder $query, $where)
-    {
-        $language = $where['options']['language'] ?? 'english';
-
-        if (! in_array($language, $this->validFullTextLanguages())) {
-            $language = 'english';
-        }
-
-        $columns = collect($where['columns'])->map(function ($column) use ($language) {
-            return "to_tsvector('{$language}', {$this->wrap($column)})";
-        })->implode(' || ');
-
-        $mode = 'plainto_tsquery';
-
-        if (($where['options']['mode'] ?? []) === 'phrase') {
-            $mode = 'phraseto_tsquery';
-        }
-
-        if (($where['options']['mode'] ?? []) === 'websearch') {
-            $mode = 'websearch_to_tsquery';
-        }
-
-        return "({$columns}) @@ {$mode}('{$language}', {$this->parameter($where['value'])})";
-    }
-
-    /**
-     * Get an array of valid full text languages.
-     *
-     * @return array
-     */
-    protected function validFullTextLanguages()
-    {
-        return [
-            'simple',
-            'arabic',
-            'danish',
-            'dutch',
-            'english',
-            'finnish',
-            'french',
-            'german',
-            'hungarian',
-            'indonesian',
-            'irish',
-            'italian',
-            'lithuanian',
-            'nepali',
-            'norwegian',
-            'portuguese',
-            'romanian',
-            'russian',
-            'spanish',
-            'swedish',
-            'tamil',
-            'turkish',
-        ];
-    }
-
-    /**
      * Compile the "select *" portion of the query.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -217,40 +127,6 @@ class PostgresGrammar extends Grammar
     }
 
     /**
-     * Compile a "JSON contains key" statement into SQL.
-     *
-     * @param  string  $column
-     * @return string
-     */
-    protected function compileJsonContainsKey($column)
-    {
-        $segments = explode('->', $column);
-
-        $lastSegment = array_pop($segments);
-
-        if (filter_var($lastSegment, FILTER_VALIDATE_INT) !== false) {
-            $i = $lastSegment;
-        } elseif (preg_match('/\[(-?[0-9]+)\]$/', $lastSegment, $matches)) {
-            $segments[] = Str::beforeLast($lastSegment, $matches[0]);
-
-            $i = $matches[1];
-        }
-
-        $column = str_replace('->>', '->', $this->wrap(implode('->', $segments)));
-
-        if (isset($i)) {
-            return vsprintf('case when %s then %s else false end', [
-                'jsonb_typeof(('.$column.")::jsonb) = 'array'",
-                'jsonb_array_length(('.$column.')::jsonb) >= '.($i < 0 ? abs($i) : $i + 1),
-            ]);
-        }
-
-        $key = "'".str_replace("'", "''", $lastSegment)."'";
-
-        return 'coalesce(('.$column.')::jsonb ?? '.$key.', false)';
-    }
-
-    /**
      * Compile a "JSON length" statement into SQL.
      *
      * @param  string  $column
@@ -262,37 +138,7 @@ class PostgresGrammar extends Grammar
     {
         $column = str_replace('->>', '->', $this->wrap($column));
 
-        return 'jsonb_array_length(('.$column.')::jsonb) '.$operator.' '.$value;
-    }
-
-    /**
-     * Compile a single having clause.
-     *
-     * @param  array  $having
-     * @return string
-     */
-    protected function compileHaving(array $having)
-    {
-        if ($having['type'] === 'Bitwise') {
-            return $this->compileHavingBitwise($having);
-        }
-
-        return parent::compileHaving($having);
-    }
-
-    /**
-     * Compile a having clause involving a bitwise operator.
-     *
-     * @param  array  $having
-     * @return string
-     */
-    protected function compileHavingBitwise($having)
-    {
-        $column = $this->wrap($having['column']);
-
-        $parameter = $this->parameter($having['value']);
-
-        return '('.$column.' '.$having['operator'].' '.$parameter.')::bool';
+        return 'json_array_length(('.$column.')::json) '.$operator.' '.$value;
     }
 
     /**
@@ -409,7 +255,7 @@ class PostgresGrammar extends Grammar
 
         $field = $this->wrap(array_shift($segments));
 
-        $path = "'{".implode(',', $this->wrapJsonPathAttributes($segments, '"'))."}'";
+        $path = '\'{"'.implode('","', $segments).'"}\'';
 
         return "{$field} = jsonb_set({$field}::jsonb, {$path}, {$this->parameter($value)})";
     }
@@ -658,44 +504,17 @@ class PostgresGrammar extends Grammar
     }
 
     /**
-     * Wrap the attributes of the given JSON path.
+     * Wrap the attributes of the give JSON path.
      *
      * @param  array  $path
      * @return array
      */
     protected function wrapJsonPathAttributes($path)
     {
-        $quote = func_num_args() === 2 ? func_get_arg(1) : "'";
-
-        return collect($path)->map(function ($attribute) {
-            return $this->parseJsonPathArrayKeys($attribute);
-        })->collapse()->map(function ($attribute) use ($quote) {
+        return array_map(function ($attribute) {
             return filter_var($attribute, FILTER_VALIDATE_INT) !== false
                         ? $attribute
-                        : $quote.$attribute.$quote;
-        })->all();
-    }
-
-    /**
-     * Parse the given JSON path attribute for array keys.
-     *
-     * @param  string  $attribute
-     * @return array
-     */
-    protected function parseJsonPathArrayKeys($attribute)
-    {
-        if (preg_match('/(\[[^\]]+\])+$/', $attribute, $parts)) {
-            $key = Str::beforeLast($attribute, $parts[0]);
-
-            preg_match_all('/\[([^\]]+)\]/', $parts[0], $keys);
-
-            return collect([$key])
-                ->merge($keys[1])
-                ->diff('')
-                ->values()
-                ->all();
-        }
-
-        return [$attribute];
+                        : "'$attribute'";
+        }, $path);
     }
 }

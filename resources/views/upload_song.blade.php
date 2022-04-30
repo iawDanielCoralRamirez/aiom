@@ -5,28 +5,36 @@
     <div class="container">
       <form method="post" action={{ route('addSong') }} enctype="multipart/form-data" style="height:2rem">
         @csrf
-        <label>Title song</label>
-        <input type="text" name="title" placeholder="my song">
-        <label>Source song</label>
-        <input type="file" name="url" placeholder="my song url">
-        <label>Cover</label>
-        <input type="file" name="cover" placeholder="cover">
-        <input type="submit" value="Upload song" class="btn btn-dark text-white">
+        <label>Titulo de la canción:</label>
+        <input type="text" name="title" placeholder="Mi canción">
+        <label>Archivo de música:</label>
+        <input type="file" name="url" placeholder="url de la canción">
+        <label>Foto de la música:</label>
+        <input type="file" name="cover">
+        <label>Album:</label>
+        <input type="text" name="album_name" placeholder="Young, Wild & free">
+        <label>Foto Album:</label>
+        <input type="file" name="album_cover">
+        <label>Nombre de artista:</label>
+        <input type="text" name="artist_name" placeholder="Snoop">
+        <label>Apellido/s de artista:</label>
+        <input type="text" name="artist_surname" placeholder="Dogg">
+        <label>Foto del artista:</label>
+        <input type="file" name="artist_cover">
+        <label>Genero:</label>
+        <input type="text" name="genre" placeholder="Rap">
+        <label>Foto del Genero:</label>
+        <input type="file" name="genre_cover">
+        <input type="submit" value="Subir música" class="btn btn-dark text-white">
       </form>
-      {{-- @if($errors->any())
-          @foreach ($errors->all() as $error)
-            <p class="border border border-danger rounded-md bg-red-100 w-full text-red-600 p-2 mt-2">{{$error}}</p>
-          @endforeach 
-      @endif --}}
-      {{-- @if(isset($error))
-        <p class="border border border-danger rounded-md bg-red-100 w-full text-red-600 p-2 mt-2">{{$success}}</p>
-      @endif  --}}
-      {{-- @if(isset($success) && $success == false)
-      <p class="border border border-danger rounded-md bg-red-100 w-full text-red-600 p-2 mt-2">{{$success}}</p>
-      @endif --}}
-      @if(isset($success))
-      <p class="border border border-danger rounded-md bg-red-100 w-full text-red-600 p-2 mt-2">No se ha podido realizar la operación.</p>
+      @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
       @endif
     </div>
-</table>
 @endsection

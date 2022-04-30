@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Song;
+use App\Models\Genre;
+use App\Models\Artist;
+use App\Models\Album;
 use App\Services\UploadMusicService;
 use App\Services\UploadCoverService;
 
@@ -34,31 +37,56 @@ class SongController extends Controller
     {   
         $success = false;
         try {
-
-
-            $extMusic = substr($request->url->getClientOriginalName(), strrpos($request->url->getClientOriginalName(), '.') + 1);
-            $extCover = substr($request->cover->getClientOriginalName(), strrpos($request->cover->getClientOriginalName(), '.') + 1);
-
-            //dd($ext);
-            if (($extMusic == 'mp3' || $extMusic == 'm4a'|| $extMusic == 'mp4'||$extMusic == 'wav' ||$extMusic == 'wma') && ($extCover == 'jpeg' || $extCover == 'jpg'|| $extCover == 'gif'||$extCover == 'png' ||$extCover == 'svg')) {
+            // check parameters of request
+            $isValid = $request->validate([
+                'title' => 'required|max:255',
+                'cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048',
+                'url' => 'required|mimes:mp3,m4a,mp4,wav,wma|max:100000',
+                'artist_cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048',
+                'genre_cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048',
+                'album_cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048'
+            ]);
+            if ($isValid) {
                 $this->uploadMusicService = $UploadMusicService;
                 $this->uploadCoverService = $UploadCoverService;
                 $this->uploadMusicService->uploadFile($request->file('url'));
                 $this->uploadCoverService->uploadFile($request->file('cover'));
-                # Crear el modelo
+                # Crear los modelos
                 $song = new Song;
-                
-                // var_dump($request->validate([
-                //     'url' => 'required|mimes:mp3|max:30048',
-                //     'cover' => 'required|mimes:png,jpg,jpeg,svg|max:30048'
-                // ]));
-                
-                # Establecer propiedades leídas del formulario
+                $artist = new Artist;
+                $album = new Album;
+                $genre = new Genre;
+                # Establecer propiedades leídas del formulario en cuanto a las songs
                 $song->title = $request->title;
-                $song->cover = $request->cover->getClientOriginalName();;
+                $song->cover = $request->cover->getClientOriginalName();
                 $song->url = $request->url->getClientOriginalName();
-                # Y guardar modelo ;)
-                $success = $song->save();
+                # artistas
+                $artist->name = $request->artist_name;
+                $artist->suraname = $request->artist_surname;
+                if($request->filled('artist_cover')) {
+                    $artist->cover = $request->artist_cover->getClientOriginalName();
+                }
+                # album
+                $album->name = $request->album_name;
+                if($request->filled('album_cover')) {
+                    $album->cover = $request->album_cover->getClientOriginalName();
+                }
+                # generos
+                $genre->genre = $request->genre;
+                if($request->filled('genre_cover')) {
+                    $genre->cover = $request->genre_cover->getClientOriginalName();
+                }
+                //necessitamos vincular los albumes con los artistas (songs_x_artist)
+
+                // necessitamos vincular los artistas con las canciones (songs_x_album)
+
+                //necessitamos vincular los canciones con los generos (music_x_genre)
+
+                # Y guardar los modelos
+                $song->save();
+                $artist->save();
+                $album->save();
+                $genre->save();
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
@@ -66,9 +94,7 @@ class SongController extends Controller
         } catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
         }
-        return redirect('/upload/song')->
-            with("error",$this->error)->
-            with("success",$success);
+        return redirect('/upload/song')/*->with("error",$error)*/;
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

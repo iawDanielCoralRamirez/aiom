@@ -15,7 +15,7 @@ class UploadCoverService
             throw new UploadFileException('File not defined');
 
         //Guardamos la musica en la carpeta publica storage y cremos dentro una carpeta llamada uploads
-        $destinationPath = 'storage/covers';
+        $destinationPath = 'storage/music/covers';
         $originalFile = $file->getClientOriginalName();
         $file->move($destinationPath, $originalFile);
     }

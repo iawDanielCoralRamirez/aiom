@@ -12,6 +12,9 @@ use App\Models\Songs_x_album;
 use App\Models\Music_x_genre;
 use App\Services\UploadMusicService;
 use App\Services\UploadCoverService;
+use App\Services\UploadCoverAlbumService;
+use App\Services\UploadCoverArtistService;
+use App\Services\UploadCoverGenreService;
 
 use App\Exceptions\UploadFileException;
 
@@ -19,10 +22,13 @@ class SongController extends Controller
 {
     private $uploadCoverService;
     private $uploadMusicService;
+    private $uploadCoverAlbumService;
+    private $uploadCoverArtistService;
+    private $uploadCoverGenreService;
     private $song;
-    private $album;
-    private $artist;
-    private $genre;
+    // private $album;
+    // private $artist;
+    // private $genre;
     private $error = '';
     public function __construct()
     {
@@ -42,7 +48,12 @@ class SongController extends Controller
     }
     
 
-    public function addSong(Request $request,UploadMusicService $UploadMusicService, UploadCoverService $UploadCoverService)
+    public function addSong(Request $request,
+                            UploadMusicService $UploadMusicService,
+                            UploadCoverService $UploadCoverService,
+                            UploadCoverAlbumService $UploadCoverAlbumService,
+                            UploadCoverArtistService $UploadCoverArtistService,
+                            UploadCoverGenreService $UploadCoverGenreService)
     {   
         $success = false;
         try {
@@ -77,17 +88,23 @@ class SongController extends Controller
                 $artist->surname = $request->artist_surname;
                 if ($request->hasFile('artist_cover')) {
                     $artist->cover = $request->artist_cover->getClientOriginalName();
+                    $this->uploadCoverArtistService = $UploadCoverArtistService;
+                    $this->uploadCoverArtistService->uploadFile($request->file('artist_cover'));
                 }
                 # album
                 $album->name = $request->album_name;
                 if ($request->hasFile('album_cover')) {
                     $album->cover = $request->album_cover->getClientOriginalName();
+                    $this->uploadCoverAlbumService = $UploadCoverAlbumService;
+                    $this->uploadCoverAlbumService->uploadFile($request->file('album_cover'));
                 }
 
                 # generos
                 $genre->genre = $request->genre;
                 if ($request->hasFile('genre_cover')) {
                     $genre->cover = $request->genre_cover->getClientOriginalName();
+                    $this->uploadCoverGenreService = $UploadCoverGenreService;
+                    $this->uploadCoverGenreService->uploadFile($request->file('genre_cover'));
                 }
 
                 # Y guardar los modelos
@@ -121,13 +138,12 @@ class SongController extends Controller
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
             $this->error = $exception->customMessage();
-        } /*catch ( \Illuminate\Database\QueryException $exception) {
+        }catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
-        }*/
+        }
         //return redirect('/upload/song')->with("success",$success)/*->with("error",$error)*/;
         return view('upload_song')
-            ->with("success",$success)
-            ->with("error",$this->error);
+            ->with("success",$success);
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

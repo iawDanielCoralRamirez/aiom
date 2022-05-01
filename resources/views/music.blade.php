@@ -17,9 +17,11 @@
       <tbody>
       @forelse ($songs as $song)
         <tr>
-          <td><a class="text-decoration-none" href="/storage/musics/{{$song->url}}">{{$song->title}}</a></td>
+          <td><a class="text-decoration-none" href="/storage/music/audios/{{$song->url}}">{{$song->title}}</a></td>
           {{-- <td>{{$song->album}}</td>
           <td>{{$song->autor}}</td> --}}
+          <td>Testeo</td>
+          <td>Testeo</td>
           <td><i class="fa fa-fw fa-heart"></i></td>
         </tr>
         @empty

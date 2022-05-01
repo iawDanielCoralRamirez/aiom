@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_song');
             $table->unsignedBigInteger('id_artist');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->foreign('id_artist')->references('id')->on('artist')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_song')->references('id')->on('song')->onDelete('cascade')->onUpdate('cascade');
         });

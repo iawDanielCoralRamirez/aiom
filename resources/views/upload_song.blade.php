@@ -40,7 +40,13 @@
             @if ($success)
                 <div class="alert alert-success">
                     <ul>
-                        <li>Se ha subido con exito</li>
+                        <li>Se ha subido con exito.</li>
+                    </ul>
+                </div>
+            @else
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>No se ha podido subir su canción.</li>
                     </ul>
                 </div>
             @endif

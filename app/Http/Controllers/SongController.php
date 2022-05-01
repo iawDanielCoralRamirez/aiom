@@ -7,6 +7,9 @@ use App\Models\Song;
 use App\Models\Genre;
 use App\Models\Artist;
 use App\Models\Album;
+use App\Models\Song_x_artist;
+use App\Models\Songs_x_album;
+use App\Models\Music_x_genre;
 use App\Services\UploadMusicService;
 use App\Services\UploadCoverService;
 
@@ -24,9 +27,9 @@ class SongController extends Controller
     public function __construct()
     {
         $this->song = new Song();
-        $this->album = new Album();
-        $this->artist = new Artist();
-        $this->genre = new Genre();
+        // $this->album = new Album();
+        // $this->artist = new Artist();
+        // $this->genre = new Genre();
     }
     // Devolver la vista con todas las canciones
     public function index()
@@ -62,47 +65,69 @@ class SongController extends Controller
                 $artist = new Artist;
                 $album = new Album;
                 $genre = new Genre;
+                $songs_x_artist = new Song_x_artist;
+                $songs_x_album = new Songs_x_album;
+                $music_x_genre = new Music_x_genre;
                 # Establecer propiedades leídas del formulario en cuanto a las songs
                 $song->title = $request->title;
                 $song->cover = $request->cover->getClientOriginalName();
                 $song->url = $request->url->getClientOriginalName();
                 # artistas
                 $artist->name = $request->artist_name;
-                $artist->suraname = $request->artist_surname;
-                if($request->filled('artist_cover')) {
+                $artist->surname = $request->artist_surname;
+                if ($request->hasFile('artist_cover')) {
                     $artist->cover = $request->artist_cover->getClientOriginalName();
                 }
                 # album
                 $album->name = $request->album_name;
-                if($request->filled('album_cover')) {
+                if ($request->hasFile('album_cover')) {
                     $album->cover = $request->album_cover->getClientOriginalName();
                 }
+
                 # generos
                 $genre->genre = $request->genre;
-                if($request->filled('genre_cover')) {
+                if ($request->hasFile('genre_cover')) {
                     $genre->cover = $request->genre_cover->getClientOriginalName();
                 }
-                //necessitamos vincular los albumes con los artistas (songs_x_artist)
-
-                // necessitamos vincular los artistas con las canciones (songs_x_album)
-
-                //necessitamos vincular los canciones con los generos (music_x_genre)
 
                 # Y guardar los modelos
-                //dd($song,$artist,$album,$genre);
-                $success = $song->save();
-                $artist->save();
-                $album->save();
-                $genre->save();
+                if ($song->save() && $artist->save() && $album->save() && $genre->save()) {
+                    // Cual ha sido el ultimo insertado de cada modelo
+                    $success = true;
+                }
+                $idsong = $song->id;
+                $idartista = $artist->id;
+                $idalbum = $album->id;
+                $idgenre = $genre->id;
+                if ($request->filled('genre')) {
+                    //necessitamos vincular los canciones con los generos (music_x_genre)
+                    $music_x_genre->id_song = $idsong;
+                    $music_x_genre->id_genre =  $idgenre;
+                    $music_x_genre->save();
+                }
+                if ($request->filled('album_name')) {
+                    // necessitamos vincular los albumes con las canciones (songs_x_album)
+                    $songs_x_album->id_song = $idsong;
+                    $songs_x_album->id_album =  $idalbum;
+                    $songs_x_album->save();
+                }
+                if ($request->filled('artist_name')) {
+                    //necessitamos vincular los artistas con las canciones (songs_x_artist)
+                    $songs_x_artist->id_song = $idsong;
+                    $songs_x_artist->id_artist =  $idartista;
+                    $songs_x_artist->save();
+                }
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
             $this->error = $exception->customMessage();
-        } catch ( \Illuminate\Database\QueryException $exception) {
+        } /*catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
-        }
+        }*/
         //return redirect('/upload/song')->with("success",$success)/*->with("error",$error)*/;
-        return view('upload_song')->with("success",$success)/*->with("error",$error)*/;
+        return view('upload_song')
+            ->with("success",$success)
+            ->with("error",$this->error);
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

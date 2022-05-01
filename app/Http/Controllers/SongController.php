@@ -17,10 +17,16 @@ class SongController extends Controller
     private $uploadCoverService;
     private $uploadMusicService;
     private $song;
+    private $album;
+    private $artist;
+    private $genre;
     private $error = '';
     public function __construct()
     {
         $this->song = new Song();
+        $this->album = new Album();
+        $this->artist = new Artist();
+        $this->genre = new Genre();
     }
     // Devolver la vista con todas las canciones
     public function index()
@@ -42,9 +48,9 @@ class SongController extends Controller
                 'title' => 'required|max:255',
                 'cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048',
                 'url' => 'required|mimes:mp3,m4a,mp4,wav,wma|max:100000',
-                'artist_cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048',
-                'genre_cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048',
-                'album_cover' => 'required|mimes:png,jpg,jpeg,gif,png,svg|max:40048'
+                'artist_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048',
+                'genre_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048',
+                'album_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
             ]);
             if ($isValid) {
                 $this->uploadMusicService = $UploadMusicService;
@@ -83,7 +89,8 @@ class SongController extends Controller
                 //necessitamos vincular los canciones con los generos (music_x_genre)
 
                 # Y guardar los modelos
-                $song->save();
+                //dd($song,$artist,$album,$genre);
+                $success = $song->save();
                 $artist->save();
                 $album->save();
                 $genre->save();
@@ -94,7 +101,8 @@ class SongController extends Controller
         } catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
         }
-        return redirect('/upload/song')/*->with("error",$error)*/;
+        //return redirect('/upload/song')->with("success",$success)/*->with("error",$error)*/;
+        return view('upload_song')->with("success",$success)/*->with("error",$error)*/;
     }
 
     public function guardarCambiosDeCancion(Request $peticion)

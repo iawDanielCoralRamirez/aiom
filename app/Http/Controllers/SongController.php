@@ -10,6 +10,7 @@ use App\Models\Album;
 use App\Models\Song_x_artist;
 use App\Models\Songs_x_album;
 use App\Models\Music_x_genre;
+use App\Models\Favorites_songs;
 use App\Services\UploadMusicService;
 use App\Services\UploadCoverService;
 use App\Services\UploadCoverAlbumService;
@@ -284,12 +285,24 @@ class SongController extends Controller
         ->with("success",$success);
     }
     public function addFavorites(Request $request) {
-        $favoritos = $request->session()->get('favoritos', []);
+        // $favorites_songs = $request->input('id');
+        // $favorites_songs = $request->input('id_account');
+        $account = $request->id_account;
+        $song = $this->song->query();
+        $song->joinFavorites();
+        // dd($song);
+        
+        $favorites_songs = $song
+            ->select('song.id','url','cover','title');
+        //dd($favorites_songs);
+        return view('music_dashboard')->with('favorites_songs', $favorites_songs);
+    }
+    public function addFavoritesTmp(Request $request) {
+        $favoritos_songs_tmp = $request->session()->get('favoritos_songs_tmp', []);
         $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'));
         array_push($favoritos, $actual);
-
-        $request->session()->put('favoritos', $favoritos);
-
+        
+        $request->session()->put('favoritos_songs_tmp', $favoritos_songs_tmp);
         return redirect(url()->previous());
     }
 }

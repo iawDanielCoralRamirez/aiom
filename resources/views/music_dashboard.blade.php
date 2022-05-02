@@ -6,7 +6,8 @@
 
   <div class="d-flex flex-row justify-content-around flex-wrap">
 
-    @forelse (app('request')->session()->get('favoritos',[]) as $favorite)
+    {{-- @forelse (app('request')->session()->get('favoritos_songs_tmp',[]) as $favorite) --}}
+    @forelse ($favorites_songs as $favorite)
     <div class="card" style="width: 18rem;">
       <img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap">
       <div class="card-body">

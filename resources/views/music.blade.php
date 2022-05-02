@@ -29,6 +29,7 @@
                 <input type="hidden" name="title" value="{{$song->title}}">
                 <input type="hidden" name="cover" value="{{$song->cover}}">
                 <input type="hidden" name="url" value="{{$song->url}}">
+                <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
                 <input type="submit" value="&hearts;" class="btn btn-dark text-white">
             </form>
           </td>

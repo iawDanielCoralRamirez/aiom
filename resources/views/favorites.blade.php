@@ -15,11 +15,11 @@
         </tr>
       </thead>
       <tbody>
-      @forelse ($songs as $song)
+      @forelse (app('request')->session()->get('favoritos',[]) as $song)
         <tr>
           <td><a class="text-decoration-none" href="/storage/music/audios/{{$song->url}}">{{$song->title}}</a></td>
-          <td>{{$song->album}}</td>
-          <td>{{$song->autor}}</td>
+          {{-- <td>{{$song->album}}</td>
+          <td>{{$song->autor}}</td> --}}
           <td><i class="fa fa-fw fa-heart"></i></td>
         </tr>
         @empty

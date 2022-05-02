@@ -22,7 +22,16 @@
           <td>{{$song->autor}}</td> --}}
           <td>Testeo</td>
           <td>Testeo</td>
-          <td><i class="fa fa-fw fa-heart"></i></td>
+          <td>
+            <form method="post" action={{ route('addFavorites') }} class="" style="height:2rem">
+                @csrf
+                <input type="hidden" name="id" value="{{$song->id}}">
+                <input type="hidden" name="title" value="{{$song->title}}">
+                <input type="hidden" name="cover" value="{{$song->cover}}">
+                <input type="hidden" name="url" value="{{$song->url}}">
+                <input type="submit" value="&hearts;" class="btn btn-dark text-white">
+            </form>
+          </td>
         </tr>
         @empty
           <p>Aún no has subido música</p>

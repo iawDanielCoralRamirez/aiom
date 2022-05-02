@@ -41,7 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/playlists', [PlaylistController::class, 'list']);
 
-    Route::get('/favorites', [PlaylistController::class, 'favorites']);
+    Route::get('/favorites', function () {
+        return view('favorites');
+    });
+    Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
 
 });
 

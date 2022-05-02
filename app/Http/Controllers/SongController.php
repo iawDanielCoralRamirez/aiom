@@ -283,4 +283,13 @@ class SongController extends Controller
         return view('delete_song')
         ->with("success",$success);
     }
+    public function addFavorites(Request $request) {
+        $favoritos = $request->session()->get('favoritos', []);
+        $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'));
+        array_push($favoritos, $actual);
+
+        $request->session()->put('favoritos', $favoritos);
+
+        return redirect(url()->previous());
+    }
 }

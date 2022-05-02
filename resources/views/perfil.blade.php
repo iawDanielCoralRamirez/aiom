@@ -3,13 +3,13 @@
 
   <div class="d-flex flex-row justify-content-around flex-wrap">
 
-    @forelse ($favourites as $favourite)
+    @forelse ($favorites as $favorite)
     <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="{{$favourite->image}}" alt="Card image cap">
+      <img class="card-img-top" src="{{$favorite->image}}" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{$favourite->title}}</h5>
-        <p class="card-text">{{$favourite->autor}}</p>
-        <a href="/player/{$favourite->id}" class="btn btn-primary">Reproducir</a><a href="/fav/{$favourite->id}" class="btn btn-primary">Favorito</a>
+        <h5 class="card-title">{{$favorite->title}}</h5>
+        <p class="card-text">{{$favorite->autor}}</p>
+        <a href="/player/{$favorite->id}" class="btn btn-primary">Reproducir</a><a href="/fav/{$favorite->id}" class="btn btn-primary">Favorito</a>
       </div>
     </div>
     @empty
@@ -18,7 +18,7 @@
     @endforelse
   </div>
 </div>
-<a href="/favourites" class="btn btn-primary m-4">Ver todas</a>
+<a href="/favorites" class="btn btn-primary m-4">Ver todas</a>
 </div>
 <div class="container mt-5">
   <h2>Playlists</h2>

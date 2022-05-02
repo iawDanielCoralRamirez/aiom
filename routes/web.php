@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/playlists', [PlaylistController::class, 'list']);
 
-    Route::get('/favourites', [PlaylistController::class, 'favourites']);
+    Route::get('/favorites', [PlaylistController::class, 'favorites']);
 
 });
 

@@ -21,7 +21,7 @@
                     <h3 class="text-center ">Nombre de Usuario</h3>
                     <ul class="pt-3 pl-5">
                         <li><a href="/dashboard"><i class="fa fa-tachometer"></i>&nbsp;Dashboard</a></li>
-                        <li><a href="/favourites"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
+                        <li><a href="/favorites"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
                         <li><a href="/playlists"><i class="fa fa-fw fa-music"></i>Playlists</a></li>
                         <li><a href="/music"><i class="fa fa-fw fa-database"></i>Mi música</a></li>
                         <li><a href="/profile"><i class="fa fa-fw fa-wrench"></i>Mi perfil</a></li>
@@ -39,7 +39,7 @@
                 <div class="lateral">
                     <h3>Nombre de Usuario</h3>
                     <ul>
-                        <li><a href="/favourites">Favoritos</a></li>
+                        <li><a href="/favorites">Favoritos</a></li>
                         <li><a href="/playlists">Playlists</a></li>
                         <li><a href="/music">Mi música</a></li>
                         <li><a href="/profile">Mi perfil</a></li>

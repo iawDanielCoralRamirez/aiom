@@ -23,7 +23,7 @@
 ![/dashboard](documentation/dashboard.png)
 
 '/favorites'
-![/favourites](documentation/favorites.png)
+![/favorites](documentation/favorites.png)
 
 '/playlists'
 ![/playlists](documentation/playlists.png)

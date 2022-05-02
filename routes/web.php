@@ -19,8 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/pruebas', function () {
-    return view('perfil');
+    return view('playlist');
 });
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {
         return view('perfil');
@@ -31,6 +32,17 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('/addSong', [SongController::class, 'addSong'])->name('addSong');
     Route::get('/music', [SongController::class, 'index']);
+
+    Route::get('/player', [SongController::class, 'playSong']);
+
+    Route::get('/profile', function () {
+        return view('profile');
+    });
+
+    Route::get('/playlists', [PlaylistController::class, 'list']);
+
+    Route::get('/favourites', [PlaylistController::class, 'favourites']);
+
 });
 
 require __DIR__ . '/auth.php';

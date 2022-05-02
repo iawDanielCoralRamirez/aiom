@@ -24,7 +24,7 @@ Route::get('/pruebas', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {
-        return view('perfil');
+        return view('music_dashboard');
     })->name('dashboard');
 
     Route::get('/upload/song', function () {

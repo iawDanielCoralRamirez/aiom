@@ -108,9 +108,17 @@ class SongController extends Controller
                 }
 
                 # Y guardar los modelos
-                if ($song->save() && $artist->save() && $album->save() && $genre->save()) {
-                    // Cual ha sido el ultimo insertado de cada modelo
-                    $success = true;
+                if ($song->save()) {
+                    if ($request->filled('artist_name')) {
+                        $artist->save();
+                    }   
+                    if ($request->filled('album_name')) {
+                        $album->save();
+                    }
+                    if ($request->filled('genre')) {
+                        $genre->save();
+                    }
+                    $success = true; //si los fields de la song esta saved entonces el message es success
                 }
                 $idsong = $song->id;
                 $idartista = $artist->id;
@@ -137,11 +145,13 @@ class SongController extends Controller
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
-            $this->error = $exception->customMessage();
-        }catch ( \Illuminate\Database\QueryException $exception) {
-            $this->error = "Error with information introduced";
-        }
-        return redirect('/upload/song')
+            $this->error = $exception->customMessage(); }
+        // }catch ( \Illuminate\Database\QueryException $exception) {
+        //     $this->error = "Error with information introduced";
+        // }
+        // return redirect('/upload/song')
+        //     ->with("success",$success);
+        return view('upload_song')
             ->with("success",$success);
     }
 
@@ -211,9 +221,17 @@ class SongController extends Controller
                 }
 
                 # Y guardar los modelos
-                if ($song->save() && $artist->save() && $album->save() && $genre->save()) {
-                    // Cual ha sido el ultimo insertado de cada modelo
-                    $success = true;
+                if ($song->save()) {
+                    if ($request->filled('artist_name')) {
+                        $artist->save();
+                    }   
+                    if ($request->filled('album_name')) {
+                        $album->save();
+                    }
+                    if ($request->filled('genre')) {
+                        $genre->save();
+                    }
+                    $success = true; //si los fields de la song esta saved entonces el message es success
                 }
                 $idsong = $song->id;
                 $idartista = $artist->id;
@@ -244,8 +262,10 @@ class SongController extends Controller
         }catch ( \Illuminate\Database\QueryException $exception) {
         $this->error = "Error with information introduced";
         }
-        return redirect('/update/song')
-            ->with("success",$success);
+        // return redirect('/update/song')
+        //     ->with("success",$success);
+        return view('update_song')
+        ->with("success",$success);
     }
    
     // no lo vamos a usar este method solo lo usariamos los admins en todo caso
@@ -258,7 +278,9 @@ class SongController extends Controller
         $song = Song::findOrFail($songId);
         # Eliminar
         $success = $song->delete();
-        return redirect('/delete/song')
-            ->with("success",$success);
+        // return redirect('/delete/song')
+        //     ->with("success",$success);
+        return view('delete_song')
+        ->with("success",$success);
     }
 }

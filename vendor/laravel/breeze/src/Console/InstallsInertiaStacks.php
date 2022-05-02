@@ -3,7 +3,6 @@
 namespace Laravel\Breeze\Console;
 
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
 
 trait InstallsInertiaStacks
 {
@@ -15,22 +14,22 @@ trait InstallsInertiaStacks
     protected function installInertiaVueStack()
     {
         // Install Inertia...
-        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.5.4', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
+        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.4.3', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
 
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
             return [
-                '@inertiajs/inertia' => '^0.11.0',
-                '@inertiajs/inertia-vue3' => '^0.6.0',
-                '@inertiajs/progress' => '^0.2.7',
-                '@tailwindcss/forms' => '^0.5.0',
-                '@vue/compiler-sfc' => '^3.2.31',
-                'autoprefixer' => '^10.4.2',
-                'postcss' => '^8.4.6',
-                'postcss-import' => '^14.0.2',
-                'tailwindcss' => '^3.0.18',
-                'vue' => '^3.2.31',
-                'vue-loader' => '^17.0.0',
+                '@inertiajs/inertia' => '^0.10.0',
+                '@inertiajs/inertia-vue3' => '^0.5.1',
+                '@inertiajs/progress' => '^0.2.6',
+                '@tailwindcss/forms' => '^0.4.0',
+                '@vue/compiler-sfc' => '^3.0.5',
+                'autoprefixer' => '^10.2.4',
+                'postcss' => '^8.2.13',
+                'postcss-import' => '^14.0.1',
+                'tailwindcss' => '^3.0.0',
+                'vue' => '^3.0.5',
+                'vue-loader' => '^16.1.2',
             ] + $packages;
         });
 
@@ -74,44 +73,13 @@ trait InstallsInertiaStacks
         // Tailwind / Webpack...
         copy(__DIR__.'/../../stubs/inertia-common/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__.'/../../stubs/inertia-common/webpack.mix.js', base_path('webpack.mix.js'));
+        copy(__DIR__.'/../../stubs/inertia-common/webpack.config.js', base_path('webpack.config.js'));
         copy(__DIR__.'/../../stubs/inertia-common/jsconfig.json', base_path('jsconfig.json'));
         copy(__DIR__.'/../../stubs/inertia-common/resources/css/app.css', resource_path('css/app.css'));
         copy(__DIR__.'/../../stubs/inertia-vue/resources/js/app.js', resource_path('js/app.js'));
 
-        if ($this->option('ssr')) {
-            $this->installInertiaVueSsrStack();
-        }
-
         $this->info('Breeze scaffolding installed successfully.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
-    }
-
-    /**
-     * Install the Inertia Vue SSR stack into the application.
-     *
-     * @return void
-     */
-    protected function installInertiaVueSsrStack()
-    {
-        $this->updateNodePackages(function ($packages) {
-            return [
-                '@inertiajs/server' => '^0.1.0',
-                '@vue/server-renderer' => '^3.2.31',
-                'webpack-node-externals' => '^3.0.0',
-            ] + $packages;
-        });
-
-        copy(__DIR__.'/../../stubs/inertia-vue/webpack.ssr.mix.js', base_path('webpack.ssr.mix.js'));
-        copy(__DIR__.'/../../stubs/inertia-vue/resources/js/ssr.js', resource_path('js/ssr.js'));
-
-        (new Process([$this->phpBinary(), 'artisan', 'vendor:publish', '--provider=Inertia\ServiceProvider', '--force'], base_path()))
-            ->setTimeout(null)
-            ->run(function ($type, $output) {
-                $this->output->write($output);
-            });
-
-        $this->replaceInFile("'enabled' => false", "'enabled' => true", config_path('inertia.php'));
-        $this->replaceInFile('mix --production', 'mix --production --mix-config=webpack.ssr.mix.js && mix --production', base_path('package.json'));
     }
 
     /**
@@ -122,20 +90,20 @@ trait InstallsInertiaStacks
     protected function installInertiaReactStack()
     {
         // Install Inertia...
-        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.5.4', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
+        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.4.5', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
 
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
             return [
                 '@headlessui/react' => '^1.4.2',
-                '@inertiajs/inertia' => '^0.11.0',
-                '@inertiajs/inertia-react' => '^0.8.0',
+                '@inertiajs/inertia' => '^0.10.0',
+                '@inertiajs/inertia-react' => '^0.7.0',
                 '@inertiajs/progress' => '^0.2.6',
                 '@tailwindcss/forms' => '^0.4.0',
-                'autoprefixer' => '^10.4.2',
-                'postcss' => '^8.4.6',
-                'postcss-import' => '^14.0.2',
-                'tailwindcss' => '^3.0.18',
+                'autoprefixer' => '^10.2.4',
+                'postcss' => '^8.2.13',
+                'postcss-import' => '^14.0.1',
+                'tailwindcss' => '^3.0.0',
                 'react' => '^17.0.2',
                 'react-dom' => '^17.0.2',
                 '@babel/preset-react' => '^7.16.7',
@@ -182,6 +150,7 @@ trait InstallsInertiaStacks
         // Tailwind / Webpack...
         copy(__DIR__.'/../../stubs/inertia-common/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__.'/../../stubs/inertia-common/webpack.mix.js', base_path('webpack.mix.js'));
+        copy(__DIR__.'/../../stubs/inertia-common/webpack.config.js', base_path('webpack.config.js'));
         copy(__DIR__.'/../../stubs/inertia-common/jsconfig.json', base_path('jsconfig.json'));
         copy(__DIR__.'/../../stubs/inertia-common/resources/css/app.css', resource_path('css/app.css'));
         copy(__DIR__.'/../../stubs/inertia-react/resources/js/app.js', resource_path('js/app.js'));
@@ -189,38 +158,7 @@ trait InstallsInertiaStacks
         $this->replaceInFile('.vue()', '.react()', base_path('webpack.mix.js'));
         $this->replaceInFile('.vue', '.js', base_path('tailwind.config.js'));
 
-        if ($this->option('ssr')) {
-            $this->installInertiaReactSsrStack();
-        }
-
         $this->info('Breeze scaffolding installed successfully.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
-    }
-
-    /**
-     * Install the Inertia React SSR stack into the application.
-     *
-     * @return void
-     */
-    protected function installInertiaReactSsrStack()
-    {
-        $this->updateNodePackages(function ($packages) {
-            return [
-                '@inertiajs/server' => '^0.1.0',
-                'webpack-node-externals' => '^3.0.0',
-            ] + $packages;
-        });
-
-        copy(__DIR__.'/../../stubs/inertia-react/webpack.ssr.mix.js', base_path('webpack.ssr.mix.js'));
-        copy(__DIR__.'/../../stubs/inertia-react/resources/js/ssr.js', resource_path('js/ssr.js'));
-
-        (new Process([$this->phpBinary(), 'artisan', 'vendor:publish', '--provider=Inertia\ServiceProvider', '--force'], base_path()))
-            ->setTimeout(null)
-            ->run(function ($type, $output) {
-                $this->output->write($output);
-            });
-
-        $this->replaceInFile("'enabled' => false", "'enabled' => true", config_path('inertia.php'));
-        $this->replaceInFile('mix --production', 'mix --production --mix-config=webpack.ssr.mix.js && mix --production', base_path('package.json'));
     }
 }

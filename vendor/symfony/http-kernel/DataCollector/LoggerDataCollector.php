@@ -25,14 +25,14 @@ use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 class LoggerDataCollector extends DataCollector implements LateDataCollectorInterface
 {
     private $logger;
-    private ?string $containerPathPrefix;
-    private $currentRequest = null;
+    private $containerPathPrefix;
+    private $currentRequest;
     private $requestStack;
-    private ?array $processedLogs = null;
+    private $processedLogs;
 
     public function __construct(object $logger = null, string $containerPathPrefix = null, RequestStack $requestStack = null)
     {
-        if ($logger instanceof DebugLoggerInterface) {
+        if (null !== $logger && $logger instanceof DebugLoggerInterface) {
             $this->logger = $logger;
         }
 
@@ -53,7 +53,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
      */
     public function reset()
     {
-        if (isset($this->logger)) {
+        if ($this->logger instanceof DebugLoggerInterface) {
             $this->logger->clear();
         }
         $this->data = [];
@@ -64,7 +64,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
      */
     public function lateCollect()
     {
-        if (isset($this->logger)) {
+        if (null !== $this->logger) {
             $containerDeprecationLogs = $this->getContainerDeprecationLogs();
             $this->data = $this->computeErrorsCount($containerDeprecationLogs);
             // get compiler logs later (only when they are needed) to improve performance
@@ -108,7 +108,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
 
             $logs[] = [
                 'type' => $logType,
-                'errorCount' => $rawLog['errorCount'] ?? 1,
+                'errorCounter' => isset($rawLogData['errorCounter']) ? $rawLogData['errorCounter']->getValue() : 1,
                 'timestamp' => $rawLogData['timestamp_rfc3339']->getValue(),
                 'priority' => $rawLogData['priority']->getValue(),
                 'priorityName' => $rawLogData['priorityName']->getValue(),
@@ -133,7 +133,6 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
             'priority' => [
                 'Debug' => 100,
                 'Info' => 200,
-                'Notice' => 250,
                 'Warning' => 300,
                 'Error' => 400,
                 'Critical' => 500,

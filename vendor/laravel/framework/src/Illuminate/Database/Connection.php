@@ -5,7 +5,6 @@ namespace Illuminate\Database;
 use Closure;
 use DateTimeInterface;
 use Doctrine\DBAL\Connection as DoctrineConnection;
-use Doctrine\DBAL\Types\Type;
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Events\QueryExecuted;
@@ -19,18 +18,15 @@ use Illuminate\Database\Query\Grammars\Grammar as QueryGrammar;
 use Illuminate\Database\Query\Processors\Processor;
 use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Traits\Macroable;
 use LogicException;
 use PDO;
 use PDOStatement;
-use RuntimeException;
 
 class Connection implements ConnectionInterface
 {
     use DetectsConcurrencyErrors,
         DetectsLostConnections,
-        Concerns\ManagesTransactions,
-        Macroable;
+        Concerns\ManagesTransactions;
 
     /**
      * The active PDO connection.
@@ -180,13 +176,6 @@ class Connection implements ConnectionInterface
     protected $doctrineConnection;
 
     /**
-     * Type mappings that should be registered with new Doctrine connections.
-     *
-     * @var array
-     */
-    protected $doctrineTypeMappings = [];
-
-    /**
      * The connection resolvers.
      *
      * @var array
@@ -334,33 +323,6 @@ class Connection implements ConnectionInterface
         $records = $this->select($query, $bindings, $useReadPdo);
 
         return array_shift($records);
-    }
-
-    /**
-     * Run a select statement and return the first column of the first row.
-     *
-     * @param  string  $query
-     * @param  array  $bindings
-     * @param  bool  $useReadPdo
-     * @return mixed
-     *
-     * @throws \Illuminate\Database\MultipleColumnsSelectedException
-     */
-    public function scalar($query, $bindings = [], $useReadPdo = true)
-    {
-        $record = $this->selectOne($query, $bindings, $useReadPdo);
-
-        if (is_null($record)) {
-            return null;
-        }
-
-        $record = (array) $record;
-
-        if (count($record) > 1) {
-            throw new MultipleColumnsSelectedException;
-        }
-
-        return reset($record);
     }
 
     /**
@@ -645,11 +607,7 @@ class Connection implements ConnectionInterface
             $statement->bindValue(
                 is_string($key) ? $key : $key + 1,
                 $value,
-                match (true) {
-                    is_int($value) => PDO::PARAM_INT,
-                    is_resource($value) => PDO::PARAM_LOB,
-                    default => PDO::PARAM_STR
-                },
+                is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR
             );
         }
     }
@@ -858,8 +816,6 @@ class Connection implements ConnectionInterface
     public function disconnect()
     {
         $this->setPdo(null)->setReadPdo(null);
-
-        $this->doctrineConnection = null;
     }
 
     /**
@@ -883,7 +839,9 @@ class Connection implements ConnectionInterface
      */
     public function listen(Closure $callback)
     {
-        $this->events?->listen(Events\QueryExecuted::class, $callback);
+        if (isset($this->events)) {
+            $this->events->listen(Events\QueryExecuted::class, $callback);
+        }
     }
 
     /**
@@ -894,12 +852,18 @@ class Connection implements ConnectionInterface
      */
     protected function fireConnectionEvent($event)
     {
-        return $this->events?->dispatch(match ($event) {
-            'beganTransaction' => new TransactionBeginning($this),
-            'committed' => new TransactionCommitted($this),
-            'rollingBack' => new TransactionRolledBack($this),
-            default => null,
-        });
+        if (! isset($this->events)) {
+            return;
+        }
+
+        switch ($event) {
+            case 'beganTransaction':
+                return $this->events->dispatch(new TransactionBeginning($this));
+            case 'committed':
+                return $this->events->dispatch(new TransactionCommitted($this));
+            case 'rollingBack':
+                return $this->events->dispatch(new TransactionRolledBack($this));
+        }
     }
 
     /**
@@ -910,7 +874,9 @@ class Connection implements ConnectionInterface
      */
     protected function event($event)
     {
-        $this->events?->dispatch($event);
+        if (isset($this->events)) {
+            $this->events->dispatch($event);
+        }
     }
 
     /**
@@ -1036,44 +1002,12 @@ class Connection implements ConnectionInterface
             $this->doctrineConnection = new DoctrineConnection(array_filter([
                 'pdo' => $this->getPdo(),
                 'dbname' => $this->getDatabaseName(),
-                'driver' => $driver->getName(),
+                'driver' => method_exists($driver, 'getName') ? $driver->getName() : null,
                 'serverVersion' => $this->getConfig('server_version'),
             ]), $driver);
-
-            foreach ($this->doctrineTypeMappings as $name => $type) {
-                $this->doctrineConnection
-                    ->getDatabasePlatform()
-                    ->registerDoctrineTypeMapping($type, $name);
-            }
         }
 
         return $this->doctrineConnection;
-    }
-
-    /**
-     * Register a custom Doctrine mapping type.
-     *
-     * @param  string  $class
-     * @param  string  $name
-     * @param  string  $type
-     * @return void
-     *
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \RuntimeException
-     */
-    public function registerDoctrineType(string $class, string $name, string $type): void
-    {
-        if (! $this->isDoctrineAvailable()) {
-            throw new RuntimeException(
-                'Registering a custom Doctrine type requires Doctrine DBAL (doctrine/dbal).'
-            );
-        }
-
-        if (! Type::hasType($name)) {
-            Type::addType($name, $class);
-        }
-
-        $this->doctrineTypeMappings[$name] = $type;
     }
 
     /**

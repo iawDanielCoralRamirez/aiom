@@ -231,7 +231,6 @@ class Validator implements ValidatorContract
         'Different',
         'ExcludeIf',
         'ExcludeUnless',
-        'ExcludeWith',
         'ExcludeWithout',
         'Gt',
         'Gte',
@@ -258,7 +257,7 @@ class Validator implements ValidatorContract
      *
      * @var string[]
      */
-    protected $excludeRules = ['Exclude', 'ExcludeIf', 'ExcludeUnless', 'ExcludeWith', 'ExcludeWithout'];
+    protected $excludeRules = ['Exclude', 'ExcludeIf', 'ExcludeUnless', 'ExcludeWithout'];
 
     /**
      * The size related validation rules.
@@ -381,7 +380,9 @@ class Validator implements ValidatorContract
      */
     public function after($callback)
     {
-        $this->after[] = fn () => $callback($this);
+        $this->after[] = function () use ($callback) {
+            return $callback($this);
+        };
 
         return $this;
     }
@@ -574,12 +575,9 @@ class Validator implements ValidatorContract
         // First we will get the correct keys for the given attribute in case the field is nested in
         // an array. Then we determine if the given rule accepts other field names as parameters.
         // If so, we will replace any asterisks found in the parameters with the correct keys.
-        if ($this->dependsOnOtherFields($rule)) {
-            $parameters = $this->replaceDotInParameters($parameters);
-
-            if ($keys = $this->getExplicitKeys($attribute)) {
-                $parameters = $this->replaceAsterisksInParameters($parameters, $keys);
-            }
+        if (($keys = $this->getExplicitKeys($attribute)) &&
+            $this->dependsOnOtherFields($rule)) {
+            $parameters = $this->replaceAsterisksInParameters($parameters, $keys);
         }
 
         $value = $this->getValue($attribute);
@@ -660,19 +658,6 @@ class Validator implements ValidatorContract
         }
 
         return $attribute;
-    }
-
-    /**
-     * Replace each field parameter which has an escaped dot with the dot placeholder.
-     *
-     * @param  array  $parameters
-     * @return array
-     */
-    protected function replaceDotInParameters(array $parameters)
-    {
-        return array_map(function ($field) {
-            return str_replace('\.', $this->dotPlaceholder, $field);
-        }, $parameters);
     }
 
     /**
@@ -812,7 +797,7 @@ class Validator implements ValidatorContract
         if (! $rule->passes($attribute, $value)) {
             $this->failedRules[$attribute][get_class($rule)] = [];
 
-            $messages = $this->getFromLocalArray($attribute, get_class($rule)) ?? $rule->message();
+            $messages = $rule->message();
 
             $messages = $messages ? (array) $messages : [get_class($rule)];
 
@@ -1147,7 +1132,7 @@ class Validator implements ValidatorContract
             $this->implicitAttributes = array_merge($response->implicitAttributes, $this->implicitAttributes);
 
             foreach ($response->rules as $ruleKey => $ruleValue) {
-                if ($callback($payload, $this->dataForSometimesIteration($ruleKey, ! str_ends_with($key, '.*')))) {
+                if ($callback($payload, $this->dataForSometimesIteration($ruleKey, ! Str::endsWith($key, '.*')))) {
                     $this->addRules([$ruleKey => $ruleValue]);
                 }
             }

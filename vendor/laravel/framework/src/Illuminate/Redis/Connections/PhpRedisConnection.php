@@ -5,7 +5,9 @@ namespace Illuminate\Redis\Connections;
 use Closure;
 use Illuminate\Contracts\Redis\Connection as ConnectionContract;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Redis;
+use RedisCluster;
 use RedisException;
 
 /**
@@ -13,8 +15,6 @@ use RedisException;
  */
 class PhpRedisConnection extends Connection implements ConnectionContract
 {
-    use PacksPhpRedisValues;
-
     /**
      * The connection creation callback.
      *
@@ -493,17 +493,17 @@ class PhpRedisConnection extends Connection implements ConnectionContract
     /**
      * Flush the selected Redis database.
      *
-     * @return mixed
+     * @return void
      */
     public function flushdb()
     {
-        $arguments = func_get_args();
-
-        if (strtoupper((string) ($arguments[0] ?? null)) === 'ASYNC') {
-            return $this->command('flushdb', [true]);
+        if (! $this->client instanceof RedisCluster) {
+            return $this->command('flushdb');
         }
 
-        return $this->command('flushdb');
+        foreach ($this->client->_masters() as $master) {
+            $this->client->flushDb($master);
+        }
     }
 
     /**
@@ -531,12 +531,8 @@ class PhpRedisConnection extends Connection implements ConnectionContract
         try {
             return parent::command($method, $parameters);
         } catch (RedisException $e) {
-            foreach (['went away', 'socket', 'read error on connection'] as $errorMessage) {
-                if (str_contains($e->getMessage(), $errorMessage)) {
-                    $this->client = $this->connector ? call_user_func($this->connector) : $this->client;
-
-                    break;
-                }
+            if (Str::contains($e->getMessage(), 'went away')) {
+                $this->client = $this->connector ? call_user_func($this->connector) : $this->client;
             }
 
             throw $e;

@@ -150,7 +150,6 @@ final class Reflection
 					$name = self::toString($param);
 					throw new \ReflectionException("Unable to resolve constant $orig used as default value of $name.", 0, $e);
 				}
-
 				return $rcc->getValue();
 
 			} elseif (!defined($const)) {
@@ -160,10 +159,8 @@ final class Reflection
 					throw new \ReflectionException("Unable to resolve constant $orig used as default value of $name.");
 				}
 			}
-
 			return constant($const);
 		}
-
 		return $param->getDefaultValue();
 	}
 
@@ -181,7 +178,6 @@ final class Reflection
 				return self::getPropertyDeclaringClass($trait->getProperty($prop->name));
 			}
 		}
-
 		return $prop->getDeclaringClass();
 	}
 
@@ -217,7 +213,6 @@ final class Reflection
 				return self::getMethodDeclaringMethod($m);
 			}
 		}
-
 		return $method;
 	}
 
@@ -297,7 +292,6 @@ final class Reflection
 		if ($class->isAnonymous()) {
 			throw new Nette\NotImplementedException('Anonymous classes are not supported.');
 		}
-
 		static $cache = [];
 		if (!isset($cache[$name = $class->name])) {
 			if ($class->isInternal()) {
@@ -307,7 +301,6 @@ final class Reflection
 				$cache = self::parseUseStatements($code, $name) + $cache;
 			}
 		}
-
 		return $cache[$name];
 	}
 
@@ -315,7 +308,7 @@ final class Reflection
 	/**
 	 * Parses PHP code to [class => [alias => class, ...]]
 	 */
-	private static function parseUseStatements(string $code, ?string $forClass = null): array
+	private static function parseUseStatements(string $code, string $forClass = null): array
 	{
 		try {
 			$tokens = token_get_all($code, TOKEN_PARSE);
@@ -323,7 +316,6 @@ final class Reflection
 			trigger_error($e->getMessage(), E_USER_NOTICE);
 			$tokens = [];
 		}
-
 		$namespace = $class = $classLevel = $level = null;
 		$res = $uses = [];
 
@@ -353,7 +345,6 @@ final class Reflection
 							return $res;
 						}
 					}
-
 					break;
 
 				case T_USE:
@@ -367,11 +358,11 @@ final class Reflection
 									$tmp = explode('\\', $suffix);
 									$uses[end($tmp)] = $name . $suffix;
 								}
-
 								if (!self::fetch($tokens, ',')) {
 									break;
 								}
 							}
+
 						} elseif (self::fetch($tokens, T_AS)) {
 							$uses[self::fetch($tokens, T_STRING)] = $name;
 
@@ -379,12 +370,10 @@ final class Reflection
 							$tmp = explode('\\', $name);
 							$uses[end($tmp)] = $name;
 						}
-
 						if (!self::fetch($tokens, ',')) {
 							break;
 						}
 					}
-
 					break;
 
 				case T_CURLY_OPEN:
@@ -397,7 +386,6 @@ final class Reflection
 					if ($level === $classLevel) {
 						$class = $classLevel = null;
 					}
-
 					$level--;
 			}
 		}
@@ -416,10 +404,8 @@ final class Reflection
 			} elseif (!in_array($token, [T_DOC_COMMENT, T_WHITESPACE, T_COMMENT], true)) {
 				break;
 			}
-
 			next($tokens);
 		}
-
 		return $res;
 	}
 }

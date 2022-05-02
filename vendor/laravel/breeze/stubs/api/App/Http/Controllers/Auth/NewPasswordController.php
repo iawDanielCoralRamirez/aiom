@@ -17,7 +17,7 @@ class NewPasswordController extends Controller
      * Handle an incoming new password request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -44,12 +44,10 @@ class NewPasswordController extends Controller
             }
         );
 
-        if ($status != Password::PASSWORD_RESET) {
-            throw ValidationException::withMessages([
-                'email' => [__($status)],
-            ]);
-        }
-
-        return response()->json(['status' => __($status)]);
+        return $status == Password::PASSWORD_RESET
+                ? response()->json(['status' => __($status)])
+                : throw ValidationException::withMessages([
+                    'email' => [__($status)],
+                ]);
     }
 }

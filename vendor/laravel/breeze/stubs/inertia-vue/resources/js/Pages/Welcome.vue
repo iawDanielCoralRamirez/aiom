@@ -1,14 +1,3 @@
-<script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
-
-defineProps({
-    canLogin: Boolean,
-    canRegister: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
-})
-</script>
-
 <template>
     <Head title="Welcome" />
 
@@ -186,3 +175,20 @@ defineProps({
         }
     }
 </style>
+
+<script>
+import { Head, Link } from '@inertiajs/inertia-vue3';
+
+export default {
+    components: {
+      Head,
+      Link,
+    },
+    props: {
+        canLogin: Boolean,
+        canRegister: Boolean,
+        laravelVersion: String,
+        phpVersion: String,
+    },
+}
+</script>

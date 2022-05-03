@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/addSong', [SongController::class, 'addSong'])->name('addSong');
     Route::get('/music', [SongController::class, 'index']);
 
-    Route::get('/player', [SongController::class, 'playSong']);
+    Route::get('/player/{idSong}', [SongController::class, 'playSong']);
 
     Route::get('/profile', function () {
         return view('profile');
@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('favorites');
     });
     Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
+
 
 });
 

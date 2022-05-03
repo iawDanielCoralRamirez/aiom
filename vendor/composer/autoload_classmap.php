@@ -32,6 +32,7 @@ return array(
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Models\\Album' => $baseDir . '/app/Models/Album.php',
     'App\\Models\\Artist' => $baseDir . '/app/Models/Artist.php',
+    'App\\Models\\Favorites_songs' => $baseDir . '/app/Models/Favorites_songs.php',
     'App\\Models\\Genre' => $baseDir . '/app/Models/Genre.php',
     'App\\Models\\Music_x_genre' => $baseDir . '/app/Models/Music_x_genre.php',
     'App\\Models\\Song' => $baseDir . '/app/Models/Song.php',

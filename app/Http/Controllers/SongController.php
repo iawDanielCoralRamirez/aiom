@@ -285,17 +285,32 @@ class SongController extends Controller
         ->with("success",$success);
     }
     public function addFavorites(Request $request) {
-        // $favorites_songs = $request->input('id');
-        // $favorites_songs = $request->input('id_account');
-        $account = $request->id_account;
-        $song = $this->song->query();
-        $song->joinFavorites();
-        // dd($song);
-        
-        $favorites_songs = $song
-            ->select('song.id','url','cover','title');
-        //dd($favorites_songs);
-        return view('music_dashboard')->with('favorites_songs', $favorites_songs);
+        $favorites = new Favorites_songs;
+        $favorites->id_account = $request->id_account;
+        $favorites->id_song = $request->id;
+        $checkFavoriteSong = $favorites->where('id_song',$request->id)->first();
+
+        //dd($checkFavoriteSong);
+        if (!$checkFavoriteSong) {
+            $favorites->save();
+            $song = $favorites->query();
+            $song->joinFavorites();
+            // dd($song);
+            
+            $favorites_songs = $song
+                ->select('song.id','url','cover','title');
+            //dd($favorites_songs->get());
+        }else {
+            $checkFavoriteSong->delete();
+            //dd($checkFavoriteSong);
+            $song = $favorites->query();
+            $song->joinFavorites();
+            // dd($song);
+            
+            $favorites_songs = $song
+                ->select('song.id','url','cover','title');
+        }
+        return view('favorites')->with('favorites_songs', $favorites_songs->get());
     }
     public function addFavoritesTmp(Request $request) {
         $favoritos_songs_tmp = $request->session()->get('favoritos_songs_tmp', []);

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\Player;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/addSong', [SongController::class, 'addSong'])->name('addSong');
     Route::get('/music', [SongController::class, 'index']);
 
-    Route::get('/player/{idSong}', [SongController::class, 'playSong']);
+    Route::get('/player/{idSong}', [Player::class, 'playSong']);
 
     Route::get('/profile', function () {
         return view('profile');

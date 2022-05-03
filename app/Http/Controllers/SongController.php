@@ -270,7 +270,7 @@ class SongController extends Controller
     }
    
     // no lo vamos a usar este method solo lo usariamos los admins en todo caso
-    public function eliminarCancion(Request $peticion)
+    public function eliminarCancion(Request $request)
     {
         $success = false;
         # El id para el where de SQL

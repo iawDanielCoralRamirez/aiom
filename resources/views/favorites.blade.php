@@ -15,7 +15,6 @@
         </tr>
       </thead>
       <tbody>
-      @if(isset($favorites_songs))
         @forelse ($favorites_songs as $favorite)
           <tr>
             <td><a class="text-decoration-none" href="/storage/music/audios/{{$favorite->url}}">{{$favorite->title}}</a></td>
@@ -38,7 +37,6 @@
           @empty
             <p>Aún no tienes música favorita</p>
         @endforelse
-      @endif
       </tbody>
     </table>
 </div>

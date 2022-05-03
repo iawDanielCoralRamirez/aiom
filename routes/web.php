@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
+use App\Models\Favorites_songs;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +42,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/playlists', [PlaylistController::class, 'list']);
 
-    Route::get('/favorites', function () {
-        return view('favorites');
-    });
+    // Route::get('/favorites', function () {
+    //     return view('favorites')->with('favorites', Favorites_songs::listFavorites());
+    // });
     Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
+    Route::get('/favorites', [SongController::class, 'listFavorites'])->name('listFavorites');
 
 
 });

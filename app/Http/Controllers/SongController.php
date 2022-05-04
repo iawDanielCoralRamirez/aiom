@@ -146,10 +146,10 @@ class SongController extends Controller
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
-            $this->error = $exception->customMessage(); }
-        // }catch ( \Illuminate\Database\QueryException $exception) {
-        //     $this->error = "Error with information introduced";
-        // }
+            $this->error = $exception->customMessage();
+        }catch ( \Illuminate\Database\QueryException $exception) {
+            $this->error = "Error with information introduced";
+        }
         // return redirect('/upload/song')
         //     ->with("success",$success);
         return view('upload_song')
@@ -258,10 +258,10 @@ class SongController extends Controller
                 }
             }
         } catch (UploadFileException $exception) {
-        //$this->error = $exception->getMessage();
-        $this->error = $exception->customMessage();
+            //$this->error = $exception->getMessage();
+            $this->error = $exception->customMessage();
         }catch ( \Illuminate\Database\QueryException $exception) {
-        $this->error = "Error with information introduced";
+            $this->error = "Error with information introduced";
         }
         // return redirect('/update/song')
         //     ->with("success",$success);

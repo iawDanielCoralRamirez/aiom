@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
-use App\Models\Favorites_songs;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Player;
 
 /*
@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', function () {
         return view('profile');
     });
+    Route::post('/updateAccount', [AccountController::class, 'updateAccount'])->name('updateAccount');
 
     Route::get('/playlists', [PlaylistController::class, 'list']);
 
@@ -45,7 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     // });
     Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
     Route::get('/favorites', [SongController::class, 'listFavorites'])->name('listFavorites');
-
 
 });
 

@@ -4,42 +4,69 @@
 
 <div class="container mt-5">
     <h2>Edita tu perfil</h2>
-
+    <div class="content">
     <img src="" alt="imagen de perfil">
 
-    <form class="form-horizontal" method="post" action="##" enctype="multipart/form-data">
-
+    <form class="form-horizontal" method="post" action={{ route('updateAccount') }} enctype="multipart/form-data">
+    @csrf
     <div class="form-group">
             <label class="control-label col-sm-2" for="image">Imagen de perfil:</label>
             <div class="col-sm-10">
-                <input type="file" class="form-control" id="image" placeholder="Subir imagen">
+                <input type="file" class="form-control" name="cover" id="image">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Nombre:</label>
+            <label class="control-label col-sm-2" for="name">Nickname:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" placeholder="Introduce tu nombre">
+                <input type="text" class="form-control" name="nick" id="nick" placeholder="Introduce tu nombre">
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2" for="password">Cambiar password:</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Nueva password">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Nueva password">
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-sm-2" for="password2">Repite la nueva password:</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password2" placeholder="Repite la password">
+                <input type="password" class="form-control" name="password2" id="password2" placeholder="Repite la password">
             </div>
         </div>
 
         <input type="submit" class="btn btn-primary" value="Guardar cambios">
         <a href="/destroy" class="btn btn-primary">Eliminar cuenta</a>
     </form>
+    </div>
+    <div class="footer">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="list-unstyled">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        @if (isset($success))
+            @if ($success)
+            <div class="alert alert-success">
+                <ul class="list-unstyled">
+                    <li>Se ha subido con exito.</li>
+                </ul>
+            </div>
+            @else
+            <div class="alert alert-danger">
+                <ul class="list-unstyled">
+                    <li>No se ha podido guardar los cambios del perfil.</li>
+                </ul>
+            </div>
+            @endif
+        @endif
+        </div>
 </div>
 
 

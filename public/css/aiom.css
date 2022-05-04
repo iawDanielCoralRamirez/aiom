@@ -106,3 +106,27 @@ h1,h2{
     text-shadow: 1px 1px 1px 1px;
 } */
 
+/* estilos del acordeon de crear playlist */
+.accordion {
+    background-color: #E3D924;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    transition: 0.4s;
+    border-radius: 5px;
+  }
+  
+  .active, .accordion:hover {
+    background-color: #8EB8E5; 
+  }
+  
+  .panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+  }

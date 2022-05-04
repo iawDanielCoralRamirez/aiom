@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('playlist_x_account',function(Blueprint $table) {
+        Schema::create('song_x_playlist',function(Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_song');
             $table->unsignedBigInteger('id_playlist');
-            $table->unsignedBigInteger('id_account');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('id_account')->references('id')->on('account')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_song')->references('id')->on('song')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_playlist')->references('id')->on('playlist')->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('playlist_x_account');
+        Schema::dropIfExists('song_x_playlist');
     }
 };

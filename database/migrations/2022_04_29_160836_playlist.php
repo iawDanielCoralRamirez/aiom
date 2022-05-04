@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('cover')->nullable();
+            $table->unsignedBigInteger('account_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->foreign('account_id')->references('id')->on('account');
         });
     }
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\Player;
+use App\Http\Controllers\PlaylistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
 
+    Route::post('/addPlaylist', [PlaylistController::class, 'new'])->name('addPlaylist');
+
+    Route::get('/playlists/{idPlaylist}', [PlaylistController::class, 'show']);
 
 });
 

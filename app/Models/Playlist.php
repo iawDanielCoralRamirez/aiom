@@ -14,7 +14,9 @@ class Playlist extends Model
     //     return $query->join('favorites_songs', 'song.id', 'id_song')
     //         ->join('account', 'id_account', 'account.id');
     // }
-    public function scopeJoinSongs($query){
-        
+
+    //para pillar todas las canciones de una playlist
+    public function songs(){
+        return $this->belongsToMany(Song::class, 'song_x_playlist');
     }
 }

@@ -17,7 +17,7 @@
       <tbody>
         @forelse ($favorites_songs as $favorite)
           <tr>
-            <td><a class="text-decoration-none" href="/storage/music/audios/{{$favorite->url}}">{{$favorite->title}}</a></td>
+            <td><a class="text-decoration-none" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></td>
             {{-- <td>{{$favorite->album}}</td>
             <td>{{$favorite->autor}}</td> --}}
             <td>Testeo</td>

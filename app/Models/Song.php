@@ -9,4 +9,9 @@ class Song extends Model
 {
     use HasFactory;
     protected $table = "song";
+
+    public function scopeJoinFavorites($query){
+        return $query->join('favorites_songs', 'song.id', 'id_song')
+            ->join('account', 'id_account', 'account.id');
+    }
 }

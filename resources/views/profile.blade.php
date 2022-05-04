@@ -5,8 +5,9 @@
 <div class="container mt-5">
     <h2>Edita tu perfil</h2>
     <div class="content">
-    <img src="" alt="imagen de perfil">
-
+    @if(isset($account->photo))
+    <img src="/storage/user_profiles/{{$account->photo}}" alt="imagen de perfil">
+    @endif
     <form class="form-horizontal" method="post" action={{ route('updateAccount') }} enctype="multipart/form-data">
     @csrf
     <div class="form-group">

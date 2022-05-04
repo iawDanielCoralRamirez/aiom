@@ -16,8 +16,6 @@ class AccountController extends Controller
         $this->account = new Account();
     }
     public function updateAccount(Request $request, UploadPhotoService $UploadPhotoService) {
-
-        //dd($request);
         $success = false;
         try {
             $this->account = Account::find(auth()->user()->id);
@@ -33,7 +31,7 @@ class AccountController extends Controller
             if ($isValid) {
                 $this->uploadPhotoService = $UploadPhotoService;
                 if ($request->hasFile('cover')) {
-                    $this->account->photo = $request->cover;
+                    $this->account->photo = $request->cover->getClientOriginalName();
                     $this->uploadPhotoService->uploadFile($request->file('cover'));
                 }
             }
@@ -48,7 +46,7 @@ class AccountController extends Controller
             $this->error = "Error with information introduced on database";
         }
         return view('profile')
-            ->with("success",$success);
-    }
-    
+            ->with("success",$success)
+            ->with("cover",$this->account->photo);
+    }    
 }

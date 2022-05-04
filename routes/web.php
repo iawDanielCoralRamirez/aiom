@@ -24,10 +24,7 @@ Route::get('/pruebas', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', function () {
-        return view('music_dashboard');
-    })->name('dashboard');
-
+    Route::get('/dashboard', [SongController::class, 'listFavoritesDashboard'])->name('listFavoritesDashboard');
     Route::get('/upload/song', function () {
         return view('upload_song');
     });

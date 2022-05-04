@@ -305,6 +305,15 @@ class SongController extends Controller
         //dd($favorites_songs);
         return view('favorites')->with('favorites_songs', $favorites_songs);
     }
+
+    public function listFavoritesDashboard() {
+        $favorites = new Favorites_songs;
+        $song = $favorites->query();
+        $song->joinFavorites();
+        $favorites_songs = $song->listFavorites();
+        //dd($favorites_songs);
+        return view('music_dashboard')->with('favorites_songs', $favorites_songs);
+    }
     public function addFavoritesTmp(Request $request) {
         $favoritos_songs_tmp = $request->session()->get('favoritos_songs_tmp', []);
         $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'));

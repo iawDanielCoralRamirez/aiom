@@ -22,7 +22,7 @@ class Player extends Controller
 
     function playSong($idSong){
         // $this->playedSong = Song::find($idSong);
-        $this->playedSong = $this->songXartist->scopeSongsArtists($this->query)
+        $this->playedSong = $this->songXartist->songsArtists($this->query)
         ->where('id_song',$idSong)
         ->get()->first();
         // dd($this->playedSong);

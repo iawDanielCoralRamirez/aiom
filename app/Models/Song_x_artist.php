@@ -15,4 +15,5 @@ class Song_x_artist extends Model
         ->join('artist', 'artist.id', 'id_artist')
         ->select('song.id','song.cover', 'name', 'url', 'title');   
     }
+    //select song.*,album.name,artist.name from songs on ...; 
 }

@@ -11,8 +11,8 @@ class Song_x_artist extends Model
     protected $table = "song_x_artist";
 
     public function scopeSongsArtists($query){
-        return $query->join('song', 'song.id','id_song')
-        ->join('artist', 'artist.id', 'id_artist')
-        ->select('song.id','song.cover', 'name', 'url', 'title');   
+        return $query->join('artist', 'artist.id','song_x_artist.id_artist')
+        ->Rightjoin('song', 'song.id', 'song_x_artist.id_song')
+        ->select('song.*','artist.name');   
     }
 }

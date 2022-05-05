@@ -90,6 +90,8 @@
 .btn-primary{
     background-color: #E3D924;
     color: #2E282A;
+    text-shadow: 0px 0px 7px rgb(0, 0, 0,0.2);  
+
     border: none;
 }
 
@@ -99,7 +101,8 @@
 
 
 h1,h2{
-    color: #E3D924;   
+    color: #E3D924;
+    text-shadow: 0px 0px 7px rgb(0, 0, 0,0.2);  
 }
 
 /* .content h2 {

@@ -12,7 +12,7 @@
           <th>Album</th>
           <th>Autor</th>
           <th>Favorito</th>
-          <th></th>
+          <th>Añadir a playlist</th>
         </tr>
       </thead>
       <tbody>

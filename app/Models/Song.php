@@ -11,7 +11,12 @@ class Song extends Model
     protected $table = "song";
 
     public function scopeJoinFavorites($query){
-        return $query->join('favorites_songs', 'song.id', 'id_song')
-            ->join('account', 'id_account', 'account.id');
+        return $query->Leftjoin('favorites_songs', 'song.id', 'id_song')
+            ->where("id_account",auth()->user()->id)
+            ->orWhere("id_account",null)
+            ->select('song.*','id_account');
     }
+    //select song.*, favorites_songs.id_account from song left join favorites_songs on song.id = favorites_songs.id_song where favorites_songs.id_account = 8 OR favorites_songs.id_account is NULL;
+    //select * from song left join favorites_songs on song.id = favorites_songs.id_song where favorites_songs.id_account = 8 OR favorites_songs.id_account is NULL;
+
 }

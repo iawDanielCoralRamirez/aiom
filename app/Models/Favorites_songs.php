@@ -14,6 +14,10 @@ class Favorites_songs extends Model
         return $query->join('song', 'song.id', 'id_song')
             ->join('account', 'account.id', 'id_account');
     }
+    public function scopeJoinLeftFavorites($query){
+        return $query->Leftjoin('song', 'song.id', 'id_song')
+            ->join('account', 'account.id', 'id_account');
+    }
     public function scopeListFavorites($query){
         return $query->select('song.id','url','cover','title')->get();
     }

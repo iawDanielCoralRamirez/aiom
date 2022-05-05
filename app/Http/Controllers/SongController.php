@@ -43,8 +43,13 @@ class SongController extends Controller
     {
         $songs = Song::get();
         //var_dump("songs ",$songs);
+        $favorites = new Song;
+        $song = $favorites->query();
+        $song->joinFavorites();
+        $song = $song->get();
+        // dd($song);
         return view("music")
-            ->with("songs", $songs);
+            ->with("songs", $song);
         
     }
     
@@ -270,7 +275,7 @@ class SongController extends Controller
     }
    
     // no lo vamos a usar este method solo lo usariamos los admins en todo caso
-    public function eliminarCancion(Request $request)
+    public function deleteSong(Request $request)
     {
         $success = false;
         # El id para el where de SQL
@@ -295,7 +300,6 @@ class SongController extends Controller
             $checkFavoriteSong->delete();
         }
         return redirect(url()->previous());
-        
     }
     public function listFavorites() {
         $favorites = new Favorites_songs;

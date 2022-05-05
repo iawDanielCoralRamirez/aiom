@@ -45,8 +45,8 @@ class AccountController extends Controller
         }catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced on database";
         }
-        return view('profile')
+        return view('layouts.lateral')
             ->with("success",$success)
-            ->with("cover",$this->account->photo);
+            ->with("photo_profile",$this->account->photo);
     }    
 }

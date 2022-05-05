@@ -30,7 +30,7 @@
                   <input type="hidden" name="cover" value="{{$favorite->cover}}">
                   <input type="hidden" name="url" value="{{$favorite->url}}">
                   <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-                  <input type="submit" value="&hearts;" class="btn btn-dark text-white">
+                  <input type="submit" value="&hearts;" class="btn" style="color: red">
               </form>
             </td>
           </tr>

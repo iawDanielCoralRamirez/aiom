@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container mt-5">
-    <h2>{{$playlist->nombre}}</h2>
+    <h2>{{$playlist->name}}</h2>
     
     <table class="table table-hover">
       <thead>
@@ -29,5 +29,6 @@
       @endforelse
       </tbody>
     </table>
+    <a href="/playlists/delete/{{ $playlist->id }}" class="btn btn-primary">Eliminar playlist</a>
 </div>
 @endsection

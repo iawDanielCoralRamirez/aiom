@@ -33,8 +33,14 @@ class PlaylistController extends Controller
 
     public function show($idPlaylist){
         $playlist = Playlist::find($idPlaylist);
-        $songs = $playlist->songs; //AQUI HAY PROBLEMAS QUE RESOLVERÉ MAÑANA
+        $songs = $playlist->songs; 
         return view('playlistSongs')->with('playlist', $playlist)->with('songs', $songs);
+    }
+
+    public function delete($idPlaylist){
+        $playlist = Playlist::find($idPlaylist);
+        $playlist->delete();
+        return redirect('/playlists');
     }
 
 }

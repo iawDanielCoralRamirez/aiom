@@ -19,8 +19,7 @@
                 <div class="card" style="width: 18rem;">
                     <img class="card-img-top" src="{{ $playlist->img }}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $playlist->title }}</h5>
-                        <p class="card-text">{{ $playlist->autor }}</p>
+                        <h5 class="card-title">{{ $playlist->name }}</h5>
                         <a href="/playlists/{{ $playlist->id }}" class="btn btn-primary">Ir a la playlist</a>
                     </div>
                 </div>

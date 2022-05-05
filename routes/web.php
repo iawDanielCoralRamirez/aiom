@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/playlists/{idPlaylist}', [PlaylistController::class, 'show']);
 
+    Route::get('/playlists/delete/{idPlaylist}', [PlaylistController::class, 'delete']);
+
 });
 
 require __DIR__ . '/auth.php';

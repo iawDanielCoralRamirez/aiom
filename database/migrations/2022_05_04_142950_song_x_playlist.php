@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('song_x_playlist',function(Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_song');
-            $table->unsignedBigInteger('id_playlist');
+            $table->unsignedBigInteger('song_id');
+            $table->unsignedBigInteger('playlist_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('id_song')->references('id')->on('song')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_playlist')->references('id')->on('playlist')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('song_id')->references('id')->on('song')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('playlist_id')->references('id')->on('playlist')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -50,12 +50,14 @@ class SongController extends Controller
     // Devolver la vista con todas las canciones
     public function index()
     {
-        $songs = Song::get();
-        //var_dump("songs ",$songs);
         $playlists = account::find(Auth::id())->playlists;
-
+        $song = new Song;
+        $song = $song->query();
+        $song->joinFavorites();
+        $song = $song->get();
+        // dd($song);
         return view("music")
-            ->with("songs", $songs)
+            ->with("songs", $song)
             ->with("playlists", $playlists);
         
     }
@@ -158,10 +160,10 @@ class SongController extends Controller
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
-            $this->error = $exception->customMessage(); }
-        // }catch ( \Illuminate\Database\QueryException $exception) {
-        //     $this->error = "Error with information introduced";
-        // }
+            $this->error = $exception->customMessage();
+        }catch ( \Illuminate\Database\QueryException $exception) {
+            $this->error = "Error with information introduced";
+        }
         // return redirect('/upload/song')
         //     ->with("success",$success);
         return view('upload_song')
@@ -270,10 +272,10 @@ class SongController extends Controller
                 }
             }
         } catch (UploadFileException $exception) {
-        //$this->error = $exception->getMessage();
-        $this->error = $exception->customMessage();
+            //$this->error = $exception->getMessage();
+            $this->error = $exception->customMessage();
         }catch ( \Illuminate\Database\QueryException $exception) {
-        $this->error = "Error with information introduced";
+            $this->error = "Error with information introduced";
         }
         // return redirect('/update/song')
         //     ->with("success",$success);
@@ -282,7 +284,7 @@ class SongController extends Controller
     }
    
     // no lo vamos a usar este method solo lo usariamos los admins en todo caso
-    public function eliminarCancion(Request $request)
+    public function deleteSong(Request $request)
     {
         $success = false;
         # El id para el where de SQL
@@ -297,15 +299,31 @@ class SongController extends Controller
         ->with("success",$success);
     }
     public function addFavorites(Request $request) {
-        // $favorites_songs = $request->input('id');
-        // $favorites_songs = $request->input('id_account');
-        $account = $request->id_account;
-        $song = $this->song->query();
+        $favorites = new Favorites_songs;
+        $favorites->id_account = $request->id_account;
+        $favorites->id_song = $request->id;
+        $checkFavoriteSong = $favorites->where('id_song',$request->id)->first();
+        if (!$checkFavoriteSong) {
+            $favorites->save();
+        }else {
+            $checkFavoriteSong->delete();
+        }
+        return redirect(url()->previous());
+    }
+    public function listFavorites() {
+        $favorites = new Favorites_songs;
+        $song = $favorites->query();
         $song->joinFavorites();
-        // dd($song);
-        
-        $favorites_songs = $song
-            ->select('song.id','url','cover','title');
+        $favorites_songs = $song->listFavorites();
+        //dd($favorites_songs);
+        return view('favorites')->with('favorites_songs', $favorites_songs);
+    }
+
+    public function listFavoritesDashboard() {
+        $favorites = new Favorites_songs;
+        $song = $favorites->query();
+        $song->joinFavorites();
+        $favorites_songs = $song->listFavorites();
         //dd($favorites_songs);
         return view('music_dashboard')->with('favorites_songs', $favorites_songs);
     }

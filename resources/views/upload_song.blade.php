@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="container mt-5">
+    <div class="content h-75">
     <h2>Sube una canción</h2>
     <form method="post" action="{{ route('addSong') }}" enctype="multipart/form-data" style="height:2rem">
         @csrf
@@ -48,9 +49,11 @@
         </div>
         <input type="submit" value="Subir música" class="btn btn-primary text-white">
     </form>
+    </div>
+    <div class="footer">
     @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
+        <ul class="list-unstyled">
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
             @endforeach
@@ -60,17 +63,18 @@
     @if (isset($success))
         @if ($success)
         <div class="alert alert-success">
-            <ul>
+            <ul class="list-unstyled">
                 <li>Se ha subido con exito.</li>
             </ul>
         </div>
         @else
         <div class="alert alert-danger">
-            <ul>
+            <ul class="list-unstyled">
                 <li>No se ha podido subir su canción.</li>
             </ul>
         </div>
         @endif
     @endif
+    </div>
 </div>
 @endsection

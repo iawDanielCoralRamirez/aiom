@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Player;
 use App\Http\Controllers\PlaylistController;
 
@@ -25,10 +26,7 @@ Route::get('/pruebas', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', function () {
-        return view('music_dashboard');
-    })->name('dashboard');
-
+    Route::get('/dashboard', [SongController::class, 'listFavoritesDashboard'])->name('listFavoritesDashboard');
     Route::get('/upload/song', function () {
         return view('upload_song');
     });
@@ -40,12 +38,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', function () {
         return view('profile');
     });
+    Route::post('/updateAccount', [AccountController::class, 'updateAccount'])->name('updateAccount');
 
     Route::get('/playlists', [PlaylistController::class, 'list']);
 
-    Route::get('/favorites', function () {
-        return view('favorites');
-    });
+    // Route::get('/favorites', function () {
+    //     return view('favorites')->with('favorites', Favorites_songs::listFavorites());
+    // });
     Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
 
     Route::post('/addPlaylist', [PlaylistController::class, 'new'])->name('addPlaylist');
@@ -53,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/playlists/{idPlaylist}', [PlaylistController::class, 'show']);
 
     Route::get('/playlists/delete/{idPlaylist}', [PlaylistController::class, 'delete']);
+    Route::get('/favorites', [SongController::class, 'listFavorites'])->name('listFavorites');
 
 });
 

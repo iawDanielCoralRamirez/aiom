@@ -31,8 +31,11 @@
                 <input type="hidden" name="cover" value="{{$song->cover}}">
                 <input type="hidden" name="url" value="{{$song->url}}">
                 <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-                <input type="submit" value="&hearts;" class="btn btn-dark text-white">
-                
+                @if($song->id_account != null)
+                  <input type="submit" value="&hearts;" class="btn" style="color: red">
+                @else 
+                  <input type="submit" value="&hearts;" class="btn" style="color:gray">
+                @endif
             </form>
           </td>
           <td>

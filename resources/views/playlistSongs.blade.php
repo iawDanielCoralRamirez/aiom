@@ -21,7 +21,7 @@
           <td>{{$song->album}}</td>
           <td>{{$song->name}}</td>
           <td>
-    {{-- botón para eliminar canción de la playlist --}}
+            <a class="text-decoration-none" href="/playlist/{{$playlist->id}}/deleteSong/{{$song->id}}">Borrar canción</a>
           </td>
         </tr>
         @empty
@@ -29,6 +29,6 @@
       @endforelse
       </tbody>
     </table>
-    <a href="/playlists/delete/{{ $playlist->id }}" class="btn btn-primary">Eliminar playlist</a>
+    <a href="/playlists/delete/{{ $playlist->id }}" class="btn btn-danger">Eliminar playlist</a>
 </div>
 @endsection

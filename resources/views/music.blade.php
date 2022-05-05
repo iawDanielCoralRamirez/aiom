@@ -12,6 +12,7 @@
           <th>Album</th>
           <th>Autor</th>
           <th>Favorito</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -31,7 +32,18 @@
                 <input type="hidden" name="url" value="{{$song->url}}">
                 <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
                 <input type="submit" value="&hearts;" class="btn btn-dark text-white">
+                
             </form>
+          </td>
+          <td>
+            <select onchange="addPlaylist(event, {{$song->id}})">
+              <option selected>Selecciona un playlist...</option>
+              @forelse ($playlists as $playlist)
+              <option value="{{$playlist->id}}">{{$playlist->name}}</option>
+              @empty
+              <option>sin playlists</option>
+              @endforelse
+            </select>
           </td>
         </tr>
         @empty
@@ -40,4 +52,13 @@
       </tbody>
     </table>
 </div>
+<script>
+  async function addPlaylist(e, songid){
+    const response = await fetch(`/api/playlist/addSong?playlist_id=${e.target.value}&song_id=${songid}`);
+    if (response) //terminar añadiendo info con javascript en el listado
+    console.log(e.target.value)
+  }
+</script>
 @endsection
+
+

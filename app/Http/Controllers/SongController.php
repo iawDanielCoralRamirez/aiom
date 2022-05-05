@@ -18,6 +18,9 @@ use App\Services\UploadCoverArtistService;
 use App\Services\UploadCoverGenreService;
 
 use App\Exceptions\UploadFileException;
+use App\Models\account;
+use App\Models\Playlist;
+use Illuminate\Support\Facades\Auth;
 
 class SongController extends Controller
 {
@@ -31,8 +34,14 @@ class SongController extends Controller
     // private $artist;
     // private $genre;
     private $error = '';
+    private $playlist;
+    // private $playlistsXAccount;
+
+
+
     public function __construct()
     {
+        $this->playlist = new Playlist();
         $this->song = new Song();
         // $this->album = new Album();
         // $this->artist = new Artist();
@@ -43,8 +52,11 @@ class SongController extends Controller
     {
         $songs = Song::get();
         //var_dump("songs ",$songs);
+        $playlists = account::find(Auth::id())->playlists;
+
         return view("music")
-            ->with("songs", $songs);
+            ->with("songs", $songs)
+            ->with("playlists", $playlists);
         
     }
     

@@ -330,9 +330,17 @@ class SongController extends Controller
     public function addFavoritesTmp(Request $request) {
         $favoritos_songs_tmp = $request->session()->get('favoritos_songs_tmp', []);
         $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'));
-        array_push($favoritos, $actual);
+        array_push($favoritos_songs_tmp, $actual);
         
         $request->session()->put('favoritos_songs_tmp', $favoritos_songs_tmp);
+        return redirect(url()->previous());
+    }
+    public function addQueue(Request $request) {
+        $queue = $request->session()->get('queue', []);
+        $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'));
+        array_push($queue, $actual);
+        //dd($queue);
+        $request->session()->put('queue', $queue);
         return redirect(url()->previous());
     }
 }

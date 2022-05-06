@@ -47,6 +47,12 @@ Route::group(['middleware' => 'auth'], function () {
     // });
     Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
 
+    Route::post('/addQueue', [SongController::class, 'addQueue'])->name('addQueue');
+    
+    Route::get('/queue', function () {
+        return view('queue');
+    });
+
     Route::post('/addPlaylist', [PlaylistController::class, 'new'])->name('addPlaylist');
 
     Route::get('/playlists/{idPlaylist}', [PlaylistController::class, 'show']);

@@ -29,6 +29,7 @@
                         <li><a href="/music"><i class="fa fa-fw fa-database"></i>Mi música</a></li>
                         <li><a href="/profile"><i class="fa fa-fw fa-wrench"></i>Mi perfil</a></li>
                         <li><a href="/upload/song"><i class="fa fa-fw fa-plus"></i>Subir música</a></li>
+                        <li><a href="/queue">&nbsp;<i class="fa fa-bars"></i>&nbsp;Queue</a></li>
                     </ul>
                 </div>
                 <a class="btn btn-primary" id="logout" href="/logout">Salir</a>

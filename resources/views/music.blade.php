@@ -13,6 +13,7 @@
           <th>Autor</th>
           <th>Favorito</th>
           <th>Añadir a playlist</th>
+          <th>Añadir a la cola</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +48,17 @@
               <option>sin playlists</option>
               @endforelse
             </select>
+          </td>
+          <td>
+            <form method="post" action={{ route('addQueue') }} style="height:2rem">
+              @csrf
+              <input type="hidden" name="id" value="{{$song->id}}">
+              <input type="hidden" name="title" value="{{$song->title}}">
+              <input type="hidden" name="cover" value="{{$song->cover}}">
+              <input type="hidden" name="url" value="{{$song->url}}">
+              <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
+              <input type="submit" value="+" class="btn" style="color: gray">
+            </form>
           </td>
         </tr>
         @empty

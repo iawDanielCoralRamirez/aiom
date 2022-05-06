@@ -31,11 +31,14 @@ class AccountController extends Controller
             if ($isValid) {
                 $this->uploadPhotoService = $UploadPhotoService;
                 if ($request->hasFile('cover')) {
-                    $this->account->photo = $request->cover->getClientOriginalName();
+                    $photo = $this->account->photo = $request->cover->getClientOriginalName();
                     $this->uploadPhotoService->uploadFile($request->file('cover'));
+                    auth()->user()->photo = $photo;
                 }
             }
-            if ($request->filled('password') && $request->filled('password2')) {
+            if (!$request->filled('password') && !$request->filled('password')) {
+                $success = $this->account->save();
+            }else if ($request->password == $request->password2) {
                 $this->account->password = bcrypt($request->password);
                 $success = $this->account->save();
             }
@@ -45,8 +48,7 @@ class AccountController extends Controller
         }catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced on database";
         }
-        return view('layouts.lateral')
-            ->with("success",$success)
-            ->with("photo_profile",$this->account->photo);
+        return view('profile')
+        ->with("success",$success);
     }    
 }

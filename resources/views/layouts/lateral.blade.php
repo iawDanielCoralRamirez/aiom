@@ -18,8 +18,8 @@
         <div class="row">
             <div class="col-sm-2 lateral pt-5">
                 <div class="menu">
-                    @if(isset($photo_profile))
-                        <img src="/storage/user_profiles/{{$photo_profile}}" class="rounded mb-4" style="width: 50%;margin-left : 20%;" alt="imagen de perfil">
+                    @if(isset(auth()->user()->photo ))
+                        <img src="/storage/user_profiles/{{auth()->user()->photo}}" class="rounded mb-4" style="width: 50%;margin-left : 20%;" alt="imagen de perfil">
                     @endif
                     <h3 class="text-center ">{{auth()->user()->nick}}</h3>
                     <ul class="pt-3 pl-5">

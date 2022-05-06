@@ -4,7 +4,7 @@
 
 <div class="container mt-5">
     <h2>Edita tu perfil</h2>
-    <div class="content">
+    <div class="content h-75 mb-4">
     <form class="form-horizontal" method="post" action={{ route('updateAccount') }} enctype="multipart/form-data">
     @csrf
     <div class="form-group">

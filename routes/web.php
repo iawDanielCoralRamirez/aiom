@@ -54,6 +54,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/playlists/delete/{idPlaylist}', [PlaylistController::class, 'delete']);
     Route::get('/favorites', [SongController::class, 'listFavorites'])->name('listFavorites');
 
+    Route::get('/search', [SongController::class, 'search']);
+
+
 });
 
 require __DIR__ . '/auth.php';

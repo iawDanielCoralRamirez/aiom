@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\account;
 use App\Models\Playlist;
+use App\Models\Song_x_playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,21 @@ class PlaylistController extends Controller
         $playlist = Playlist::find($idPlaylist);
         $playlist->delete();
         return redirect('/playlists');
+    }
+
+    public function addSong(Request $request){
+        $playlist = $request->playlist_id;
+        $song = $request->song_id;
+        $song_x_playlist = new Song_x_playlist();
+        $song_x_playlist->song_id = $song;
+        $song_x_playlist->playlist_id = $playlist;
+        $song_x_playlist->save();
+        dd($song);
+
+        // $song_x_playlist->fillModel($song, $playlist);
+        // $song_x_playlist->writeToDatabase();
+       
+       
     }
 
 }

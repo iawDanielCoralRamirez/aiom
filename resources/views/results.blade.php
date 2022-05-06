@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container mt-5">
-    <h2>Tu música</h2>
+    <h2>Resultados de búsqueda</h2>
     
     <table class="table table-hover">
       <thead>
@@ -50,7 +50,7 @@
           </td>
         </tr>
         @empty
-          <p>Aún no has subido música</p>
+          <p>No hemos encontrado nada de eso :(</p>
       @endforelse
       </tbody>
     </table>

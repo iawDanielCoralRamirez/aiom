@@ -21,4 +21,8 @@ class Song extends Model
     {
         return $this->hasMany(Playlist::class);
     }
+
+    public function scopeTitle($query, $partOfTitle){
+        return $query->where('title', 'like', '%'.$partOfTitle.'%');   
+    }
 }

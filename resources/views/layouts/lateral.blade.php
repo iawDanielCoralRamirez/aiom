@@ -18,10 +18,14 @@
         <div class="row">
             <div class="col-sm-2 lateral pt-5">
                 <div class="menu">
-                    @if(isset($photo_profile))
-                        <img src="/storage/user_profiles/{{$photo_profile}}" class="rounded mb-4" style="width: 50%;margin-left : 20%;" alt="imagen de perfil">
+                    @if (isset($photo_profile))
+                        <img src="/storage/user_profiles/{{ $photo_profile }}" class="rounded mb-4"
+                            style="width: 50%;margin-left : 20%;" alt="imagen de perfil">
                     @endif
-                    <h3 class="text-center ">{{auth()->user()->nick}}</h3>
+                    <h3 class="text-center ">{{ auth()->user()->nick }}</h3>
+                    <form method="GET" action="/search" id="buscador">
+                        <input type="text" name="searchBox" placeholder="Buscar">
+                    </form>
                     <ul class="pt-3 pl-5">
                         <li><a href="/dashboard"><i class="fa fa-tachometer"></i>&nbsp;Dashboard</a></li>
                         <li><a href="/favorites"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>

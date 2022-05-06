@@ -53,6 +53,18 @@
     margin-right: auto;
 }
 
+#buscador {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#buscador input {
+    width: 200px;
+}
+
+
 .menu{
     margin-top: 5vw;
 }

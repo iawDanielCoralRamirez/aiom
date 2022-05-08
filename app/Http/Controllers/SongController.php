@@ -315,7 +315,6 @@ class SongController extends Controller
         $song = $favorites->query();
         $song->joinFavorites();
         $favorites_songs = $song->listFavorites();
-        //dd($favorites_songs);
         return view('favorites')->with('favorites_songs', $favorites_songs);
     }
 
@@ -324,7 +323,6 @@ class SongController extends Controller
         $song = $favorites->query();
         $song->joinFavorites();
         $favorites_songs = $song->listFavorites();
-        //dd($favorites_songs);
         return view('music_dashboard')->with('favorites_songs', $favorites_songs);
     }
     public function addFavoritesTmp(Request $request) {
@@ -337,17 +335,20 @@ class SongController extends Controller
     }
     public function addQueue(Request $request) {
         $queue = $request->session()->get('queue', []);
-        $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'));
+        $song = $this->song->query();
+        $songs = $song->getQueue()->where('song.id',$request->id)->get();
+        $songs = $songs->first();
+        $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'), 'album_name' =>$songs->album_name, 'artist_name' => $songs->artist_name);
         array_push($queue, $actual);
-        //dd($queue);
         $request->session()->put('queue', $queue);
         return redirect(url()->previous());
     }
 
     public function search(Request $request){
         $inputText = $request->input('searchBox');
-        $songs = $this->song->query();
-        $songs = $songs->Title($inputText)->get();
+        $song = $this->song->query();
+        $song->joinFavorites();
+        $songs = $song->Title($inputText)->get();
         $playlists = account::find(Auth::id())->playlists;
         return view('results')->with('songs', $songs)->with('playlists', $playlists);
     }

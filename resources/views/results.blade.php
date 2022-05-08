@@ -19,10 +19,8 @@
       @forelse ($songs as $song)
         <tr>
           <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
-          {{-- <td>{{$song->album}}</td>
-          <td>{{$song->autor}}</td> --}}
-          <td>Testeo</td>
-          <td>Testeo</td>
+          <td>{{$song->album_name}}</td>
+          <td>{{$song->artist_name}}</td>
           <td>
             <form method="post" action={{ route('addFavorites') }} class="" style="height:2rem">
                 @csrf

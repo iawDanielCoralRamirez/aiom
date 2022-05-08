@@ -18,10 +18,8 @@
             @forelse (Session::get('queue') as $song)
                 <tr>
                     <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
-                    {{-- <td>{{$favorite->album}}</td>
-                    <td>{{$favorite->autor}}</td> --}}
-                    <td>Testeo</td>
-                    <td>Testeo</td>
+                    <td>{{$song->album_name}}</td>
+                    <td>{{$song->artist_name}}</td>
                     <td>
                         <form method="post" action={{ route('addQueue') }} style="height:2rem">
                         @csrf

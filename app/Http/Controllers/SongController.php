@@ -343,4 +343,12 @@ class SongController extends Controller
         $request->session()->put('queue', $queue);
         return redirect(url()->previous());
     }
+
+    public function search(Request $request){
+        $inputText = $request->input('searchBox');
+        $songs = $this->song->query();
+        $songs = $songs->Title($inputText)->get();
+        $playlists = account::find(Auth::id())->playlists;
+        return view('results')->with('songs', $songs)->with('playlists', $playlists);
+    }
 }

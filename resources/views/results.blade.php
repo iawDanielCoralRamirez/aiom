@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container mt-5">
-    <h2>Tu música</h2>
+    <h2>Resultados de búsqueda</h2>
     
     <table class="table table-hover">
       <thead>
@@ -13,7 +13,6 @@
           <th>Autor</th>
           <th>Favorito</th>
           <th>Añadir a playlist</th>
-          <th>Añadir a la cola</th>
         </tr>
       </thead>
       <tbody>
@@ -49,20 +48,9 @@
               @endforelse
             </select>
           </td>
-          <td>
-            <form method="post" action={{ route('addQueue') }} style="height:2rem">
-              @csrf
-              <input type="hidden" name="id" value="{{$song->id}}">
-              <input type="hidden" name="title" value="{{$song->title}}">
-              <input type="hidden" name="cover" value="{{$song->cover}}">
-              <input type="hidden" name="url" value="{{$song->url}}">
-              <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-              <input type="submit" value="+" class="btn" style="color: gray">
-            </form>
-          </td>
         </tr>
         @empty
-          <p>Aún no has subido música</p>
+          <p>No hemos encontrado nada de eso :(</p>
       @endforelse
       </tbody>
     </table>

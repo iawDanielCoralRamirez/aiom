@@ -25,7 +25,6 @@ class Player extends Controller
         $this->playedSong = $this->songXartist->songsArtists()
         ->where('song.id',$idSong)
         ->get()->first();
-        // dd($this->playedSong);
         return view("player")
             ->with("song", $this->playedSong);
     }

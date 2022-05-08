@@ -318,12 +318,18 @@ class SongController extends Controller
         return view('favorites')->with('favorites_songs', $favorites_songs);
     }
 
-    public function listFavoritesDashboard() {
-        $favorites = new Favorites_songs;
-        $song = $favorites->query();
-        $song->joinFavorites();
-        $favorites_songs = $song->listFavorites();
-        return view('music_dashboard')->with('favorites_songs', $favorites_songs);
+    public function listDashboard() {
+        $playlists = account::find(Auth::id())->playlists;
+        $song = $this->song->limit(4)->get();
+        $recently_songs = $this->song->latest()->take(4)->get();
+        $favorites = $this->song->query();
+        $favorites->joinOnlyFavorites();
+        $favorites = $favorites->get();
+        return view('music_dashboard')
+            ->with("songs", $song)
+            ->with("favorites_songs",$favorites)
+            ->with("playlists", $playlists)
+            ->with("recently_songs",$recently_songs);
     }
     public function addFavoritesTmp(Request $request) {
         $favoritos_songs_tmp = $request->session()->get('favoritos_songs_tmp', []);

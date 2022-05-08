@@ -18,10 +18,8 @@
         @forelse ($favorites_songs as $favorite)
           <tr>
             <td><a class="text-decoration-none" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></td>
-            {{-- <td>{{$favorite->album}}</td>
-            <td>{{$favorite->autor}}</td> --}}
-            <td>Testeo</td>
-            <td>Testeo</td>
+            <td>{{$favorite->album_name}}</td>
+            <td>{{$favorite->artist_name}}</td>
             <td>
               <form method="post" action={{ route('addFavorites') }} class="" style="height:2rem">
                   @csrf

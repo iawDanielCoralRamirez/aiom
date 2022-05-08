@@ -9,8 +9,8 @@
         <img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{$favorite->title}}</h5>
-          {{-- <p class="card-text">{{$favorite->artist}}</p> --}}
-          <a href="/player/{{$favorite->id}}" class="btn btn-primary">Reproducir</a><a href="/fav/{{$favorite->id}}" class="btn btn-primary">Favorito</a>
+          <p class="card-text">{{$favorite->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$favorite->album_name}}</p>
+          <a href="/player/{{$favorite->id}}" class="btn btn-primary">Reproducir</a>&nbsp;<a href="/fav/{{$favorite->id}}" class="btn btn-primary">Favorito</a>
         </div>
       </div>
       @empty

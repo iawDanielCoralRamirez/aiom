@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Songs_x_album extends Model
 {
     use HasFactory;
-    protected $table = "song_x_album";
+    protected $table = "songs_x_album";
 }

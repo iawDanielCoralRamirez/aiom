@@ -97,7 +97,7 @@
 
 
 .btn-primary{
-    background-color: #E3D924;
+    background-color: #beb724;
     color: #2E282A;
     text-shadow: 0px 0px 7px rgb(0, 0, 0,0.2);  
 
@@ -110,7 +110,7 @@
 
 
 h1,h2{
-    color: #E3D924;
+    color:  #beb724;
     text-shadow: 0px 0px 7px rgb(0, 0, 0,0.2);  
 }
 
@@ -120,7 +120,7 @@ h1,h2{
 
 /* estilos del acordeon de crear playlist */
 .accordion {
-    background-color: #E3D924;
+    background-color: #beb724;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -136,12 +136,42 @@ h1,h2{
     background-color: #8EB8E5; 
   }
   
-  .panel {
+.panel {
     padding: 0 18px;
     display: none;
     background-color: white;
     overflow: hidden;
-  }
+}
 .blue-light {
     color: #8EB8E5;
+}
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+input[type="file"] {
+    content: 'Select some files';
+    display: inline-block;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    text-shadow: 1px 1px rgb(12, 28, 48);
+    font-weight: 700;
+    font-size: 10pt;
+    background-color: #78a6d8;
+    color:white;
+}
+select {
+    background-color: #78a6d8;
+    color: white;
+    padding: 1.5%;
+    border-radius: 2%;
+}
+input[type="file"]:hover {
+    border-color: black;
+}
+input[type="file"]:active {
+    background: -webkit-linear-gradient(top, #e3e3e3, #195770);
 }

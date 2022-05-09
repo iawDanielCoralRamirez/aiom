@@ -6,10 +6,10 @@
   <h2>Random songs</h2>
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($songs as $song)
-      <div class="card m-2" style="width: 18rem;">
-        <a class="text-decoration-none text-dark" href="/player/{{$song->id}}"><img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap"></a>
+      <div class="card m-2 bg-dark text-white" style="width: 18rem;">
+        <a href="/player/{{$song->id}}"><img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap"></a>
         <div class="card-body">
-          <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
+          <h5 class="card-title"><a class="mt-2 text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
           <div class="container  d-flex">
           <p class="card-text mb-2 mt-2">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
           <a class="mt-2" href="/player/{{$song->id}}"><i class="blue-light fa fa-play"></i></a>
@@ -36,13 +36,13 @@
   </div>
 </div>
 <div class="container mt-5">
-  <h2>Most favorites</h2>
+  <h2>Last favorites</h2>
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($favorites_songs as $favorite)
-      <div class="card m-2" style="width: 18rem;">
-        <a class="text-decoration-none text-dark" href="/player/{{$favorite->id}}"><img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap"></a>
+      <div class="card m-2 bg-dark text-white" style="width: 18rem;">
+        <a href="/player/{{$favorite->id}}"><img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap"></a>
         <div class="card-body">
-          <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></h5>
+          <h5 class="card-title"><a class="mt-2 text-decoration-none text-white" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></h5>
           <div class="container  d-flex">
           <p class="card-text mb-2 mt-2">{{$favorite->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$favorite->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
           <a class="mt-2" href="/player/{{$favorite->id}}"><i class="blue-light fa fa-play"></i></a>
@@ -72,10 +72,10 @@
   <h2>Recently added songs</h2>
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($recently_songs as $song)
-      <div class="card m-2" style="width: 18rem;">
+      <div class="card m-2 bg-dark text-white" style="width: 18rem;">
         <a class="text-decoration-none text-dark" href="/player/{{$song->id}}"><img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap"></a>
         <div class="card-body">
-          <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
+          <h5 class="card-title"><a class="mt-2 text-decoration-none text-white" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
           <div class="container  d-flex">
           <p class="card-text mb-2 mt-2">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
           <a class="mt-2" href="/player/{{$song->id}}"><i class="blue-light fa fa-play"></i></a>

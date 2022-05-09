@@ -20,6 +20,7 @@ use App\Services\UploadCoverGenreService;
 use App\Exceptions\UploadFileException;
 use App\Models\account;
 use App\Models\Playlist;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Auth;
 
 class SongController extends Controller
@@ -79,7 +80,11 @@ class SongController extends Controller
                 'url' => 'required|mimes:mp3,m4a,mp4,wav,wma|max:100000',
                 'artist_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048',
                 'genre_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048',
-                'album_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
+                'album_cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048',
+                'genre' => 'required|max:100',   
+                'album_name' => 'required|max:100',
+                'artist_name' => 'required|max:100'
+
             ]);
             if ($isValid) {
                 $this->uploadMusicService = $UploadMusicService;
@@ -123,40 +128,25 @@ class SongController extends Controller
                 }
 
                 # Y guardar los modelos
-                if ($song->save()) {
-                    if ($request->filled('artist_name')) {
-                        $artist->save();
-                    }   
-                    if ($request->filled('album_name')) {
-                        $album->save();
-                    }
-                    if ($request->filled('genre')) {
-                        $genre->save();
-                    }
-                    $success = true; //si los fields de la song esta saved entonces el message es success
+                if ($song->save() && $artist->save() && $album->save() && $genre->save()) {
+                    $success = true;
                 }
                 $idsong = $song->id;
                 $idartista = $artist->id;
                 $idalbum = $album->id;
                 $idgenre = $genre->id;
-                if ($request->filled('genre')) {
-                    //necessitamos vincular los canciones con los generos (music_x_genre)
-                    $music_x_genre->id_song = $idsong;
-                    $music_x_genre->id_genre =  $idgenre;
-                    $music_x_genre->save();
-                }
-                if ($request->filled('album_name')) {
-                    // necessitamos vincular los albumes con las canciones (songs_x_album)
-                    $songs_x_album->id_song = $idsong;
-                    $songs_x_album->id_album =  $idalbum;
-                    $songs_x_album->save();
-                }
-                if ($request->filled('artist_name')) {
-                    //necessitamos vincular los artistas con las canciones (songs_x_artist)
-                    $songs_x_artist->id_song = $idsong;
-                    $songs_x_artist->id_artist =  $idartista;
-                    $songs_x_artist->save();
-                }
+                //necessitamos vincular los canciones con los generos (music_x_genre)
+                $music_x_genre->id_song = $idsong;
+                $music_x_genre->id_genre =  $idgenre;
+                $music_x_genre->save();
+                // necessitamos vincular los albumes con las canciones (songs_x_album)
+                $songs_x_album->id_song = $idsong;
+                $songs_x_album->id_album =  $idalbum;
+                $songs_x_album->save();
+                //necessitamos vincular los artistas con las canciones (songs_x_artist)
+                $songs_x_artist->id_song = $idsong;
+                $songs_x_artist->id_artist =  $idartista;
+                $songs_x_artist->save();
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();
@@ -236,40 +226,25 @@ class SongController extends Controller
                 }
 
                 # Y guardar los modelos
-                if ($song->save()) {
-                    if ($request->filled('artist_name')) {
-                        $artist->save();
-                    }   
-                    if ($request->filled('album_name')) {
-                        $album->save();
-                    }
-                    if ($request->filled('genre')) {
-                        $genre->save();
-                    }
-                    $success = true; //si los fields de la song esta saved entonces el message es success
+                if ($song->save() && $artist->save() && $album->save() && $genre->save()) {
+                    $success = true;
                 }
                 $idsong = $song->id;
                 $idartista = $artist->id;
                 $idalbum = $album->id;
                 $idgenre = $genre->id;
-                if ($request->filled('genre')) {
-                    //necessitamos vincular los canciones con los generos (music_x_genre)
-                    $music_x_genre->id_song = $idsong;
-                    $music_x_genre->id_genre =  $idgenre;
-                    $music_x_genre->save();
-                }
-                if ($request->filled('album_name')) {
-                    // necessitamos vincular los albumes con las canciones (songs_x_album)
-                    $songs_x_album->id_song = $idsong;
-                    $songs_x_album->id_album =  $idalbum;
-                    $songs_x_album->save();
-                }
-                if ($request->filled('artist_name')) {
-                    //necessitamos vincular los artistas con las canciones (songs_x_artist)
-                    $songs_x_artist->id_song = $idsong;
-                    $songs_x_artist->id_artist =  $idartista;
-                    $songs_x_artist->save();
-                }
+                //necessitamos vincular los canciones con los generos (music_x_genre)
+                $music_x_genre->id_song = $idsong;
+                $music_x_genre->id_genre =  $idgenre;
+                $music_x_genre->save();
+                // necessitamos vincular los albumes con las canciones (songs_x_album)
+                $songs_x_album->id_song = $idsong;
+                $songs_x_album->id_album =  $idalbum;
+                $songs_x_album->save();
+                //necessitamos vincular los artistas con las canciones (songs_x_artist)
+                $songs_x_artist->id_song = $idsong;
+                $songs_x_artist->id_artist =  $idartista;
+                $songs_x_artist->save();
             }
         } catch (UploadFileException $exception) {
             //$this->error = $exception->getMessage();

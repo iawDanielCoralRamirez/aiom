@@ -14,6 +14,7 @@
         <div class="form-group">
             <label>Archivo de música:</label>
             <input type="file" name="url" placeholder="url de la canción">
+            <span>Select file</span>
         </div>
         <div class="form-group">
             <label>Foto de la música:</label>

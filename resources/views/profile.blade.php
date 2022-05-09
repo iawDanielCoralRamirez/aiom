@@ -35,8 +35,8 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Guardar cambios">
-        <a href="/destroy" class="btn btn-primary">Eliminar cuenta</a>
+        <input type="submit" class="btn btn-primary text-white" value="Guardar cambios">
+        <a href="/destroy" class="btn btn-primary  text-white">Eliminar cuenta</a>
     </form>
     </div>
     <div class="footer">

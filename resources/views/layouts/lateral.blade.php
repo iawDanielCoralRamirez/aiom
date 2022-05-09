@@ -18,8 +18,12 @@
         <div class="row">
             <div class="col-sm-2 lateral pt-5">
                 <div class="menu">
-                    @if(isset(auth()->user()->photo ))
-                        <img src="/storage/user_profiles/{{auth()->user()->photo}}" class="rounded mb-4" style="width: 50%;margin-left : 20%;" alt="imagen de perfil">
+                    @if(auth()->user()->photo == "unknown")
+                        <div class="container">
+                            <i class="fa fa-user" style="margin-left:40%;font-size:4rem;"></i>
+                        </div>
+                    @else
+                        <img src="/storage/user_profiles/{{auth()->user()->photo}}" class="rounded mb-4" style="width: 50%;margin-left : 20%;" alt="&#128373;">
                     @endif
                     <h3 class="text-center ">{{ auth()->user()->nick }}</h3>
                     <form method="GET" action="/search" id="buscador">

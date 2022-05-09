@@ -7,7 +7,7 @@
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($songs as $song)
       <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap">
+        <a class="text-decoration-none text-dark" href="/player/{{$song->id}}"><img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap"></a>
         <div class="card-body">
           <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
           <div class="container  d-flex">
@@ -40,7 +40,7 @@
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($favorites_songs as $favorite)
       <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap">
+        <a class="text-decoration-none text-dark" href="/player/{{$favorite->id}}"><img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap"></a>
         <div class="card-body">
           <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></h5>
           <div class="container  d-flex">
@@ -73,7 +73,7 @@
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($recently_songs as $song)
       <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap">
+        <a class="text-decoration-none text-dark" href="/player/{{$song->id}}"><img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap"></a>
         <div class="card-body">
           <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
           <div class="container  d-flex">

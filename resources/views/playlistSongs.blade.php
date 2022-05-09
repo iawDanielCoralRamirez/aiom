@@ -21,7 +21,7 @@
           <td>{{$song->album}}</td>
           <td>{{$song->name}}</td>
           <td>
-            <a class="text-decoration-none" href="/playlist/{{$playlist->id}}/deleteSong/{{$song->id}}">Borrar canción</a>
+            <p class="text-decoration-none" onclick="deleteSong({{$playlist->id}}, {{$song->id}})">Borrar canción</p>
           </td>
         </tr>
         @empty
@@ -30,5 +30,12 @@
       </tbody>
     </table>
     <a href="/playlists/delete/{{ $playlist->id }}" class="btn btn-danger">Eliminar playlist</a>
+    <script>
+       async function deleteSong(playlistid, songid){
+    const response = await fetch(`/api/playlist/deleteSong?playlist_id=${playlistid}&song_id=${songid}`);
+    console.log(response);
+    alert(response.statusText);
+  }
+    </script>
 </div>
 @endsection

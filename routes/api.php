@@ -21,8 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/playlist/addSong', [PlaylistController::class, 'addSong'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->get('/playlist/addSong', [PlaylistController::class, 'addSong']);
 
-Route::get('/songs', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/playlist/deleteSong', [PlaylistController::class, 'deleteSong']);
+
+
+Route::get('/canc', function (Request $request) {
     return new SongCollection(Song::all());
 });

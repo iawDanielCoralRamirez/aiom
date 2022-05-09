@@ -9,13 +9,29 @@
       <div class="card m-2" style="width: 18rem;">
         <img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{$song->title}}</h5>
-          <p class="card-text">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>
-          <a href="/player/{{$song->id}}" class="btn btn-primary">Reproducir</a>&nbsp;<a href="/fav/{{$song->id}}" class="btn btn-primary">Favorito</a>
+          <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
+          <div class="container  d-flex">
+          <p class="card-text mb-2 mt-2">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="mt-2" href="/player/{{$song->id}}"><i class="blue-light fa fa-play"></i></a>
+          &nbsp;&nbsp;
+          <form method="post" action={{ route('addFavorites') }} style="height:2rem;width:2rem;">
+            @csrf
+            <input type="hidden" name="id" value="{{$song->id}}">
+            <input type="hidden" name="title" value="{{$song->title}}">
+            <input type="hidden" name="cover" value="{{$song->cover}}">
+            <input type="hidden" name="url" value="{{$song->url}}">
+            <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
+            @if($song->id_account != null)
+              <input type="submit" value="&hearts;" class="btn" style="color: red">
+            @else 
+              <input type="submit" value="&hearts;" class="btn" style="color:gray">
+            @endif
+          </form>
+          </div>
         </div>
       </div>
       @empty
-      <p>No tienes música favorita aún</p>
+        <p>No tienes música aún</p>
       @endforelse
   </div>
 </div>
@@ -26,9 +42,25 @@
       <div class="card m-2" style="width: 18rem;">
         <img class="card-img-top" src="/storage/music/covers/{{$favorite->cover}}" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{$favorite->title}}</h5>
-          <p class="card-text">{{$favorite->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$favorite->album_name}}</p>
-          <a href="/player/{{$favorite->id}}" class="btn btn-primary">Reproducir</a>&nbsp;<a href="/fav/{{$favorite->id}}" class="btn btn-primary">Favorito</a>
+          <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></h5>
+          <div class="container  d-flex">
+          <p class="card-text mb-2 mt-2">{{$favorite->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$favorite->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="mt-2" href="/player/{{$favorite->id}}"><i class="blue-light fa fa-play"></i></a>
+          &nbsp;&nbsp;
+          <form method="post" action={{ route('addFavorites') }} style="height:2rem;width:2rem;">
+            @csrf
+            <input type="hidden" name="id" value="{{$favorite->id}}">
+            <input type="hidden" name="title" value="{{$favorite->title}}">
+            <input type="hidden" name="cover" value="{{$favorite->cover}}">
+            <input type="hidden" name="url" value="{{$favorite->url}}">
+            <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
+            @if($favorite->id_account != null)
+              <input type="submit" value="&hearts;" class="btn" style="color: red">
+            @else 
+              <input type="submit" value="&hearts;" class="btn" style="color:gray">
+            @endif
+          </form>
+          </div>
         </div>
       </div>
       @empty
@@ -43,13 +75,29 @@
       <div class="card m-2" style="width: 18rem;">
         <img class="card-img-top" src="/storage/music/covers/{{$song->cover}}" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{$song->title}}</h5>
-          <p class="card-text">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>
-          <a href="/player/{{$song->id}}" class="btn btn-primary">Reproducir</a>&nbsp;<a href="/fav/{{$song->id}}" class="btn btn-primary">Favorito</a>
+          <h5 class="card-title"><a class="mt-2 text-decoration-none text-dark" href="/player/{{$song->id}}">{{$song->title}}</a></h5>
+          <div class="container  d-flex">
+          <p class="card-text mb-2 mt-2">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a class="mt-2" href="/player/{{$song->id}}"><i class="blue-light fa fa-play"></i></a>
+          &nbsp;&nbsp;
+          <form method="post" action={{ route('addFavorites') }} style="height:2rem;width:2rem;">
+            @csrf
+            <input type="hidden" name="id" value="{{$song->id}}">
+            <input type="hidden" name="title" value="{{$song->title}}">
+            <input type="hidden" name="cover" value="{{$song->cover}}">
+            <input type="hidden" name="url" value="{{$song->url}}">
+            <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
+            @if($song->id_account != null)
+              <input type="submit" value="&hearts;" class="btn" style="color: red">
+            @else 
+              <input type="submit" value="&hearts;" class="btn" style="color:gray">
+            @endif
+          </form>
+          </div>
         </div>
       </div>
       @empty
-      <p>No tienes música favorita aún</p>
+      <p>No hay música recientemente añadida</p>
       @endforelse
   </div>
 </div>

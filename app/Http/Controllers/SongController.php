@@ -320,11 +320,12 @@ class SongController extends Controller
 
     public function listDashboard() {
         $playlists = account::find(Auth::id())->playlists;
-        $song = $this->song->limit(4)->get();
-        $recently_songs = $this->song->latest()->take(4)->get();
+        $all_song_with_favorites = $this->song->query()->joinFavorites();
+        $song = $all_song_with_favorites->limit(4)->get();
+        $recently_songs = $all_song_with_favorites->latest()->take(4)->get();
         $favorites = $this->song->query();
         $favorites->joinOnlyFavorites();
-        $favorites = $favorites->get();
+        $favorites = $favorites->limit(4)->get();
         return view('music_dashboard')
             ->with("songs", $song)
             ->with("favorites_songs",$favorites)

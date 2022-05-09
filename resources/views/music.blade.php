@@ -10,7 +10,7 @@
         <tr>
           <th>Título</th>
           <th>Album</th>
-          <th>Autor</th>
+          <th>Artist</th>
           <th>Favorito</th>
           <th>Añadir a playlist</th>
           <th>Añadir a la cola</th>

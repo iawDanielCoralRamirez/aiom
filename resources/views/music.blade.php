@@ -58,8 +58,8 @@
 <script>
   async function addPlaylist(e, songid){
     const response = await fetch(`/api/playlist/addSong?playlist_id=${e.target.value}&song_id=${songid}`);
-
-    alert(response.statusText);
+    console.log(e.target.firstChild)
+    alert("Añadida a la playlist!");
   }
 </script>
 @endsection

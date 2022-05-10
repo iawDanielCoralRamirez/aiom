@@ -6,9 +6,10 @@
 
         <button class="accordion" id="accordion">Crear nueva playlist</button>
         <div class="panel form-group">
-          <form action="/addPlaylist" method="post">
+          <form action="/addPlaylist" method="post" enctype="multipart/form-data">
             @csrf
             <input type="text" placeholder="Nombre de la playlist" name="nombre" id="name" required>
+            <input type="file" name="cover">
             <input type="submit" value="Crear" class="btn btn-primary">
           </form>
         </div>
@@ -17,7 +18,7 @@
 
             @forelse ($playlists as $playlist)
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ $playlist->img }}" alt="Card image cap">
+                    <img class="card-img-top" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{ $playlist->name }}</h5>
                         <a href="/playlists/{{ $playlist->id }}" class="btn btn-primary">Ir a la playlist</a>

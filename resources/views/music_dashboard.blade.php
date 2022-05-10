@@ -36,7 +36,7 @@
   </div>
 </div>
 <div class="container mt-5">
-  <h2>Last favorites</h2>
+  <h2>My last favorites</h2>
   <div class="d-flex flex-row justify-content-around flex-wrap">
       @forelse ($favorites_songs as $favorite)
       <div class="card m-2 bg-dark text-white" style="width: 18rem;">
@@ -106,11 +106,14 @@
   <div class="d-flex flex-row justify-content-around flex-wrap">
     @forelse ($playlists as $playlist)
       <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" src="{{$playlist->img}}" alt="Card image cap">
+        @if ($playlist->cover != null)
+          <img class="card-img-top" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
+        @else 
+          <img class="card-img-top" src="img/default-playlist.jpeg" alt="Card image cap">
+        @endif
         <div class="card-body">
-          <h5 class="card-title">{{$playlist->title}}</h5>
-          <p class="card-text">{{$playlist->autor}}</p>
-          <a href="/playlist/{{$playlist->id}}" class="btn btn-primary">Ir a la playlist</a>
+          <h5 class="card-title">{{$playlist->name}}</h5>
+          <a href="/playlist/{{$playlist->id}}" class="btn btn-primary text-white">Ir a la playlist</a>
         </div>
       </div>
       @empty

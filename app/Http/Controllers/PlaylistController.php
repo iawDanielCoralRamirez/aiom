@@ -26,9 +26,18 @@ class PlaylistController extends Controller
         return view("playlists")->with(['playlists' => $playlists]);
     }
 
-    public function new(Request $request){
+    public function new(Request $request,UploadPhotoPlaylistService $uploadPhotoPlaylistService){
         $this->playlist->name = $request->nombre;
-        $this->playlist->cover = null;
+        $isValid = $request->validate([
+            'cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
+        ]);
+        if ($isValid) {
+            $this->uploadPhotoPlaylist = $uploadPhotoPlaylistService;
+            if ($request->hasFile('cover')) {
+                $this->playlist->cover = $request->cover->getClientOriginalName();
+                $this->uploadPhotoPlaylist->uploadFile($request->file('cover'));
+            }
+        }
         $this->playlist->account_id = Auth::id();
         $this->playlist->save();
 
@@ -48,18 +57,7 @@ class PlaylistController extends Controller
         return redirect('/playlists');
     }
 
-    public function addSong(Request $request,UploadPhotoPlaylistService $uploadPhotoPlaylistService) {
-        $isValid = $request->validate([
-            'cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
-        ]);
-        if ($isValid) {
-            $this->uploadPhotoPlaylist = $uploadPhotoPlaylistService;
-            if ($request->hasFile('cover')) {
-                $photo = $this->account->photo = $request->cover->getClientOriginalName();
-                $this->uploadPhotoPlaylist->uploadFile($request->file('cover'));
-                auth()->user()->photo = $photo;
-            }
-        }
+    public function addSong(Request $request) {
         $playlist = $request->playlist_id;
         $song = $request->song_id;
         $song_x_playlist = new Song_x_playlist();

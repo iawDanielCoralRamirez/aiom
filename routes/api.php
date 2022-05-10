@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Player;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Resources\SongCollection;
 use App\Models\Song;
@@ -25,7 +26,5 @@ Route::middleware('auth:sanctum')->get('/playlist/addSong', [PlaylistController:
 
 Route::middleware('auth:sanctum')->get('/playlist/deleteSong', [PlaylistController::class, 'deleteSong']);
 
+Route::middleware('auth:sanctum')->get('/queue', [Player::class, 'queue']);
 
-Route::get('/canc', function (Request $request) {
-    return new SongCollection(Song::all());
-});

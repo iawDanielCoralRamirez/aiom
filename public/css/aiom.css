@@ -46,7 +46,7 @@
     width: 8vw;
 }
 
-#playing,#player{
+#playing,#audioplayer{
     width: 50%;
     display: block;
     margin-left: auto;
@@ -97,7 +97,7 @@
 
 
 .btn-primary{
-    background-color: #beb724;
+    background-color: #E3D924;
     color: #2E282A;
     text-shadow: 0px 0px 7px rgb(0, 0, 0,0.2);  
 
@@ -116,7 +116,7 @@
 }
 
 h1,h2{
-    color:  #beb724;
+    color:  #E3D924;
     text-shadow: 0px 0px 7px rgb(0, 0, 0,0.2);  
 }
 
@@ -126,7 +126,7 @@ h1,h2{
 
 /* estilos del acordeon de crear playlist */
 .accordion {
-    background-color: #beb724;
+    background-color: #E3D924;
     color: white;
     cursor: pointer;
     padding: 18px;

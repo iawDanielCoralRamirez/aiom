@@ -29,4 +29,9 @@ class Player extends Controller
             ->with("song", $this->playedSong);
     }
 
+    function queue(Request $request){
+        $queue = $request->session()->get('queue', []);
+        return json_encode($queue);
+    }
+
 }

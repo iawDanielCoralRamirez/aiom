@@ -15,6 +15,7 @@
         </tr>
       </thead>
       <tbody>
+          @if (Session::get('queue') != null)
             @forelse (Session::get('queue') as $song)
                 <tr>
                     <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
@@ -35,6 +36,9 @@
                 @empty
                     <p>Aún no tienes música en cola</p>
             @endforelse
+          @else
+            <p>Aún no tienes música en cola</p>
+          @endif
       </tbody>
     </table>
 </div>

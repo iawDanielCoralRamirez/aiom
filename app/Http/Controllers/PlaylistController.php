@@ -8,10 +8,13 @@ use App\Models\Song_x_playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\UploadPhotoPlaylistService;
+use App\Exceptions\UploadFileException;
 
 class PlaylistController extends Controller
 {
     private $playlist;
+    private $uploadPhotoPlaylist;
     // private $playlistsXAccount;
 
     public function __construct(){
@@ -45,7 +48,18 @@ class PlaylistController extends Controller
         return redirect('/playlists');
     }
 
-    public function addSong(Request $request){
+    public function addSong(Request $request,UploadPhotoPlaylistService $uploadPhotoPlaylistService) {
+        $isValid = $request->validate([
+            'cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
+        ]);
+        if ($isValid) {
+            $this->uploadPhotoPlaylist = $uploadPhotoPlaylistService;
+            if ($request->hasFile('cover')) {
+                $photo = $this->account->photo = $request->cover->getClientOriginalName();
+                $this->uploadPhotoPlaylist->uploadFile($request->file('cover'));
+                auth()->user()->photo = $photo;
+            }
+        }
         $playlist = $request->playlist_id;
         $song = $request->song_id;
         $song_x_playlist = new Song_x_playlist();

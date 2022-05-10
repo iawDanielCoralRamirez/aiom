@@ -105,7 +105,7 @@
   <h2>Playlists</h2>
   <div class="d-flex flex-row justify-content-around flex-wrap">
     @forelse ($playlists as $playlist)
-      <div class="card m-2" style="width: 18rem;">
+      <div class="card bg-dark text-white m-2" style="width: 18rem;">
         @if ($playlist->cover != null)
           <img class="card-img-top" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
         @else 
@@ -113,7 +113,7 @@
         @endif
         <div class="card-body">
           <h5 class="card-title">{{$playlist->name}}</h5>
-          <a href="/playlist/{{$playlist->id}}" class="btn btn-primary text-white">Ir a la playlist</a>
+          <a href="/playlists/{{$playlist->id}}" class="btn btn-primary text-white">Ir a la playlist</a>
         </div>
       </div>
       @empty

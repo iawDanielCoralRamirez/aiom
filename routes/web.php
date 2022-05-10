@@ -5,6 +5,9 @@ use App\Http\Controllers\SongController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Player;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Resources\SongCollection;
+use App\Models\Song;
+use GuzzleHttp\Psr7\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +64,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/favorites', [SongController::class, 'listFavorites'])->name('listFavorites');
 
     Route::get('/search', [SongController::class, 'search']);
-
 
 });
 

@@ -7,6 +7,7 @@ use App\Models\Playlist;
 use App\Models\Song_x_playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PlaylistController extends Controller
 {
@@ -50,13 +51,19 @@ class PlaylistController extends Controller
         $song_x_playlist = new Song_x_playlist();
         $song_x_playlist->song_id = $song;
         $song_x_playlist->playlist_id = $playlist;
-        $song_x_playlist->save();
-        dd($song);
+        if($song_x_playlist->save()){
+            return response()->json('Guardada en la playlist', 200);
+        } else {
+            return response()->json('No se ha podido guardar', 500);
+        }
+       
+    }
 
-        // $song_x_playlist->fillModel($song, $playlist);
-        // $song_x_playlist->writeToDatabase();
+    public function deleteSong(Request $request) {
        
-       
+        DB::table('song_x_playlist')->where('playlist_id', $request->playlist_id)->where('song_id', $request->song_id)->delete();
+        //return redirect(url()->previous());
+        return response()->json('{status:ok}', 200);
     }
 
 }

@@ -21,7 +21,7 @@
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
           <td>
-            <p class="btn btn-primary" onclick="deleteSong(event, {{$playlist->id}}, {{$song->id}})">Borrar canción</p>
+            <p class="btn btn-primary text-white" onclick="deleteSong(event, {{$playlist->id}}, {{$song->id}})">Borrar canción</p>
           </td>
         </tr>
         @empty

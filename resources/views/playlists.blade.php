@@ -17,11 +17,11 @@
         <div class="d-flex flex-row justify-content-around flex-wrap mt-5">
 
             @forelse ($playlists as $playlist)
-                <div class="card" style="width: 18rem;">
+                <div class="card mb-3" style="width: 18rem;">
                     <img class="card-img-top" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{ $playlist->name }}</h5>
-                        <a href="/playlists/{{ $playlist->id }}" class="btn btn-primary">Ir a la playlist</a>
+                        <a href="/playlists/{{ $playlist->id }}" class="btn btn-primary text-white">Ir a la playlist</a>
                     </div>
                 </div>
 

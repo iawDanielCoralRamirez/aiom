@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/music', [SongController::class, 'index']);
 
     Route::get('/player/{idSong}', [Player::class, 'playSong']);
+    Route::get('/player', [Player::class, 'playQueue']);
 
     Route::get('/profile', function () {
         return view('profile');

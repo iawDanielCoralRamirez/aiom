@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="player">
-        <div class="card mt-5" id="playing">
+        <div class="card my-5" id="playing">
             <img class="card-img-top" alt="Card image cap" src="">
             <div class="card-body">
                 <h3 class="card-title" id="titulo"></h3>

@@ -25,13 +25,17 @@ class Player extends Controller
         $this->playedSong = $this->songXartist->songsArtists()
         ->where('song.id',$idSong)
         ->get()->first();
-        return view("player")
+        return view("playerSong")
             ->with("song", $this->playedSong);
     }
 
     function queue(Request $request){
         $queue = $request->session()->get('queue', []);
         return json_encode($queue);
+    }
+
+    function playQueue(){
+        return view("player");
     }
 
 }

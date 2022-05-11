@@ -5,6 +5,7 @@
 <div class="container mt-5">
     <h2>Queue</h2>
     
+    <a href="/player" class="btn btn-primary">Reproducir</a>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -41,5 +42,6 @@
           @endif
       </tbody>
     </table>
+
 </div>
 @endsection

@@ -104,22 +104,40 @@ class SongController extends Controller
                 $song->cover = $request->cover->getClientOriginalName();
                 $song->url = $request->url->getClientOriginalName();
                 # artistas
-                $artist->name = $request->artist_name;
-                $artist->surname = $request->artist_surname;
+                $artistElement = $artist->where('name', $request->artist_name)->where('surname', $request->artist_surname)->get();
+                if ($artistElement->first() != null) {
+                    $artistIdExist = $artistElement->first()->id;
+                }else {
+                    $artist->name = $request->artist_name;
+                    $artist->surname = $request->artist_surname;
+                }
                 if ($request->hasFile('artist_cover')) {
                     $artist->cover = $request->artist_cover->getClientOriginalName();
                     $this->uploadCoverArtistService = $UploadCoverArtistService;
                     $this->uploadCoverArtistService->uploadFile($request->file('artist_cover'));
                 }
                 # album
-                $album->name = $request->album_name;
+                $albumElement = $album->where('name', $request->album_name)->get();
+                //dd($albumElement->first() == null);
+                if ($albumElement->first() != null) {
+                    $albumIdExist = $albumElement->first()->id;
+                    //$request->album_name;
+                }else {
+                    $album->name = $request->album_name;
+                }
                 if ($request->hasFile('album_cover')) {
                     $album->cover = $request->album_cover->getClientOriginalName();
                     $this->uploadCoverAlbumService = $UploadCoverAlbumService;
                     $this->uploadCoverAlbumService->uploadFile($request->file('album_cover'));
                 }
 
-                # generos
+                // # generos
+                $genreElement = $genre->where('genre', $request->genre)->get();
+                if ($genreElement->first() != null) {
+                    $genreIdExist = $genreElement->first()->id;
+                }else {
+                    $genre->genre = $request->genre;
+                }
                 $genre->genre = $request->genre;
                 if ($request->hasFile('genre_cover')) {
                     $genre->cover = $request->genre_cover->getClientOriginalName();
@@ -128,7 +146,16 @@ class SongController extends Controller
                 }
 
                 # Y guardar los modelos
-                if ($song->save() && $artist->save() && $album->save() && $genre->save()) {
+                if ($song->save()) {
+                    if (!isset($albumIdExist) ) {
+                        $album->save();
+                    }
+                    if (!isset($genreIdExist)) {
+                        $genre->save();
+                    }
+                    if (!isset($artistIdExist)) {
+                        $artist->save();
+                    }
                     $success = true;
                 }
                 $idsong = $song->id;
@@ -136,16 +163,30 @@ class SongController extends Controller
                 $idalbum = $album->id;
                 $idgenre = $genre->id;
                 //necessitamos vincular los canciones con los generos (music_x_genre)
+                if (isset($genreIdExist)) {
+                    $music_x_genre->id_genre =  $genreIdExist;
+                }else {
+                    $music_x_genre->id_genre =  $idgenre;
+                }
                 $music_x_genre->id_song = $idsong;
-                $music_x_genre->id_genre =  $idgenre;
                 $music_x_genre->save();
                 // necessitamos vincular los albumes con las canciones (songs_x_album)
+                if (isset($albumIdExist)) {
+                    $songs_x_album->id_album =  $albumIdExist;
+                    //dd($albumIdExist);
+                }else {
+                    $songs_x_album->id_album =  $idalbum;
+                }
                 $songs_x_album->id_song = $idsong;
-                $songs_x_album->id_album =  $idalbum;
                 $songs_x_album->save();
                 //necessitamos vincular los artistas con las canciones (songs_x_artist)
+                if (isset($artistIdExist)) {
+                    $songs_x_artist->id_artist =  $artistIdExist;
+                    //dd($artistIdExist);
+                }else {
+                    $songs_x_artist->id_artist =  $idartista;
+                }
                 $songs_x_artist->id_song = $idsong;
-                $songs_x_artist->id_artist =  $idartista;
                 $songs_x_artist->save();
             }
         } catch (UploadFileException $exception) {

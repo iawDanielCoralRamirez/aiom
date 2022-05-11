@@ -26,12 +26,27 @@ class PlaylistController extends Controller
         return view("playlists")->with(['playlists' => $playlists]);
     }
 
-    public function new(Request $request){
-        $this->playlist->name = $request->nombre;
-        $this->playlist->cover = null;
-        $this->playlist->account_id = Auth::id();
-        $this->playlist->save();
-
+    public function new(Request $request,UploadPhotoPlaylistService $uploadPhotoPlaylistService){
+        try {
+            $this->playlist->name = $request->nombre;
+            $isValid = $request->validate([
+                'cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
+            ]);
+            if ($isValid) {
+                $this->uploadPhotoPlaylist = $uploadPhotoPlaylistService;
+                if ($request->hasFile('cover')) {
+                    $this->playlist->cover = $request->cover->getClientOriginalName();
+                    $this->uploadPhotoPlaylist->uploadFile($request->file('cover'));
+                }
+            }
+            $this->playlist->account_id = Auth::id();
+            $this->playlist->save();
+        }catch (UploadFileException $exception) {
+            //$this->error = $exception->getMessage();
+            $this->error = $exception->customMessage(); 
+        }catch ( \Illuminate\Database\QueryException $exception) {
+            $this->error = "Error with information introduced on database";
+        }
         return redirect('/playlists');
 
     }
@@ -39,6 +54,8 @@ class PlaylistController extends Controller
     public function show($idPlaylist){
         $playlist = Playlist::find($idPlaylist);
         $songs = $playlist->songs; 
+        // $songs = $songs->query();
+        // $songs = $songs->joinAlbumArtist();
         return view('playlistSongs')->with('playlist', $playlist)->with('songs', $songs);
     }
 
@@ -48,18 +65,7 @@ class PlaylistController extends Controller
         return redirect('/playlists');
     }
 
-    public function addSong(Request $request,UploadPhotoPlaylistService $uploadPhotoPlaylistService) {
-        $isValid = $request->validate([
-            'cover' => 'mimes:png,jpg,jpeg,gif,png,svg|max:40048'
-        ]);
-        if ($isValid) {
-            $this->uploadPhotoPlaylist = $uploadPhotoPlaylistService;
-            if ($request->hasFile('cover')) {
-                $photo = $this->account->photo = $request->cover->getClientOriginalName();
-                $this->uploadPhotoPlaylist->uploadFile($request->file('cover'));
-                auth()->user()->photo = $photo;
-            }
-        }
+    public function addSong(Request $request) {
         $playlist = $request->playlist_id;
         $song = $request->song_id;
         $song_x_playlist = new Song_x_playlist();

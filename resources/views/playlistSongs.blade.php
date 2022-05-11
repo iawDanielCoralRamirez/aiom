@@ -10,7 +10,7 @@
         <tr>
           <th>Título</th>
           <th>Album</th>
-          <th>Autor</th>
+          <th>Artist</th>
           <th></th>
         </tr>
       </thead>
@@ -18,10 +18,10 @@
       @forelse ($songs as $song)
         <tr>
           <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
-          <td>{{$song->album}}</td>
-          <td>{{$song->name}}</td>
+          <td>{{$song->album_name}}</td>
+          <td>{{$song->artist_name}}</td>
           <td>
-            <p class="btn btn-primary" onclick="deleteSong(event, {{$playlist->id}}, {{$song->id}})">Borrar canción</p>
+            <p class="btn btn-primary text-white" onclick="deleteSong(event, {{$playlist->id}}, {{$song->id}})">Borrar canción</p>
           </td>
         </tr>
         @empty

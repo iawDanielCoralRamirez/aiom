@@ -180,3 +180,7 @@ input[type="file"]:hover {
 input[type="file"]:active {
     background: -webkit-linear-gradient(top, #e3e3e3, #195770);
 }
+.cover-size {
+    object-fit: cover;
+    height: 286px;
+}

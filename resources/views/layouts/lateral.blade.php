@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/css/aiom.css">
     {{-- iconos --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+    <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>

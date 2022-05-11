@@ -23,19 +23,7 @@
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
           <td>
-            <form method="post" action={{ route('addFavorites') }} class="" style="height:2rem">
-                @csrf
-                <input type="hidden" name="id" value="{{$song->id}}">
-                <input type="hidden" name="title" value="{{$song->title}}">
-                <input type="hidden" name="cover" value="{{$song->cover}}">
-                <input type="hidden" name="url" value="{{$song->url}}">
-                <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-                @if($song->id_account != null)
-                  <input type="submit" value="&hearts;" class="btn" style="color: red">
-                @else 
-                  <input type="submit" value="&hearts;" class="btn" style="color:gray">
-                @endif
-            </form>
+            <input onclick="addFavorites(event, {{$song->id}});" type="button" value="&hearts;" class="btn" style="color:gray">
           </td>
           <td>
             <select onchange="addPlaylist(event, {{$song->id}})">
@@ -70,6 +58,24 @@
     const response = await fetch(`/api/playlist/addSong?playlist_id=${e.target.value}&song_id=${songid}`);
     console.log(e.target.firstChild)
     alert("Añadida a la playlist!");
+  }
+  async function addFavorites(e,songid){
+    fetch(`music/addFavorites/${songid}`, {
+    method: "post",
+    headers: {
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), 
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      songid: songid,
+    })
+    }).then( (response) => { /*console.log(response);*/ });
+    if (e.target.style.color == "red") {
+      e.target.style.color = "gray";
+    }else {
+      e.target.style.color = "red";
+    }
   }
 </script>
 @endsection

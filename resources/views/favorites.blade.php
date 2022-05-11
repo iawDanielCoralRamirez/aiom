@@ -21,15 +21,7 @@
             <td>{{$favorite->album_name}}</td>
             <td>{{$favorite->artist_name}}</td>
             <td>
-              <form method="post" action={{ route('addFavorites') }} class="" style="height:2rem">
-                  @csrf
-                  <input type="hidden" name="id" value="{{$favorite->id}}">
-                  <input type="hidden" name="title" value="{{$favorite->title}}">
-                  <input type="hidden" name="cover" value="{{$favorite->cover}}">
-                  <input type="hidden" name="url" value="{{$favorite->url}}">
-                  <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-                  <input type="submit" value="&hearts;" class="btn " style="color: red !important">
-              </form>
+              <input onclick="addFavorites(event, {{$favorite->id}});" type="button" value="&hearts;" class="btn" style="color:red">
             </td>
           </tr>
           @empty
@@ -38,4 +30,22 @@
       </tbody>
     </table>
 </div>
+<script>
+  async function addFavorites(e,songid){
+    fetch(`music/addFavorites/${songid}`, {
+    method: "post",
+    headers: {
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), 
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      songid: songid,
+    })
+    }).then( (response) => { /*console.log(response);*/ });
+    if (e.target.style.color == "red") {
+      e.target.parentNode.parentNode.style.display = "none";
+    }
+  }
+</script>
 @endsection

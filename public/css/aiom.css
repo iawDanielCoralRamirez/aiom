@@ -53,6 +53,14 @@
     margin-right: auto;
 }
 
+#playing img {
+  width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1vh;
+}
+
 #buscador {
     text-align: center;
     display: block;
@@ -196,7 +204,7 @@ input[type="file"]:active {
   #myBar {
     width: 0%;
     height: 5px;
-    background-color: #ffc266;
+    background-color: #E3D924;
     border-radius: 10px;
   }
   
@@ -228,7 +236,7 @@ input[type="file"]:active {
   
   .infos-ctn > div {
    margin-bottom: 8px;
-   color: #ffc266;
+   color: #E3D924;
   }
   
   .first-btn{
@@ -254,8 +262,8 @@ input[type="file"]:active {
   
   .playlist-track-ctn{
     display: flex;
-    background-color: #464646;
-    margin-top: 3px;
+    margin-top: 5px;
+    box-shadow: 1px 1px 7px -1px rgba(0,0,0,0.5);
     border-radius: 5px;
     cursor: pointer;
   }
@@ -280,14 +288,14 @@ input[type="file"]:active {
      padding-bottom: 20px;
   }
   .active-track{
-    background: #4d4d4d;
-    color: #ffc266 !important;
+    background: #E3D924;
+    color: white !important;
     font-weight: bold;
-    
+    box-shadow: 1px 1px 7px -1px rgba(0,0,0,0.5)inset;
   }
   
-  .active-track > .playlist-info-track,.active-track >.playlist-duration,.active-track > .playlist-btn-play{
-    color: #ffc266 !important;
+  .active-track > .playlist-info-track,.active-track >.playlist-duration,.active-track > .playlist-btn-play, .active-track i{
+    color: white !important;
   }
   
   
@@ -297,6 +305,6 @@ input[type="file"]:active {
     padding-bottom: 5px;
   }
   .fas{
-    color: #ffc266;
+    color: #E3D924;
     font-size: 20px;
   }

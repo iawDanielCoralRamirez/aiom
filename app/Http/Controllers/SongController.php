@@ -316,9 +316,9 @@ class SongController extends Controller
     }
     public function addFavorites(Request $request) {
         $favorites = new Favorites_songs;
-        $favorites->id_account = $request->id_account;
-        $favorites->id_song = $request->id;
-        $checkFavoriteSong = $favorites->where('id_song',$request->id)->first();
+        $favorites->id_account = auth()->user()->id;
+        $favorites->id_song = $request->idSong;
+        $checkFavoriteSong = $favorites->where('id_song',$request->idSong)->first();
         if (!$checkFavoriteSong) {
             $favorites->save();
         }else {
@@ -334,6 +334,14 @@ class SongController extends Controller
         return view('favorites')->with('favorites_songs', $favorites_songs);
     }
 
+    public function listFavoritesApi() {
+        $favorites = new Favorites_songs;
+        $song = $favorites->query();
+        $song->joinFavorites();
+        $favorites_songs = $song->listFavorites();
+        return $favorites_songs;
+
+    }
     public function listDashboard() {
         $playlists = account::find(Auth::id())->playlists;
         $all_song_with_favorites = $this->song->query()->joinFavorites();

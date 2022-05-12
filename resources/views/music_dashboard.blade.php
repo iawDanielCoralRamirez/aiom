@@ -13,20 +13,6 @@
           <div class="container  d-flex">
           <p class="card-text mb-2 mt-2">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
           <a class="mt-2" href="/player/{{$song->id}}"><i class="blue-light fa fa-play"></i></a>
-          &nbsp;&nbsp;
-          <form method="post" action={{ route('addFavorites') }} style="height:2rem;width:2rem;">
-            @csrf
-            <input type="hidden" name="id" value="{{$song->id}}">
-            <input type="hidden" name="title" value="{{$song->title}}">
-            <input type="hidden" name="cover" value="{{$song->cover}}">
-            <input type="hidden" name="url" value="{{$song->url}}">
-            <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-            @if($song->id_account != null)
-              <input type="submit" value="&hearts;" class="btn" style="color: red">
-            @else 
-              <input type="submit" value="&hearts;" class="btn" style="color:gray">
-            @endif
-          </form>
           </div>
         </div>
       </div>
@@ -46,27 +32,13 @@
           <div class="container  d-flex">
           <p class="card-text mb-2 mt-2">{{$favorite->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$favorite->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
           <a class="mt-2" href="/player/{{$favorite->id}}"><i class="blue-light fa fa-play"></i></a>
-          &nbsp;&nbsp;
-          <form method="post" action={{ route('addFavorites') }} style="height:2rem;width:2rem;">
-            @csrf
-            <input type="hidden" name="id" value="{{$favorite->id}}">
-            <input type="hidden" name="title" value="{{$favorite->title}}">
-            <input type="hidden" name="cover" value="{{$favorite->cover}}">
-            <input type="hidden" name="url" value="{{$favorite->url}}">
-            <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-            @if($favorite->id_account != null)
-              <input type="submit" value="&hearts;" class="btn" style="color: red">
-            @else 
-              <input type="submit" value="&hearts;" class="btn" style="color:gray">
-            @endif
-          </form>
           </div>
         </div>
       </div>
       @empty
       <p>No tienes música favorita aún</p>
       @endforelse
-  </div>
+  </div> 
 </div>
 <div class="container mt-5">
   <h2>Recently added songs</h2>
@@ -79,20 +51,6 @@
           <div class="container  d-flex">
           <p class="card-text mb-2 mt-2">{{$song->artist_name}}&nbsp;&nbsp;&nbsp;&nbsp;{{$song->album_name}}</p>&nbsp;&nbsp;&nbsp;&nbsp;
           <a class="mt-2" href="/player/{{$song->id}}"><i class="blue-light fa fa-play"></i></a>
-          &nbsp;&nbsp;
-          <form method="post" action={{ route('addFavorites') }} style="height:2rem;width:2rem;">
-            @csrf
-            <input type="hidden" name="id" value="{{$song->id}}">
-            <input type="hidden" name="title" value="{{$song->title}}">
-            <input type="hidden" name="cover" value="{{$song->cover}}">
-            <input type="hidden" name="url" value="{{$song->url}}">
-            <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-            @if($song->id_account != null)
-              <input type="submit" value="&hearts;" class="btn" style="color: red">
-            @else 
-              <input type="submit" value="&hearts;" class="btn" style="color:gray">
-            @endif
-          </form>
           </div>
         </div>
       </div>

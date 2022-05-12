@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/favorites', function () {
     //     return view('favorites')->with('favorites', Favorites_songs::listFavorites());
     // });
-    Route::post('/addFavorites', [SongController::class, 'addFavorites'])->name('addFavorites');
+    Route::any('/music/addFavorites/{idSong}', [SongController::class, 'addFavorites'])->name('addFavorites');
 
     Route::post('/addQueue', [SongController::class, 'addQueue'])->name('addQueue');
     

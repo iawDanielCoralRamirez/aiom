@@ -6,6 +6,7 @@
     <h2>Queue</h2>
     
     <a href="/player" class="btn btn-primary">Reproducir</a>
+    <button class="btn btn-danger" id="clear">Limpiar</button>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -44,4 +45,13 @@
     </table>
 
 </div>
+<script>
+  document.getElementById("clear").addEventListener("click", clearQueue);
+
+  async function clearQueue(){
+    console.log("limpiando")
+    document.querySelector('tbody').style.display = 'none';
+    const response = await fetch(`/api/queue/delete`);
+  }
+</script>
 @endsection

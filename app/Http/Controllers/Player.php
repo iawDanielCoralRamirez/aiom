@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Song;
 use App\Models\Album;
 use App\Models\Song_x_artist;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class Player extends Controller
 {
@@ -36,6 +38,10 @@ class Player extends Controller
 
     function playQueue(){
         return view("player");
+    }
+
+    function deleteQueue(Request $request){
+        FacadesSession::forget('queue');
     }
 
 }

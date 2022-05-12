@@ -27,4 +27,6 @@ Route::middleware('auth:sanctum')->get('/playlist/addSong', [PlaylistController:
 Route::middleware('auth:sanctum')->get('/playlist/deleteSong', [PlaylistController::class, 'deleteSong']);
 
 Route::middleware('auth:sanctum')->get('/queue', [Player::class, 'queue']);
+Route::middleware('auth:sanctum')->get('/queue/delete', [Player::class, 'deleteQueue']);
+
 

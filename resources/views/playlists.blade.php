@@ -19,9 +19,9 @@
             @forelse ($playlists as $playlist)
                 <div class="card mb-3 bg-dark text-white" style="width: 18rem;">
                     @if ($playlist->cover != null)
-                        <img class="card-img-top" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
+                        <img class="card-img-top cover-size" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
                     @else 
-                        <img class="card-img-top" src="img/default-playlist.jpeg" alt="Card image cap">
+                        <img class="card-img-top cover-size" src="img/default-playlist.jpeg" alt="Card image cap">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $playlist->name }}</h5>

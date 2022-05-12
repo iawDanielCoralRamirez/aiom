@@ -272,11 +272,6 @@ input[type="file"]:active {
     background-color: #78a6d8;
     color: white;
   }
-
-
-  .playlist-track-ctn:last-child{
-    /*border: 1px solid #ffc266; */
-  }
   
   .playlist-track-ctn > div{
     margin:10px;
@@ -315,3 +310,7 @@ input[type="file"]:active {
     color: #E3D924;
     font-size: 20px;
   }
+.cover-size {
+    object-fit: cover;
+    height: 286px;
+}

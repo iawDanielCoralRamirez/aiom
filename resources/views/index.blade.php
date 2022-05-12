@@ -12,19 +12,12 @@
                 <h1>AIOM</h1>
                 <h2>All In One Music</h2>
                 <div class="align-buttons-div">
-                    <input type="text" placeholder="Busca música">
-                    <button class="btn btn-primary">Buscar</button>
                     <div>
                         <a class="btn btn-primary"href="/register" >Hazte una cuenta</a>
                         <a class="btn btn-primary" href="/login">Entra en tu cuenta</a>
                     </div>
                 </div>
             </div>
-
-        </div>
-
-        <div class="canciones">
-
         </div>
         <footer>
             

@@ -334,6 +334,14 @@ class SongController extends Controller
         return view('favorites')->with('favorites_songs', $favorites_songs);
     }
 
+    public function listFavoritesApi() {
+        $favorites = new Favorites_songs;
+        $song = $favorites->query();
+        $song->joinFavorites();
+        $favorites_songs = $song->listFavorites();
+        return $favorites_songs;
+
+    }
     public function listDashboard() {
         $playlists = account::find(Auth::id())->playlists;
         $all_song_with_favorites = $this->song->query()->joinFavorites();

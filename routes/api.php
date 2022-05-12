@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Player;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\SongController;
 use App\Http\Resources\SongCollection;
 use App\Models\Song;
 use Illuminate\Http\Request;
@@ -28,3 +29,4 @@ Route::middleware('auth:sanctum')->get('/playlist/deleteSong', [PlaylistControll
 
 Route::middleware('auth:sanctum')->get('/queue', [Player::class, 'queue']);
 
+Route::middleware('auth:sanctum')->get('/favorites', [SongController::class, 'listFavoritesApi']);

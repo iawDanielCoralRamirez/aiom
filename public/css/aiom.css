@@ -267,6 +267,13 @@ input[type="file"]:active {
     border-radius: 5px;
     cursor: pointer;
   }
+
+  .playlist-track-ctn:hover{
+    background-color: #78a6d8;
+    color: white;
+  }
+
+
   .playlist-track-ctn:last-child{
     /*border: 1px solid #ffc266; */
   }

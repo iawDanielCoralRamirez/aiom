@@ -99,10 +99,10 @@
                     createTrackItem(i, listAudio[i].title);
                 }
 
-             
+
             }
 
-          
+
             function createTrackItem(index, name) {
                 var trackItem = document.createElement('div');
                 trackItem.setAttribute("class", "playlist-track-ctn");
@@ -147,16 +147,15 @@
 
 
             function getClickedElement(event) {
-                for (let i = 0; i < playListItems.length; i++) {
-                    if (playListItems[i] == event.target) {
-                        var clickedIndex = event.target.getAttribute("data-index")
-                        if (clickedIndex == indexAudio) { // alert('Same audio');
-                            toggleAudio()
-                        } else {
-                            loadNewTrack(clickedIndex);
-                        }
+                
+                    var clickedIndex = event.target.getAttribute("data-index")
+                    if (clickedIndex == indexAudio) { // alert('Same audio');
+                        toggleAudio()
+                    } else {
+                        loadNewTrack(clickedIndex);
                     }
-                }
+                
+
             }
 
             function toggleAudio() {

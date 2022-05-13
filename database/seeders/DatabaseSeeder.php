@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'adan@adan.com',
             'password' => Hash::make('adan')
         ]);
+        DB::table('account')->insert([
+            'nick' => 'dani',
+            'email' => 'dani@dani.com',
+            'password' => Hash::make('dani')
+        ]);
 
         DB::table('song')->insert([
             'title' => 'catedral',
@@ -46,23 +51,36 @@ class DatabaseSeeder extends Seeder
             'cover' => 'pols_instinto.jpg'
         ]);
 
-        DB::table('album')->insert([
-            'name' => 'instinto',
-            'cover' => null,
+        DB::table('song')->insert([
+            'title' => 'One dance',
+            'url' => 'one_dance.mp3',
+            'cover' => 'one_dance.jpeg'
+        ]);
+        DB::table('song')->insert([
+            'title' => 'In my feelings',
+            'url' => 'in_my_feelings.mp3',
+            'cover' => 'in_my_feelings.jpeg'
+        ]);
+        DB::table('song')->insert([
+            'title' => 'Still Dre',
+            'url' => 'still_dre.mp3',
+            'cover' => 'still_dre.jpg'
         ]);
 
         DB::table('album')->insert([
             'name' => 'instinto',
             'cover' => null,
         ]);
-
         DB::table('album')->insert([
-            'name' => 'instinto',
+            'name' => 'Views',
             'cover' => null,
         ]);
-
         DB::table('album')->insert([
-            'name' => 'instinto',
+            'name' => 'Scorpion',
+            'cover' => null,
+        ]);
+        DB::table('album')->insert([
+            'name' => '2001',
             'cover' => null,
         ]);
 
@@ -70,20 +88,121 @@ class DatabaseSeeder extends Seeder
             'name' => 'Pöls',
             'cover' => null,
         ]);
-
         DB::table('artist')->insert([
-            'name' => 'Pöls',
+            'name' => 'Drake',
+            'cover' => null,
+        ]);
+        DB::table('artist')->insert([
+            'name' => 'Snoop Dogg, Dr. Dre',
             'cover' => null,
         ]);
 
-        DB::table('artist')->insert([
-            'name' => 'Pöls',
-            'cover' => null,
+        DB::table('song_x_artist')->insert([
+            'id_song' => 1,
+            'id_artist' => 1,
         ]);
 
-        DB::table('artist')->insert([
-            'name' => 'Pöls',
-            'cover' => null,
+        DB::table('song_x_artist')->insert([
+            'id_song' => 2,
+            'id_artist' => 1,
         ]);
+
+        DB::table('song_x_artist')->insert([
+            'id_song' => 3,
+            'id_artist' => 1,
+        ]);
+
+        DB::table('song_x_artist')->insert([
+            'id_song' => 4,
+            'id_artist' => 1,
+        ]);
+
+        DB::table('song_x_artist')->insert([
+            'id_song' => 5,
+            'id_artist' => 2,
+        ]);
+
+        DB::table('song_x_artist')->insert([
+            'id_song' => 6,
+            'id_artist' => 2,
+        ]);
+        
+        DB::table('song_x_artist')->insert([
+            'id_song' => 7,
+            'id_artist' => 3,
+        ]);
+        DB::table('songs_x_album')->insert([
+            'id_song' => 1,
+            'id_album' => 1,
+        ]);
+
+        DB::table('songs_x_album')->insert([
+            'id_song' => 2,
+            'id_album' => 1,
+        ]);
+
+        DB::table('songs_x_album')->insert([
+            'id_song' => 3,
+            'id_album' => 1,
+        ]);
+
+        DB::table('songs_x_album')->insert([
+            'id_song' => 4,
+            'id_album' => 1,
+        ]);
+
+        DB::table('songs_x_album')->insert([
+            'id_song' => 5,
+            'id_album' => 2,
+        ]);
+        DB::table('songs_x_album')->insert([
+            'id_song' => 6,
+            'id_album' => 3,
+        ]);
+        DB::table('songs_x_album')->insert([
+            'id_song' => 7,
+            'id_album' => 4,
+        ]);
+        DB::table('genres')->insert([
+            'genre' => 'rock',
+            'cover' => null
+        ]);
+        DB::table('genres')->insert([
+            'genre' => 'pop',
+            'cover' => null
+        ]);
+        DB::table('genres')->insert([
+            'genre' => 'rap',
+            'cover' => null
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 1,
+            'id_song' => 1
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 1,
+            'id_song' => 2
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 1,
+            'id_song' => 3
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 1,
+            'id_song' => 4
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 2,
+            'id_song' => 5
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 2,
+            'id_song' => 6
+        ]);
+        DB::table('music_x_genre')->insert([
+            'id_genre' => 3,
+            'id_song' => 7
+        ]);
+        
     }
 }

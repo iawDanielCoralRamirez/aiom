@@ -56,7 +56,7 @@ class SongController extends Controller
         $song = $song->query();
         $song->joinFavorites();
         $song = $song->get();
-        // dd($song);
+        //dd($song);
         return view("music")
             ->with("songs", $song)
             ->with("playlists", $playlists);

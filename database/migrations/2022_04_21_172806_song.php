@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('url');
             $table->string('cover');
+            $table->unsignedBigInteger('account_id');
             $table->timestamp('date_list_last_played')->nullable();
             $table->timestamp('date_recently_added')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->foreign('account_id')->references('id')->on('account')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

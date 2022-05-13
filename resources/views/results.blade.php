@@ -22,7 +22,7 @@
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
           <td>
-            <form method="post" action={{ route('addFavorites') }} class="" style="height:2rem">
+            {{-- <form method="post" action="music/{{ route('addFavorites') }}/{{$song->id}}" class="" style="height:2rem">
                 @csrf
                 <input type="hidden" name="id" value="{{$song->id}}">
                 <input type="hidden" name="title" value="{{$song->title}}">
@@ -34,7 +34,7 @@
                 @else 
                   <input type="submit" value="&hearts;" class="btn" style="color:gray">
                 @endif
-            </form>
+            </form> --}}
           </td>
           <td>
             <select onchange="addPlaylist(event, {{$song->id}})">

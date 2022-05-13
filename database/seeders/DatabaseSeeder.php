@@ -30,41 +30,48 @@ class DatabaseSeeder extends Seeder
         DB::table('song')->insert([
             'title' => 'catedral',
             'url' => 'Pöls - Instinto - 01 Catedral.mp3',
-            'cover' => 'pols_instinto.jpg'
+            'cover' => 'pols_instinto.jpg',
+            'account_id' => 1
         ]);
 
         DB::table('song')->insert([
             'title' => 'instinto',
             'url' => 'Pöls - Instinto - 02 Instinto.mp3',
-            'cover' => 'pols_instinto.jpg'
+            'cover' => 'pols_instinto.jpg',
+            'account_id' => 1
         ]);
 
         DB::table('song')->insert([
             'title' => 'no te preu',
             'url' => 'Pöls - Instinto - 03 No té preu.mp3',
-            'cover' => 'pols_instinto.jpg'
+            'cover' => 'pols_instinto.jpg',
+            'account_id' => 1
         ]);
 
         DB::table('song')->insert([
             'title' => 'sigo aqui',
             'url' => 'Pöls - Instinto - 04 Sigo aquí.mp3',
-            'cover' => 'pols_instinto.jpg'
+            'cover' => 'pols_instinto.jpg',
+            'account_id' => 1
         ]);
 
         DB::table('song')->insert([
             'title' => 'One dance',
             'url' => 'one_dance.mp3',
-            'cover' => 'one_dance.jpeg'
+            'cover' => 'one_dance.jpeg',
+            'account_id' => 2
         ]);
         DB::table('song')->insert([
             'title' => 'In my feelings',
             'url' => 'in_my_feelings.mp3',
-            'cover' => 'in_my_feelings.jpeg'
+            'cover' => 'in_my_feelings.jpeg',
+            'account_id' => 2
         ]);
         DB::table('song')->insert([
             'title' => 'Still Dre',
             'url' => 'still_dre.mp3',
-            'cover' => 'still_dre.jpg'
+            'cover' => 'still_dre.jpg',
+            'account_id' => 2
         ]);
 
         DB::table('album')->insert([

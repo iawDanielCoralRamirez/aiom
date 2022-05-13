@@ -23,7 +23,7 @@
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
           <td>
-            <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart"></i>
+            <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart" style="color:gray;"></i>
           </td>
           <td>
             <select onchange="addPlaylist(event, {{$song->id}})">

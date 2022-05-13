@@ -48,6 +48,9 @@ class Song extends Model
     }
 
     public function scopeTitle($query, $partOfTitle){
-        return $query->where('title', 'like', '%'.$partOfTitle.'%');   
+        return $query->orwhere('title', 'like', '%'.$partOfTitle.'%')
+        ->orWhere('genre', 'like', '%'.$partOfTitle.'%')
+        ->orWhere('artist.name', 'like', '%'.$partOfTitle.'%')
+        ->orWhere('album.name', 'like', '%'.$partOfTitle.'%');  
     }
 }

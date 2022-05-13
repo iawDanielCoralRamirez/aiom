@@ -35,6 +35,7 @@
                   <input type="submit" value="&hearts;" class="btn" style="color:gray">
                 @endif
             </form> --}}
+            <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart" style="color:gray;"></i>
           </td>
           <td>
             <select onchange="addPlaylist(event, {{$song->id}})">
@@ -54,10 +55,40 @@
     </table>
 </div>
 <script>
+  var hearts = document.getElementsByClassName("fa fa-heart");
+  for (var heart = 0; heart < hearts.length; heart++) {
+      if (hearts[heart].id != "") {
+        console.log(hearts[heart].id);
+        console.log(localStorage.getItem(hearts[heart].id));
+        hearts[heart].style.color = localStorage.getItem(hearts[heart].id);
+      }
+  }
   async function addPlaylist(e, songid){
     const response = await fetch(`/api/playlist/addSong?playlist_id=${e.target.value}&song_id=${songid}`);
     //terminar añadiendo info con javascript en el listado
     console.log(response);
+  }
+
+  async function addFavorites(e,songid){
+    fetch(`music/addFavorites/${songid}`, {
+    method: "post",
+    headers: {
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), 
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      songid: songid,
+    })
+    }).then( (response) => { /*console.log(response);*/ });
+    if (localStorage.getItem(songid) == "red") {
+      e.target.style.color = "gray";
+      localStorage.setItem(songid,"gray");
+    }else {
+      e.target.style.color = "red";
+      localStorage.setItem(songid,"red");
+      
+    }
   }
 </script>
 @endsection

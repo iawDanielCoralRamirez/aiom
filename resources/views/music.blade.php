@@ -26,14 +26,16 @@
             <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart" style="color:gray;"></i>
           </td>
           <td>
+            <label>
             <select onchange="addPlaylist(event, {{$song->id}})">
-              <option selected>Selecciona un playlist...</option>
+              <option selected>Selecciona una playlist...</option>
               @forelse ($playlists as $playlist)
               <option value="{{$playlist->id}}">{{$playlist->name}}</option>
               @empty
               <option>sin playlists</option>
               @endforelse
             </select>
+            </label>
           </td>
           <td>
             <form method="post" action={{ route('addQueue') }} style="height:2rem">

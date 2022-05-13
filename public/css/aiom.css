@@ -1,3 +1,12 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
+}
+
 .lateral{
     background-color: #2E282A;
     color:white;
@@ -24,6 +33,55 @@
 
 .card {
   width: 300px;
+}
+
+.card, .btn-primary {
+  box-shadow: 0px 2px 5px rgb(0, 0, 0,0.5);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+a .card:hover .btn-play{
+  background-color: #8EB8E5;
+}
+
+a .card .btn-play{
+  transition: background-color 0.3s;
+}
+
+a .card:hover {
+  position: relative;
+  bottom: 3px;
+}
+
+.resaltado {
+  color: white !important;
+}
+
+
+.btn-play{
+  color: white;
+  background-color: #E3D924;
+  border-radius: 49%;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 60px;
+  height: 60px;
+}
+
+.btn-play:hover{
+  color: white;
+  background-color: #8EB8E5;
+}
+
+.btn-play i {
+  font-size: 30px;
+padding-top: 5px;
 }
 
 .lateral a {
@@ -166,7 +224,7 @@ h1,h2{
 .custom-file-input::-webkit-file-upload-button {
     visibility: hidden;
 }
-input[type="file"] {
+/* input[type="file"] {
     content: 'Select some files';
     display: inline-block;
     border: 1px solid #999;
@@ -180,7 +238,7 @@ input[type="file"] {
     font-size: 10pt;
     background-color: #78a6d8;
     color:white;
-}
+} */
 /* select playlist styles */
 
 select {

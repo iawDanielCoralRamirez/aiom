@@ -17,17 +17,18 @@
         <div class="d-flex flex-row justify-content-around flex-wrap mt-5">
 
             @forelse ($playlists as $playlist)
-                <div class="card mb-3 bg-dark text-white" style="width: 18rem;">
-                    @if ($playlist->cover != null)
-                        <img class="card-img-top cover-size" src="storage/playlist/covers/{{ $playlist->cover }}" alt="Card image cap">
-                    @else 
-                        <img class="card-img-top cover-size" src="img/default-playlist.jpeg" alt="Card image cap">
-                    @endif
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $playlist->name }}</h5>
-                        <a href="/playlists/{{ $playlist->id }}" class="btn btn-primary text-white">Ir a la playlist</a>
-                    </div>
+            <div class="card m-2">
+                @if ($playlist->cover != null)
+                    <img class="card-img-top cover-size" src="storage/playlist/covers/{{ $playlist->cover }}"
+                        alt="Card image cap">
+                @else
+                    <img class="card-img-top cover-size" src="img/default-playlist.jpeg" alt="Card image cap">
+                @endif
+                <div class="card-body">
+                    <h5 class="card-title">{{ $playlist->name }}</h5>
+                    <a href="/playlists/{{ $playlist->id }}" class="btn btn-primary text-white">Ir a la playlist</a>
                 </div>
+            </div>
 
             @empty
                 <p>No tienes playlist guardadas aún</p>

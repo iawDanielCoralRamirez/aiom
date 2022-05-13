@@ -29,13 +29,13 @@
                         <input id="search" type="text" name="searchBox" placeholder="Buscar">
                     </form>
                     <ul class="pt-3 pl-5">
-                        <li><a href="/dashboard"><i class="fa fa-tachometer"></i>&nbsp;Dashboard</a></li>
-                        <li><a href="/favorites"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
-                        <li><a href="/playlists"><i class="fa fa-fw fa-music"></i>Playlists</a></li>
-                        <li><a href="/music"><i class="fa fa-fw fa-database"></i>Mi música</a></li>
-                        <li><a href="/profile"><i class="fa fa-fw fa-wrench"></i>Mi perfil</a></li>
-                        <li><a href="/upload/song"><i class="fa fa-fw fa-plus"></i>Subir música</a></li>
-                        <li><a href="/queue">&nbsp;<i class="fa fa-bars"></i>&nbsp;Queue</a></li>
+                        <li><a href="/dashboard" class="{{ (request()->is('dashboard')) ? 'resaltado' : '' }}"><i class="fa fa-tachometer"></i>&nbsp;Dashboard</a></li>
+                        <li><a href="/favorites" class="{{ (request()->is('favorites')) ? 'resaltado' : '' }}"><i class="fa fa-fw fa-heart"></i>Favoritos</a></li>
+                        <li><a href="/playlists" class="{{ (request()->is('playlists')) ? 'resaltado' : '' }}"><i class="fa fa-fw fa-music"></i>Playlists</a></li>
+                        <li><a href="/music" class="{{ (request()->is('music')) ? 'resaltado' : '' }}"><i class="fa fa-fw fa-database"></i>Mi música</a></li>
+                        <li><a href="/profile" class="{{ (request()->is('profile')) ? 'resaltado' : '' }}"><i class="fa fa-fw fa-wrench"></i>Mi perfil</a></li>
+                        <li><a href="/upload/song" class="{{ (request()->is('upload/song')) ? 'resaltado' : '' }}"><i class="fa fa-fw fa-plus"></i>Subir música</a></li>
+                        <li><a href="/queue" class="{{ (request()->is('queue')) ? 'resaltado' : '' }}">&nbsp;<i class="fa fa-bars"></i>&nbsp;Queue</a></li>
                     </ul>
                 </div>
                 <a class="btn btn-primary" id="logout" href="/logout">Salir</a>

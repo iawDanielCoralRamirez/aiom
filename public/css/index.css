@@ -1,8 +1,27 @@
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -2;
+  }
 
-footer{
-    background-color: #2E282A;
-    color: white;
-}
+  #filter{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(142, 184, 229, 0.5);
+    z-index: -1;
+  }
 
 .logotipo h1{
     font-size: 10em;
@@ -15,6 +34,7 @@ h1,h2{
 .logotipo{
     text-align: center;
     width: 100%;
+    margin-top: 15vh;
 }
 
 .portada{
@@ -48,4 +68,9 @@ background-attachment: fixed;
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
+}
+
+body{
+    
+    height: 100vh;
 }

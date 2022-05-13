@@ -103,6 +103,7 @@ class SongController extends Controller
                 $song->title = $request->title;
                 $song->cover = $request->cover->getClientOriginalName();
                 $song->url = $request->url->getClientOriginalName();
+                $song->account_id = auth()->user()->id;
                 # artistas
                 $artistElement = $artist->where('name', $request->artist_name)->where('surname', $request->artist_surname)->get();
                 if ($artistElement->first() != null) {
@@ -195,8 +196,8 @@ class SongController extends Controller
         }catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
         }
-        // return redirect('/upload/song')
-        //     ->with("success",$success);
+        return redirect('/upload/song')
+            ->with("success",$success);
         return view('upload_song')
             ->with("success",$success);
     }

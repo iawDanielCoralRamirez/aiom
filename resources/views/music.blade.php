@@ -11,6 +11,7 @@
           <th>Título</th>
           <th>Album</th>
           <th>Artist</th>
+          <th>Genero</th>
           <th>Favorito</th>
           <th>Añadir a playlist</th>
           <th>Añadir a la cola</th>
@@ -22,6 +23,7 @@
           <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
+          <td>{{$song->genre}}</td>
           <td>
             <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart" style="color:gray;"></i>
           </td>

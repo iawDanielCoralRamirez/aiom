@@ -3,7 +3,12 @@
 @section('content')
     <div id="player">
         <div class="card my-5" id="playing">
-            <img class="card-img-top" alt="Card image cap" src="">
+            @if ($firstSong == null)
+            <img class="card-img-top" alt="No hay música en la queue :(" src="">
+            @else
+            <img class="card-img-top" alt="Sin imagen de portada" src="">
+            @endif
+            
             <div class="card-body">
                 <h3 class="card-title" id="titulo"></h3>
                 <p class="card-text" id="album"></p>
@@ -13,7 +18,11 @@
             <audio autoplay id="myAudio">
 
                 <source id="source-audio" type="audio/mpeg"
-                    src="http://localhost/storage/music/audios/P%C3%B6ls%20-%20Instinto%20-%2011%20Muros.mp3">
+                @if ($firstSong == null)
+                src="">
+                @else
+                src="/storage/music/audios/{{$firstSong->url}}">
+                @endif
                 Your browser does not support the audio element.
             </audio>
 
@@ -302,7 +311,7 @@
                     playListItems[i].addEventListener("click", getClickedElement);
                 }
 
-                document.querySelector('#source-audio').src = listAudio[indexAudio].file
+                document.querySelector('#source-audio').src = listAudio[indexAudio].url
                 document.querySelector('.title').innerHTML = listAudio[indexAudio].title
                 document.querySelector('#p-img-0').classList.remove('fa-play');
                 document.querySelector('#p-img-0').classList.add('fa-pause');

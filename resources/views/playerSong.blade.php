@@ -3,7 +3,7 @@
 @section('content')
     <div id="player">
         <div class="card mt-5" id="playing">
-            <img class="card-img-top" alt="Card image cap" src="/storage/music/covers/{{ $song->cover }}">
+            <img class="card-img-top" alt="Sin imagen de portada" src="/storage/music/covers/{{ $song->cover }}">
             <div class="card-body">
                 <h3 class="card-title" id="titulo">{{ $song->title }}</h3>
                 <p class="card-text" id="album">{{ $song->nombre }}</p>

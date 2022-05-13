@@ -14,7 +14,7 @@ class Player extends Controller
     private $song;
     private $playedSong;
     private $songXartist;
-    
+
     function __construct()
     {
         $this->song = new Song();
@@ -22,26 +22,35 @@ class Player extends Controller
         $this->songXartist = new Song_x_artist();
     }
 
-    function playSong($idSong){
+    function playSong($idSong)
+    {
         // $this->playedSong = Song::find($idSong);
         $this->playedSong = $this->songXartist->songsArtists()
-        ->where('song.id',$idSong)
-        ->get()->first();
+            ->where('song.id', $idSong)
+            ->get()->first();
         return view("playerSong")
             ->with("song", $this->playedSong);
     }
 
-    function queue(Request $request){
+    function queue(Request $request)
+    {
         $queue = $request->session()->get('queue', []);
         return json_encode($queue);
     }
 
-    function playQueue(){
-        return view("player");
+    function playQueue(Request $request)
+    {
+        $firstSong = $request->session()->get('queue', []);
+        if ($firstSong != []) {
+            $firstSong = $firstSong[0];
+        } else {
+            $firstSong = null;
+        }
+        return view("player")->with('firstSong', $firstSong);
     }
 
-    function deleteQueue(Request $request){
+    function deleteQueue(Request $request)
+    {
         FacadesSession::forget('queue');
     }
-
 }

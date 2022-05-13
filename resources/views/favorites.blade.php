@@ -21,7 +21,7 @@
             <td>{{$favorite->album_name}}</td>
             <td>{{$favorite->artist_name}}</td>
             <td>
-              <input onclick="addFavorites(event, {{$favorite->id}});" type="button" value="&hearts;" class="btn" style="color:red">
+              <i onclick="addFavorites(event, {{$favorite->id}});" class="fa fa-heart" style="color:red"></i>
             </td>
           </tr>
           @empty
@@ -45,6 +45,7 @@
     }).then( (response) => { /*console.log(response);*/ });
     if (e.target.style.color == "red") {
       e.target.parentNode.parentNode.style.display = "none";
+      localStorage.setItem(songid,"gray");
     }
   }
 </script>

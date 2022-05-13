@@ -23,7 +23,7 @@
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
           <td>
-            <input onclick="addFavorites(event, {{$song->id}});" type="button" value="&hearts;" class="btn" style="color:gray">
+            <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart"></i>
           </td>
           <td>
             <select onchange="addPlaylist(event, {{$song->id}})">
@@ -54,6 +54,14 @@
     </table>
 </div>
 <script>
+  var hearts = document.getElementsByClassName("fa fa-heart");
+  for (var heart = 0; heart < hearts.length; heart++) {
+      if (hearts[heart].id != "") {
+        console.log(hearts[heart].id);
+        console.log(localStorage.getItem(hearts[heart].id));
+        hearts[heart].style.color = localStorage.getItem(hearts[heart].id);
+      }
+  }
   async function addPlaylist(e, songid){
     const response = await fetch(`/api/playlist/addSong?playlist_id=${e.target.value}&song_id=${songid}`);
     console.log(e.target.firstChild)
@@ -71,10 +79,13 @@
       songid: songid,
     })
     }).then( (response) => { /*console.log(response);*/ });
-    if (e.target.style.color == "red") {
+    if (localStorage.getItem(songid) == "red") {
       e.target.style.color = "gray";
+      localStorage.setItem(songid,"gray");
     }else {
       e.target.style.color = "red";
+      localStorage.setItem(songid,"red");
+      
     }
   }
 </script>

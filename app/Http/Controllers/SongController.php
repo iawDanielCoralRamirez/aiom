@@ -196,8 +196,6 @@ class SongController extends Controller
         }catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error with information introduced";
         }
-        return redirect('/upload/song')
-            ->with("success",$success);
         return view('upload_song')
             ->with("success",$success);
     }

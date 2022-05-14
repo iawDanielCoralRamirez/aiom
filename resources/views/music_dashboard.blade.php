@@ -28,14 +28,14 @@
         <h2>Favoritos</h2>
         <div class="d-flex flex-row justify-content-around flex-wrap">
             @forelse ($favorites_songs as $favorite)
-            <a href="/player/{{ $song->id }}">
+            <a href="/player/{{ $favorite->id }}">
               <div class="card m-2">
-                  <img class="card-img-top cover-size" src="/storage/music/covers/{{ $song->cover }}"
+                  <img class="card-img-top cover-size" src="/storage/music/covers/{{ $favorite->cover }}"
                       alt="Card image cap">
                   <div class="card-body px-5">
-                      <h5 class="card-title">{{ $song->title }}</h5>
-                      <p class="card-text mb-2 mt-2">{{ $song->artist_name }}</p>
-                      <p class="card-text mb-2 mt-2">{{ $song->album_name }}</p>
+                      <h5 class="card-title">{{ $favorite->title }}</h5>
+                      <p class="card-text mb-2 mt-2">{{ $favorite->artist_name }}</p>
+                      <p class="card-text mb-2 mt-2">{{ $favorite->album_name }}</p>
                       <div class="btn-play"><i class="fa fa-play"></i></div>
 
                   </div>

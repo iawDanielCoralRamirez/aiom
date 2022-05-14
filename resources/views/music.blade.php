@@ -11,7 +11,7 @@
           <th>Título</th>
           <th>Album</th>
           <th>Artist</th>
-          <th>Genero</th>
+          <th>Género</th>
           <th>Favorito</th>
           <th>Añadir a playlist</th>
           <th>Añadir a la cola</th>

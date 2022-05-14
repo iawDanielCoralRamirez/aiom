@@ -10,7 +10,8 @@
         <tr>
           <th>Título</th>
           <th>Album</th>
-          <th>Artist</th>
+          <th>Artista</th>
+          <th>Género</th>
           <th>Favorito</th>
           <th>Añadir a playlist</th>
         </tr>
@@ -21,20 +22,8 @@
           <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
           <td>{{$song->album_name}}</td>
           <td>{{$song->artist_name}}</td>
+          <td>{{$song->genre}}</td>
           <td>
-            {{-- <form method="post" action="music/{{ route('addFavorites') }}/{{$song->id}}" class="" style="height:2rem">
-                @csrf
-                <input type="hidden" name="id" value="{{$song->id}}">
-                <input type="hidden" name="title" value="{{$song->title}}">
-                <input type="hidden" name="cover" value="{{$song->cover}}">
-                <input type="hidden" name="url" value="{{$song->url}}">
-                <input type="hidden" name="id_account" value="{{auth()->user()->id}}">
-                @if($song->id_account != null)
-                  <input type="submit" value="&hearts;" class="btn" style="color: red">
-                @else 
-                  <input type="submit" value="&hearts;" class="btn" style="color:gray">
-                @endif
-            </form> --}}
             <i id="{{$song->id}}" onclick="addFavorites(event, {{$song->id}});" class="fa fa-heart" style="color:gray;"></i>
           </td>
           <td>

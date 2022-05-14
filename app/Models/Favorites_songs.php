@@ -16,6 +16,8 @@ class Favorites_songs extends Model
             ->join('album','album.id','songs_x_album.id_album')
             ->join('song_x_artist','song.id','song_x_artist.id_song')
             ->join('artist','artist.id','song_x_artist.id_artist')
+            ->join('music_x_genre','music_x_genre.id_song','song.id')
+            ->join('genres','genres.id','music_x_genre.id_genre')
             ->where("id_account",auth()->user()->id)
             ->orWhere("id_account",null);
     }
@@ -24,6 +26,6 @@ class Favorites_songs extends Model
             ->join('account', 'account.id', 'id_account');
     }
     public function scopeListFavorites($query){
-        return $query->select('song.*','album.name AS album_name','artist.name AS artist_name','id_account')->get();
+        return $query->select('song.*','genres.genre','album.name AS album_name','artist.name AS artist_name','id_account')->get();
     }
 }

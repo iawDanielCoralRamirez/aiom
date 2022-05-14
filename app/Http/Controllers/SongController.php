@@ -370,7 +370,7 @@ class SongController extends Controller
         $song = $this->song->query();
         $songs = $song->getQueue()->where('song.id',$request->id)->get();
         $songs = $songs->first();
-        $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'), 'album_name' =>$songs->album_name, 'artist_name' => $songs->artist_name);
+        $actual = (object) array('id'=>$request->input('id'),'cover'=>$request->input('cover'), 'title'=>$request->input('title'), 'url'=>$request->input('url'), 'album_name' =>$songs->album_name, 'artist_name' => $songs->artist_name, 'genre' => $songs->genre);
         array_push($queue, $actual);
         $request->session()->put('queue', $queue);
         return redirect(url()->previous());
@@ -379,7 +379,7 @@ class SongController extends Controller
     public function search(Request $request){
         $inputText = $request->input('searchBox');
         $song = $this->song->query();
-        $song->joinFavorites();
+        $song->joinResult();
         $songs = $song->Title($inputText)->get();
         $playlists = account::find(Auth::id())->playlists;
         return view('results')->with('songs', $songs)->with('playlists', $playlists);

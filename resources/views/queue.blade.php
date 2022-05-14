@@ -5,14 +5,15 @@
 <div class="container mt-5">
     <h2>Queue</h2>
     
-    <a href="/player" class="btn btn-primary">Reproducir</a>
+    <a href="/player" class="btn btn-primary text-white">Reproducir</a>
     <button class="btn btn-danger" id="clear">Limpiar</button>
     <table class="table table-hover">
       <thead>
         <tr>
           <th>Título</th>
           <th>Album</th>
-          <th>Artist</th>
+          <th>Artista</th>
+          <th>Género</th>
           <th>Queue</th>
         </tr>
       </thead>
@@ -23,6 +24,7 @@
                     <td><a class="text-decoration-none" href="/player/{{$song->id}}">{{$song->title}}</a></td>
                     <td>{{$song->album_name}}</td>
                     <td>{{$song->artist_name}}</td>
+                    <td>{{$song->genre}}</td>
                     <td>
                         <form method="post" action={{ route('addQueue') }} style="height:2rem">
                         @csrf

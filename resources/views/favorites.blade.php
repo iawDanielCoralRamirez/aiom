@@ -10,7 +10,8 @@
         <tr>
           <th>Título</th>
           <th>Album</th>
-          <th>Artist</th>
+          <th>Artista</th>
+          <th>Género</th>
           <th>Favorito</th>
         </tr>
       </thead>
@@ -20,6 +21,7 @@
             <td><a class="text-decoration-none" href="/player/{{$favorite->id}}">{{$favorite->title}}</a></td>
             <td>{{$favorite->album_name}}</td>
             <td>{{$favorite->artist_name}}</td>
+            <td>{{$favorite->genre}}</td>
             <td>
               <i onclick="addFavorites(event, {{$favorite->id}});" class="fa fa-heart" style="color:red"></i>
             </td>

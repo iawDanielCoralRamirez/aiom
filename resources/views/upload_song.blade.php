@@ -40,11 +40,11 @@
             <input type="file" name="artist_cover">
         </div>
         <div class="form-group">
-            <label>Genero:</label>
+            <label>Género:</label>
             <input type="text" name="genre" placeholder="Rap">
         </div>
         <div class="form-group">
-            <label>Foto del Genero:</label>
+            <label>Foto del Género:</label>
             <input type="file" name="genre_cover">
         </div>
         <input type="submit" value="Subir música" class="btn btn-primary text-white">

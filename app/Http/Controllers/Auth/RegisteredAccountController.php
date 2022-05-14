@@ -36,7 +36,7 @@ class RegisteredAccountController extends Controller
         $request->validate([
             'nick' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:account'],
-        'password' => ['required', 'confirmed'/*, Rules\Password::defaults()*/],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $Account = Account::create([

@@ -50,5 +50,10 @@ class AccountController extends Controller
         }
         return view('profile')
         ->with("success",$success);
+    }
+    public function deleteAccount() {
+        $account = Account::find(auth()->user()->id);
+        $account->forceDelete();
+        return redirect('/register');
     }    
 }

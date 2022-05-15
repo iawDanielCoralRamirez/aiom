@@ -34,10 +34,13 @@
                 <input type="password" class="form-control" name="password2" id="password2" placeholder="Repite la password">
             </div>
         </div>
-
         <input type="submit" class="btn btn-primary text-white" value="Guardar cambios">
-        <a href="/destroy" class="btn btn-primary  text-white">Eliminar cuenta</a>
     </form>
+    <br>
+    {{-- <form method="post" action={{ route('deleteAccount') }}>
+        @csrf
+            <input type="submit" class="btn btn-primary text-white" value="Eliminar cuenta">
+    </form> --}}
     </div>
     <div class="footer">
         @if ($errors->any())

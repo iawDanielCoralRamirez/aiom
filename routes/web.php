@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('/updateAccount', [AccountController::class, 'updateAccount'])->name('updateAccount');
 
+    Route::post('/deleteAccount', [AccountController::class, 'deleteAccount'])->name('deleteAccount');
+
     Route::get('/playlists', [PlaylistController::class, 'list']);
 
     Route::any('/music/addFavorites/{idSong}', [SongController::class, 'addFavorites'])->name('addFavorites');

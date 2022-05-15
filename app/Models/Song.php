@@ -34,6 +34,7 @@ class Song extends Model
             ->join('genres','genres.id','music_x_genre.id_genre')
             ->join('account','account.id','song.account_id')
             ->where("account_id",auth()->user()->id)
+            ->where("id_account",auth()->user()->id)
             ->select('song.*','genres.genre','album.name AS album_name','artist.name AS artist_name','id_account');
     }
     public function scopeGetQueue($query){

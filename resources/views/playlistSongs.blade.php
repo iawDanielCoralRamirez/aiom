@@ -4,6 +4,8 @@
 
 <div class="container mt-5">
     <h2>{{$playlist->name}}</h2>
+
+    <a href="/playlists/play/{{ $playlist->id }}" class="btn btn-primary text-white">Reproducir playlist</a>
     
     <table class="table table-hover">
       <thead>

@@ -60,6 +60,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/playlists/{idPlaylist}', [PlaylistController::class, 'show']);
 
+    Route::get('/playlists/play/{idPlaylist}', [Player::class, 'playPlaylist']);
+
+
     Route::get('/playlists/delete/{idPlaylist}', [PlaylistController::class, 'delete']);
     Route::get('/favorites', [SongController::class, 'listFavorites'])->name('listFavorites');
 

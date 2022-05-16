@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use App\Models\Album;
+use App\Models\Playlist;
 use App\Models\Song_x_artist;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -52,5 +53,16 @@ class Player extends Controller
     function deleteQueue(Request $request)
     {
         FacadesSession::forget('queue');
+    }
+
+    function playPlaylist(Request $request){
+        $playlist = Playlist::find($request->idPlaylist);
+        $songs = $playlist->songs; 
+
+        foreach ($songs as $song) {
+            session()->push('queue',$song);
+        }
+
+        return redirect('/player');
     }
 }
